@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const LeftBar: React.FC = () => {
   return (
     <div className="leftbar">
@@ -9,21 +11,27 @@ const LeftBar: React.FC = () => {
         </div>
       </div>
       <div className="leftbar__nav">
-        <div className="nav__tab">
-          <img alt="All my tasks"></img>
-          <p>All my tasks</p>
-          <span>3</span>
-        </div>
-        <div className="nav__tab">
-          <img alt="My day"></img>
-          <p>My day</p>
-          <span>1</span>
-        </div>
-        <div className="nav__tab">
-          <img alt="Next 7 days"></img>
-          <p>Next 7 days</p>
-          <span>2</span>
-        </div>
+        <Link to="/top-tasks/">
+          <div className="nav__tab">
+            <img alt="All tasks"></img>
+            <p>All tasks</p>
+            <span>3</span>
+          </div>
+        </Link>
+        <Link to="/top-tasks/today">
+          <div className="nav__tab">
+            <img alt="Today"></img>
+            <p>Today</p>
+            <span>1</span>
+          </div>
+        </Link>
+        <Link to="/top-tasks/upcoming">
+          <div className="nav__tab">
+            <img alt="Upcoming"></img>
+            <p>Upcoming</p>
+            <span>2</span>
+          </div>
+        </Link>
       </div>
     </div>
   );

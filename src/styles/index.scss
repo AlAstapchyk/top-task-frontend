@@ -1,0 +1,96 @@
+body {
+    margin: 0;
+    background-color: var(--color-1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.App {
+    display: flex;
+
+    .leftbar {
+        width: 16rem;
+        height: 100vh;
+        background-color: var(--color-3);
+        box-shadow: var(--shadow-1);
+
+        .profile {
+            display: inline-flex;
+            height: 5rem;
+
+            img {
+                width: 2.5rem;
+                height: 2.5rem;
+                margin-inline: 1rem;
+                border-radius: 50%;
+                align-self: center;
+            }
+            .info {
+                font-size: small;
+                align-self: center;
+
+                p {
+                    margin-block: 0.25rem;
+                }
+                .name {
+                    color: white;
+                    font-weight: bold;
+                    font-size: medium;
+                }
+                .email {
+                    color: lightgray;
+                }
+            }
+        }
+        .nav {
+            color: white;
+
+            .tab {
+                display: flex;
+                align-items: center;
+                padding-left: 1.5rem;
+                padding-right: 1rem;
+                cursor: pointer;
+
+                img {
+                    height: 1.5rem;
+                    width: 1.5rem;
+                }
+                p {
+                    margin-left: 0.5rem;
+                    width: 9.5rem;
+                }
+                span {
+                    width: 2rem;
+                    justify-self: right;
+                    text-align: right;
+                }
+
+                &:hover {
+                    background-color: var(--color-1);
+                }
+            }
+        }
+    }
+    .main-view {
+        height: 100vh;
+        flex-grow: 1;
+    }
+    .right-panel {
+        background-color: var(--color-3);
+        width: 25rem;
+        box-shadow: var(--shadow-1);
+    }
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}

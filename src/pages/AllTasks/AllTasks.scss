@@ -1,0 +1,168 @@
+.all-tasks {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  color: white;
+
+  header {
+    font-size: 1.75rem;
+    margin: var(--padding-1);
+    padding-block: var(--padding-1);
+    font-weight: bold;
+    height: 2.5rem;
+    text-justify: center;
+    display: inline-flex;
+
+    .page-img {
+      width: 2rem;
+      height: 2rem;
+      align-self: center;
+    }
+    .options-img {
+    }
+    p {
+      margin: 0px;
+    }
+    .separator {
+      background-color: white;
+      width: 1px;
+      height: 2rem;
+      margin-inline: var(--padding-1);
+      align-self: center;
+    }
+  }
+
+  .task-section {
+    flex-grow: 1;
+    margin-inline: var(--padding-1);
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+
+    .scroll-container {
+      border-radius: var(--border-radius-1);
+      height: 100%;
+      flex-direction: column;
+      overflow-y: scroll;
+
+      .task-lists.scroll-content {
+        ul {
+          padding: 0;
+          margin: var(--border-radius-1) 0 0 0;
+        }
+
+        .task-list {
+          padding: var(--border-radius-1);
+          border-radius: var(--border-radius-1);
+          margin-block: var(--padding-1);
+          background-color: var(--color-3);
+
+          .task-list-title {
+            padding-left: var(--padding-1);
+            font-weight: bold;
+          }
+
+          .task-item {
+            list-style: none;
+            padding: 1rem;
+            margin-top: var(--border-radius-1);
+
+            &:hover {
+              cursor: pointer;
+              background-color: var(--color-1);
+            }
+            .complete-button {
+              width: 1.25rem;
+              height: 1.25rem;
+              margin: 0 0.5rem 0 0;
+              padding: 0;
+              align-self: center;
+              border: solid 2px white;
+              border-radius: 50%;
+              background-color: var(--color-3);
+              box-shadow: inset 0 0 0px;
+            }
+          }
+        }
+
+        .task-list.a {
+          .task-list-title {
+            color: var(--color-a);
+          }
+          .task-item {
+            .complete-button {
+              border-color: var(--color-a);
+              box-shadow: var(--color-a);
+            }
+          }
+        }
+        .task-list.b {
+          .task-list-title {
+            color: var(--color-b);
+          }
+          .task-item {
+            .complete-button {
+              border-color: var(--color-b);
+              box-shadow: var(--color-b);
+            }
+          }
+        }
+        .task-list.c {
+          .task-list-title {
+            color: var(--color-c);
+          }
+          .task-item {
+            .complete-button {
+              border-color: var(--color-c);
+              box-shadow: inset 0 0 0px var(--color-c);
+            }
+          }
+        }
+        .task-list.d {
+          .task-list-title {
+            color: var(--color-d);
+          }
+          .task-item {
+            .complete-button {
+              border-color: var(--color-d);
+              box-shadow: inset 0 0 0px var(--color-d);
+            }
+          }
+        }
+        .task-list.e {
+          .task-list-title {
+            color: var(--color-e);
+          }
+          .task-item {
+            .complete-button {
+              border-color: var(--color-e);
+              box-shadow: inset 0 0 0px var(--color-e);
+            }
+          }
+        }
+      }
+    }
+
+    .task-form {
+      align-self: flex-end;
+      display: flex;
+      width: 100%;
+      height: 2rem;
+
+      input {
+        flex-grow: 1;
+      }
+      button {
+        justify-self: right;
+        width: 5rem;
+      }
+    }
+  }
+  .task-detail-panel {
+    margin: 1rem;
+    padding: 1rem;
+    width: 20rem;
+  }
+}

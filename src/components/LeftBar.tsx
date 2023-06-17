@@ -2,15 +2,9 @@ import { Link } from "react-router-dom";
 
 const LeftBar: React.FC = () => {
   return (
-    <nav className="leftbar">
-      <div className="profile">
-        <img alt="Profile picture"></img>
-        <div className="info">
-          <p className="name">Name LastName</p>
-          <p className="email">top-tasks@gmail.com</p>
-        </div>
-      </div>
-      <div className="nav">
+    <div className="leftbar">
+      <div className="navigation">
+        <input className="search" placeholder="Search"/>
         <Link to="/top-tasks/all-tasks">
           <div className="tab">
             <img alt="All tasks"></img>
@@ -33,7 +27,14 @@ const LeftBar: React.FC = () => {
           </div>
         </Link>
       </div>
-    </nav>
+      <div className="profile">
+        <img alt="Profile picture"></img>
+        <div className="info">
+          <p className="name">Name LastName</p>
+          <p className="email">top-tasks@gmail.com</p>
+        </div>
+      </div>
+    </div>
   );
 };
 export default LeftBar;

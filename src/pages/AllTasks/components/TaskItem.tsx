@@ -27,7 +27,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 
   return (
     <li className="task-item card">
-      <button className="complete" onClick={completeOnClick}></button>
+      <button className="complete-task" onClick={completeOnClick}></button>
       {title}
       <button className="delete" onClick={deleteOnClick}>Delete</button>
     </li>

@@ -59,14 +59,15 @@
         .task-list {
           padding: var(--border-radius-1);
           border-radius: var(--border-radius-1);
-          margin-block: var(--padding-1);
+          margin-block: var(--border-radius-1);
           background-color: var(--color-3);
 
           .task-list-title {
+            padding-block: var(--border-radius-1);
+            margin: 0;
             padding-left: var(--padding-1);
             font-weight: bold;
           }
-
           .task-item {
             display: flex;
             align-items: center;
@@ -76,14 +77,8 @@
             margin-top: var(--border-radius-1);
             list-style: none;
             
-            button.complete {
-              width: 1.25rem;
-              height: 1.25rem;
+            button.complete-task {
               margin: 0 0.5rem 0 0;
-              padding: 0;
-              border: solid 2px white;
-              border-radius: 50%;
-              background-color: var(--color-3);
             }
             button.delete {
               margin-left: auto;
@@ -99,50 +94,25 @@
           .task-list-title {
             color: var(--color-a);
           }
-          .task-item {
-            button.complete {
-              border-color: var(--color-a);
-            }
-          }
         }
         .task-list.B {
           .task-list-title {
             color: var(--color-b);
-          }
-          .task-item {
-            button.complete {
-              border-color: var(--color-b);
-            }
           }
         }
         .task-list.C {
           .task-list-title {
             color: var(--color-c);
           }
-          .task-item {
-            button.complete {
-              border-color: var(--color-c);
-            }
-          }
         }
         .task-list.D {
           .task-list-title {
             color: var(--color-d);
           }
-          .task-item {
-            button.complete {
-              border-color: var(--color-d);
-            }
-          }
         }
         .task-list.E {
           .task-list-title {
             color: var(--color-e);
-          }
-          .task-item {
-            button.complete {
-              border-color: var(--color-e);
-            }
           }
         }
       }
@@ -162,11 +132,6 @@
         width: 5rem;
       }
     }
-  }
-  .task-detail-panel {
-    margin: 1rem;
-    padding: 1rem;
-    width: 20rem;
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { FormEvent } from "react";
 import { Task, completeTask, deleteTask } from "../../../redux/taskSlice";
+import { chooseTask } from "../../../redux/RightPanelSlice"
 import { useAppDispatch } from "../../../redux/hooks";
 
 interface TaskItemProps {
@@ -17,6 +18,10 @@ const TaskItem: React.FC<TaskItemProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
+  const chooseTaskOnClick = () => {
+    dispatch(chooseTask({ id }));
+  }
+
   const completeOnClick = () => {
     dispatch(completeTask({ id, isComplete: !isComplete }));
   };
@@ -26,7 +31,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   };
 
   return (
-    <li className="task-item card">
+    <li className="task-item card" onClick={chooseTaskOnClick}>
       <button className="complete-task" onClick={completeOnClick}></button>
       {title}
       <button className="delete" onClick={deleteOnClick}>Delete</button>

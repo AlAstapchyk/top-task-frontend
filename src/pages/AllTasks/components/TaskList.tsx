@@ -16,10 +16,7 @@ const TaskList = ({ priority, tasks }: TaskListProps) => {
           .filter((task) => task.priority === `${priority}`)
           .map((task) => (
             <TaskItem
-              id={task.id}
-              title={task.title}
-              description=""
-              isComplete={task.isComplete}
+              task={task}
             />
           ))}
       </ul>

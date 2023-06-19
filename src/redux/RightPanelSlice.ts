@@ -1,25 +1,41 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import RightPanel from "../components/RightPanel";
+import { Task } from "./taskSlice";
+
+export enum RightPanelType {
+  close = 0,
+  createTask,
+  showTask,
+}
 
 export interface RightPanel {
-  type: "createTask" | "showTask" | null;
-  id?: number;
+  type?: RightPanelType;
+  task?: Task;
 }
 
 const initialState: RightPanel = {
-  type: "showTask",
-  id: 1,
+  type: RightPanelType.close,
 };
 
 const RightPanelSlice = createSlice({
   name: "rightPanel",
   initialState,
   reducers: {
-    chooseTask: (state: RightPanel, action: PayloadAction<{ id: number }>) => {
-      state.id = action.payload.id;
-    }
+    setRightPanelTask: (
+      state: RightPanel,
+      action: PayloadAction<{ task: Task }>
+    ) => {
+      state.type = RightPanelType.showTask;
+      state.task = action.payload.task;
+    },
+    setRightPanelType: (
+      state: RightPanel,
+      action: PayloadAction<{ type: RightPanelType }>
+    ) => {
+      state.type = action.payload.type;
+    },
   },
 });
 
-export const { chooseTask } = RightPanelSlice.actions;
+export const { setRightPanelTask, setRightPanelType } = RightPanelSlice.actions;
 export default RightPanelSlice.reducer;

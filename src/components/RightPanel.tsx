@@ -1,40 +1,50 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../redux/hooks";
-import { Task } from "../redux/taskSlice";
+import { useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { Task, editTask } from "../redux/taskSlice";
+import { RightPanelType, setRightPanelType } from "../redux/RightPanelSlice";
 
 const RightPanel = () => {
-  const rightPanel = useAppSelector((state) => state.rightPanel);
-  const tasks = useAppSelector((state) => state.tasks);
-  const [task, setTask] = useState<Task>();
-  
-  const refRightPanel = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const checkOpenRightPanel = () => {
-    if (rightPanel.type === null) {
+  const rightPanel = useAppSelector((state) => state.rightPanel);
+  const [task, setTask] = useState<Task>();
+
+  const refRightPanel = useRef<HTMLDivElement>(null);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>();
+
+  const closeRightPanel = () => {
+    dispatch(setRightPanelType({type: RightPanelType.close}));
+  };
+
+  const checkOpenRightPanel = (): boolean => {
+    if (rightPanel.type === 0) {
       setIsOpen(false);
-    } 
-    else {
+      return false;
+    } else {
       setIsOpen(true);
-      if (rightPanel.type === "showTask") {
-        for (let i: number = 0; i < tasks.length; i++) {
-          if (tasks[i].id === rightPanel.id) setTask(tasks[i]);
-        }
-      }
+      return true;
     }
   };
 
   useEffect(() => {
-    console.log(1);
-    checkOpenRightPanel();
-  }, [refRightPanel, rightPanel]);
+    if (checkOpenRightPanel()) {
+      setTask(rightPanel.task);
+    }
+  }, [rightPanel]);
+
+  useEffect(() => {
+    if (task) dispatch(editTask({ id: task.id, task }));
+    setTitle(task?.title);
+  }, [dispatch, task]);
 
   if (isOpen) {
     return (
       <div className="right-panel" ref={refRightPanel}>
         <div className="task-details">
           <div className="topbar">
-            <img className="close"></img>
+            <img className="close" onClick={closeRightPanel}></img>
             <div className="list"></div>
             <div className="date"></div>
           </div>
@@ -43,7 +53,13 @@ const RightPanel = () => {
             <div className="scroll-content">
               <div className="task">
                 <button className="complete-task"></button>
-                <input placeholder="Add title" value={task?.title}></input>
+                <input
+                  placeholder="Add title"
+                  value={title}
+                  onChange={(e) => {
+                    if (task) setTask({ ...task, title: e.target.value });
+                  }}
+                ></input>
                 <img className="priority"></img>
               </div>
               <div className="subtasks">

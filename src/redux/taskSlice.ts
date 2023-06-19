@@ -5,7 +5,7 @@ export interface Task {
   title: string;
   description: string;
   isComplete: boolean;
-  priority: 'A' | 'B' | 'C' | 'D' | 'E';
+  priority: "A" | "B" | "C" | "D" | "E";
 }
 
 const initialState: Task[] = [
@@ -14,35 +14,35 @@ const initialState: Task[] = [
     title: "task1",
     description: "",
     isComplete: false,
-    priority: 'A',
+    priority: "A",
   },
   {
     id: 2,
     title: "task2",
     description: "",
     isComplete: true,
-    priority: 'E',
+    priority: "E",
   },
   {
     id: 3,
     title: "task3",
     description: "",
     isComplete: false,
-    priority: 'C',
+    priority: "C",
   },
   {
     id: 4,
     title: "task3",
     description: "",
     isComplete: false,
-    priority: 'B',
+    priority: "B",
   },
   {
     id: 5,
     title: "task3",
     description: "",
     isComplete: false,
-    priority: 'D',
+    priority: "D",
   },
 ];
 
@@ -56,7 +56,7 @@ const taskSlice = createSlice({
         title: action.payload.title,
         description: "",
         isComplete: false,
-        priority: 'A',
+        priority: "A",
       };
       state.push(newTask);
     },
@@ -68,11 +68,19 @@ const taskSlice = createSlice({
       state[index].isComplete = action.payload.isComplete;
     },
     deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
-      return state.filter((todo) => todo.id !== action.payload.id);
+      return state.filter((task) => task.id !== action.payload.id);
+    },
+    editTask: (
+      state: Task[],
+      action: PayloadAction<{ id: number; task: Task }>
+    ) => {
+      for (let i = 0; i < state.length; i++)
+        if (state[i].id === action.payload.task.id)
+          state[i] = action.payload.task;
     },
   },
 });
 
-export const { addTask, completeTask, deleteTask } = taskSlice.actions;
+export const { addTask, completeTask, deleteTask, editTask } = taskSlice.actions;
 
 export default taskSlice.reducer;

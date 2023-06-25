@@ -1,7 +1,9 @@
 .all-tasks {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  padding-inline: var(--padding-1);
+  box-sizing: border-box;
+  height: 100%;
   width: 100%;
   height: 100%;
   color: white;
@@ -39,23 +41,23 @@
 
   .task-section {
     flex-grow: 1;
-    margin-inline: var(--padding-1);
-    height: 50%;
     display: flex;
     flex-direction: column;
+    height: 50%;
 
     .scroll-container {
-      border-radius: var(--border-radius-1);
-      height: 100%;
       flex-direction: column;
-      overflow-y: auto;
+      overflow-y: scroll;
+      margin-left: var(--padding-1);
+      margin-right: 4px;
+      padding-right: 4px;
+      height: 100%;
 
       .task-lists.scroll-content {
         ul {
           padding: 0;
           margin: var(--border-radius-1) 0 0 0;
         }
-
         .task-list {
           padding: var(--border-radius-1);
           border-radius: var(--border-radius-1);
@@ -68,70 +70,122 @@
             padding-left: var(--padding-1);
             font-weight: bold;
           }
-          .task-item {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-            height: 1.5rem;
-            padding: 1rem;
+          .draggable-task-item {
             margin-top: var(--border-radius-1);
-            list-style: none;
-            
-            button.complete-task {
-              margin: 0 0.5rem 0 0;
-            }
-            button.delete {
-              margin-left: auto;
-            }
-            &:hover {
-              cursor: pointer;
-              background-color: var(--color-1);
-            }
-          }
-        }
 
-        .task-list.A {
-          .task-list-title {
-            color: var(--color-a);
+            .task-item {
+              display: flex;
+              align-items: center;
+              flex-grow: 1;
+              height: 1.5rem;
+              padding: var(--padding-1);
+              list-style: none;
+
+              button.complete-task {
+                margin: 0 0.5rem 0 0;
+              }
+              p.title {
+                margin: 0;
+              }
+              button.delete {
+                margin-left: auto;
+              }
+              &:hover {
+                cursor: pointer;
+                background-color: var(--color-1);
+              }
+              &.complete {
+                p.title {
+                  text-decoration: line-through;
+                }
+              }
+            }
+          }
+          &.A {
+            .task-list-title {
+              color: var(--color-a);
+            }
+          }
+          &.B {
+            .task-list-title {
+              color: var(--color-b);
+            }
+          }
+          &.C {
+            .task-list-title {
+              color: var(--color-c);
+            }
+          }
+          &.D {
+            .task-list-title {
+              color: var(--color-d);
+            }
+          }
+          &.E {
+            .task-list-title {
+              color: var(--color-e);
+            }
           }
         }
-        .task-list.B {
-          .task-list-title {
-            color: var(--color-b);
-          }
-        }
-        .task-list.C {
-          .task-list-title {
-            color: var(--color-c);
-          }
-        }
-        .task-list.D {
-          .task-list-title {
-            color: var(--color-d);
-          }
-        }
-        .task-list.E {
-          .task-list-title {
-            color: var(--color-e);
-          }
-        }
+      }
+
+      &::-webkit-scrollbar {
+        left: 0;
+        width: var(--border-radius-1);
+        padding: 0rem;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: rgba(#000000, 0);
+      }
+      &::-webkit-scrollbar-thumb {
+        width: var(--border-radius-1);
+        background-color: var(--color-2);
+        border-radius: 4px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
       }
     }
 
-    .task-form {
-      align-self: flex-end;
+    .add-task {
       display: flex;
-      width: 100%;
-      height: 2rem;
+      align-items: center;
+      padding: var(--border-radius-1);
+      margin: var(--border-radius-1) var(--padding-1);
+      background-color: var(--color-3);
 
-      input {
-        flex-grow: 1;
-      }
-      button {
-        justify-self: right;
-        width: 5rem;
+      .task-form {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+        height: 2rem;
+        padding: var(--border-radius-1);
+        background-color: var(--color-2);
+        border-radius: var(--border-radius-1);
+
+        button {
+          padding: 0;
+          margin: auto;
+          margin-inline: var(--border-radius-1);
+          width: var(--task-svg-size);
+          height: var(--task-svg-size);
+          border: none;
+          background-color: rgba(#000000, 0);
+          cursor: pointer;
+
+          svg.plus {
+            padding: 2px;
+          }
+        }
+        input {
+          flex-grow: 1;
+          padding-block: var(--border-radius-1);
+          border-radius: var(--border-radius-1);
+          background-color: var(--color-2);
+          color: white;
+          border: none;
+        }
       }
     }
   }
 }
-

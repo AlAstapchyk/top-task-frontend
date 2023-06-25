@@ -10,7 +10,7 @@ export enum RightPanelType {
 
 export interface RightPanel {
   type?: RightPanelType;
-  task?: Task;
+  id?: number;
 }
 
 const initialState: RightPanel = {
@@ -23,10 +23,10 @@ const RightPanelSlice = createSlice({
   reducers: {
     setRightPanelTask: (
       state: RightPanel,
-      action: PayloadAction<{ task: Task }>
+      action: PayloadAction<{ id: number }>
     ) => {
       state.type = RightPanelType.showTask;
-      state.task = action.payload.task;
+      state.id = action.payload.id;
     },
     setRightPanelType: (
       state: RightPanel,

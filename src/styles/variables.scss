@@ -3,13 +3,18 @@
   --color-4: rgb(50, 50, 50);
   --color-2: rgb(35, 35, 39);
   --color-3: rgb(25, 25, 28);
-  --color-a: rgb(255, 128, 227);
+  --color-a: rgb(255, 128, 225);
   --color-b: rgb(200, 128, 255);
   --color-c: rgb(128, 128, 255);
-  --color-d: rgb(120, 200, 255);
-  --color-e: rgb(128, 255, 255);
+  --color-d: rgb(104, 182, 255);
+  --color-e: rgb(73, 225, 225);
 
-  --padding-1: 0.8rem;
+  --padding-1: 1rem;
+  --padding-2: 0.25rem;
+
+  --task-svg-size: 1.25rem;
+  --plus-svg-size: 1rem;
+  
 
   --border-radius-1: 0.5rem;
 
@@ -17,6 +22,14 @@
 }
 img {
   background-color: white;
+}
+svg {
+  &.plus {
+    width: var(--plus-svg-size);
+    height: var(--plus-svg-size);
+    border-radius: 50%;
+    //background-color: var(--color-3);
+  }
 }
 .card {
   background-color: var(--color-2);
@@ -32,37 +45,69 @@ button.complete-task {
   border-radius: 50%;
   cursor: pointer;
 }
-.A {
-  button.complete-task {
-    border-color: var(--color-a);
-  }
-}
-.B {
-  button.complete-task {
-    border-color: var(--color-b);
-  }
-}
-.C {
-  button.complete-task {
-    border-color: var(--color-c);
-  }
-}
-.D {
-  button.complete-task {
-    border-color: var(--color-d);
-  }
-}
-.E {
-  button.complete-task {
-    border-color: var(--color-e);
-  }
-}
 button.complete-subtask {
   width: 1rem;
   height: 1rem;
   margin: 2px;
+  padding: 0;
   background-color: var(--color-3);
   border: solid 2px lightgray;
   border-radius: 50%;
   cursor: pointer;
+}
+button.set-priority-task {
+  padding: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0px;
+  border-radius: var(--border-radius-1);
+  background-color: rgba(#ffffff, 0);
+  cursor: pointer;
+  overflow: hidden;
+
+  span {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+  }
+}
+
+$colors: (
+  A: var(--color-a),
+  B: var(--color-b),
+  C: var(--color-c),
+  D: var(--color-d),
+  E: var(--color-e),
+);
+@each $class, $color in $colors {
+  .#{$class} {
+    button.complete-task,
+    button.complete-subtask {
+      border-color: $color;
+    }
+    &.complete,
+    .complete {
+      button.complete-task,
+      button.complete-subtask {
+        background-color: $color;
+      }
+    }
+    button.complete-subtask.complete {
+      background-color: $color;
+    }
+    button.set-priority-task {
+      span {
+        &::before {
+          content: "#{$class}";
+        }
+        color: $color;
+      }
+    }
+    svg {
+      &.plus {
+        stroke: $color;
+      }
+    }
+  }
 }

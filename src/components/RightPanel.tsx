@@ -2,49 +2,56 @@ import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Task, editTask } from "../redux/taskSlice";
 import { RightPanelType, setRightPanelType } from "../redux/RightPanelSlice";
+import Resizer from "./Resizer";
+import CompleteTaskButton from "./CompleteTaskButton";
+import SubtaskForm from "./SubtaskForm";
+import SubtaskList from "./SubtaskList";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
 
   const rightPanel = useAppSelector((state) => state.rightPanel);
+  const tasks = useAppSelector((state) => state.tasks);
   const [task, setTask] = useState<Task>();
 
   const refRightPanel = useRef<HTMLDivElement>(null);
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const [title, setTitle] = useState<string>();
 
   const closeRightPanel = () => {
-    dispatch(setRightPanelType({type: RightPanelType.close}));
+    dispatch(setRightPanelType({ type: RightPanelType.close }));
   };
 
-  const checkOpenRightPanel = (): boolean => {
+  useEffect(() => {
     if (rightPanel.type === 0) {
       setIsOpen(false);
-      return false;
     } else {
-      setIsOpen(true);
-      return true;
+      const foundTask = tasks.find((task) => task.id === rightPanel.id);
+
+      if (foundTask) {
+        setTask(tasks.find((task) => task.id === rightPanel.id));
+        setIsOpen(true);
+      } else setIsOpen(false); // change this on rightPanel.type = 1;
     }
-  };
+  }, [rightPanel, tasks]);
 
   useEffect(() => {
-    if (checkOpenRightPanel()) {
-      setTask(rightPanel.task);
-    }
-  }, [rightPanel]);
-
-  useEffect(() => {
-    if (task) dispatch(editTask({ id: task.id, task }));
+    if (task) dispatch(editTask({ task }));
     setTitle(task?.title);
-  }, [dispatch, task]);
+  }, [task?.title]);
 
   if (isOpen) {
     return (
       <div className="right-panel" ref={refRightPanel}>
-        <div className="task-details">
+        <Resizer elementRef={refRightPanel} isOnStart={true} />
+        <div
+          className={`task-details ${task?.priority} ${
+            task?.isComplete ? "complete" : ""
+          }`}
+        >
           <div className="topbar">
-            <img className="close" onClick={closeRightPanel}></img>
+            <img className="close" onClick={closeRightPanel} alt="close"></img>
             <div className="list"></div>
             <div className="date"></div>
           </div>
@@ -52,7 +59,7 @@ const RightPanel = () => {
           <div className="scroll-container">
             <div className="scroll-content">
               <div className="task">
-                <button className="complete-task"></button>
+                {task && <CompleteTaskButton dispatch={dispatch} task={task} />}
                 <input
                   placeholder="Add title"
                   value={title}
@@ -60,16 +67,31 @@ const RightPanel = () => {
                     if (task) setTask({ ...task, title: e.target.value });
                   }}
                 ></input>
-                <img className="priority"></img>
+                <button className="set-priority-task">
+                  <span></span>
+                </button>
               </div>
+
               <div className="subtasks">
-                <div className="subtask">
-                  <button className="complete-subtask"></button>
-                  <input placeholder="Add subtask"></input>
-                </div>
+                {task?.id && (
+                  <SubtaskList
+                    taskId={task?.id}
+                    subtasks={task.subtasks}
+                    dispatch={dispatch}
+                  />
+                )}
+                {task?.id && (
+                  <SubtaskForm taskId={task?.id} dispatch={dispatch} />
+                )}
               </div>
+
               <div className="note">
-                <input placeholder="Add note" value={task?.description}></input>
+                <textarea
+                  autoComplete="off"
+                  placeholder="Add note"
+                  id="story"
+                  name="story"
+                ></textarea>
               </div>
             </div>
           </div>

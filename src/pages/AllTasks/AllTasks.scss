@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .all-tasks {
   display: flex;
   flex-direction: column;
@@ -64,11 +66,16 @@
           margin-block: var(--border-radius-1);
           background-color: var(--color-3);
 
+          // &:last-child {
+          //   margin: 0;
+          // }
+
           .task-list-title {
             padding-block: var(--border-radius-1);
             margin: 0;
             padding-left: var(--padding-1);
             font-weight: bold;
+            @extend .end-ellipsis;
           }
           .draggable-task-item {
             margin-top: var(--border-radius-1);
@@ -76,7 +83,6 @@
             .task-item {
               display: flex;
               align-items: center;
-              flex-grow: 1;
               height: 1.5rem;
               padding: var(--padding-1);
               list-style: none;
@@ -84,12 +90,13 @@
               button.complete-task {
                 margin: 0 0.5rem 0 0;
               }
-              p.title {
-                margin: 0;
+              .title-wrapper {
+                flex-grow: 1;
+                margin-right: var(--border-radius-1);
+                width: 5rem;
+                @extend .end-ellipsis;
               }
-              button.delete {
-                margin-left: auto;
-              }
+
               &:hover {
                 cursor: pointer;
                 background-color: var(--color-1);

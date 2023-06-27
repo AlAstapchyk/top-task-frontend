@@ -6,6 +6,7 @@ import Resizer from "./Resizer";
 import CompleteTaskButton from "./CompleteTaskButton";
 import SubtaskForm from "./SubtaskForm";
 import SubtaskList from "./SubtaskList";
+import InputField from "./InputField";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
@@ -86,12 +87,7 @@ const RightPanel = () => {
               </div>
 
               <div className="note">
-                <textarea
-                  autoComplete="off"
-                  placeholder="Add note"
-                  id="story"
-                  name="story"
-                ></textarea>
+                <InputField isMultipleParagraphs={true} isTextDecoration={true} placeholder="Add note"/>
               </div>
             </div>
           </div>

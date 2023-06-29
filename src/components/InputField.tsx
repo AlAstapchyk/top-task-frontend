@@ -13,7 +13,7 @@ const InputField = ({
   isTextDecoration = false,
   placeholder,
   value,
-  onChange
+  onChange,
 }: InputFieldProps) => {
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ const InputField = ({
     useState<HTMLSpanElement>();
 
   const onInput = (event: React.FormEvent<HTMLDivElement>) => {
-    if(event.currentTarget.textContent !== null)
+    if (event.currentTarget.textContent !== null)
       setText(event.currentTarget.textContent);
   };
 
@@ -33,12 +33,7 @@ const InputField = ({
     } else if (
       !isTextDecoration &&
       (event.ctrlKey || event.metaKey) &&
-      (event.key === "B" ||
-        event.key === "I" ||
-        event.key === "U" ||
-        event.key === "b" ||
-        event.key === "i" ||
-        event.key === "u")
+      ["B", "I", "U"].includes(event.key.toUpperCase())
     ) {
       event.preventDefault();
     }
@@ -66,13 +61,17 @@ const InputField = ({
       (text === "" || text === undefined || text === null)
     ) {
       console.log("blur");
+      divRef.current.innerHTML = "";
       divRef.current.appendChild(placeholderElement);
     }
+    window.getSelection()?.removeAllRanges();
   };
 
   useEffect(() => {
-    if(value)
-      setText(value);
+    if (value)
+      if (divRef.current?.textContent) {
+        divRef.current.textContent = value;
+      }
     if (placeholder) {
       const newPlaceholderElement = document.createElement("span");
       newPlaceholderElement.className = "placeholder";
@@ -88,7 +87,9 @@ const InputField = ({
   }, []);
 
   useEffect(() => {
-    console.log("value = " + text);
+    if (value) {
+      setText(value);
+    }
   }, [value]);
 
   return (

@@ -143,17 +143,22 @@ code {
             padding-block: 1rem;
             padding-inline: var(--border-radius-1);
 
-            input {
+            .input-field {
               flex-grow: 1;
-              margin: 3px 1rem;
-              padding: 0;
-              width: 10rem;
-              height: 1.5rem;
-              font-size: 1.5rem;
-              border-radius: var(--padding-2);
-              background-color: rgba(#ffffff, 0);
+              box-sizing: border-box;
+              padding: var(--border-radius-1);
+              width: 8rem;
+              height: 100%;
               color: white;
-              border: none;
+              border-radius: var(--border-radius-1);
+
+              span {
+                color: gray;
+              }
+
+              div {
+                background-color: var(--color-2);
+              }
             }
           }
           .subtasks {
@@ -223,10 +228,10 @@ code {
           .note {
             padding-block: 1rem;
 
-            .input-field {
+            .input-field-decorated {
               box-sizing: border-box;
               padding: var(--border-radius-1);
-              width: 100%;
+              min-width: 10rem;
               height: 100%;
               background-color: var(--color-2);
               color: white;

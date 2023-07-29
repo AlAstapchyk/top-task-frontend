@@ -6,7 +6,8 @@ import Resizer from "./Resizer";
 import CompleteTaskButton from "./CompleteTaskButton";
 import SubtaskForm from "./SubtaskForm";
 import SubtaskList from "./SubtaskList";
-import InputField from "./InputField";
+import InputFieldPlain from "./InputFieldPlain";
+import InputFieldDecorated from "./InputFieldDecorated";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
@@ -15,10 +16,10 @@ const RightPanel = () => {
   const tasks = useAppSelector((state) => state.tasks);
   const [task, setTask] = useState<Task>();
 
+  const [title, setTitle] = useState<string>();
+
   const refRightPanel = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const [title, setTitle] = useState<string>();
 
   const closeRightPanel = () => {
     dispatch(setRightPanelType({ type: RightPanelType.close }));
@@ -37,8 +38,15 @@ const RightPanel = () => {
     }
   }, [rightPanel, tasks]);
 
-  useEffect(() => {
-    if (task) dispatch(editTask({ task }));
+  const titleOnChange = (newValue: string) => {
+    setTitle(newValue);
+    if (task?.title) {  
+      const newTask = {...task, title: newValue} as Task;
+      dispatch(editTask({task: newTask}));
+    } 
+  };
+
+  useEffect(()=>{
     setTitle(task?.title);
   }, [task?.title]);
 
@@ -61,13 +69,7 @@ const RightPanel = () => {
             <div className="scroll-content">
               <div className="task">
                 {task && <CompleteTaskButton dispatch={dispatch} task={task} />}
-                <input
-                  placeholder="Add title"
-                  value={title}
-                  onChange={(e) => {
-                    if (task) setTask({ ...task, title: e.target.value });
-                  }}
-                ></input>
+                <InputFieldPlain isOneParagraph={true} isDecorated={false} placeholder="Add title" value={ title } onChange={titleOnChange}/>
                 <button className="set-priority-task">
                   <span></span>
                 </button>
@@ -87,7 +89,7 @@ const RightPanel = () => {
               </div>
 
               <div className="note">
-                <InputField isMultipleParagraphs={true} isTextDecoration={true} placeholder="Add note"/>
+                <InputFieldDecorated isOneParagraph={false} placeholder="Add note"/>
               </div>
             </div>
           </div>

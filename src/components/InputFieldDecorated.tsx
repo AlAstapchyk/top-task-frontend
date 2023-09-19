@@ -21,8 +21,8 @@ const InputFieldDecorated = ({
     useState<HTMLSpanElement>();
 
   const onInput = (event: React.FormEvent<HTMLDivElement>) => {
-    if (event.currentTarget.textContent !== null)
-      setText(event.currentTarget.textContent);
+    if (divRef?.current && divRef.current.textContent !== null)
+      setText(divRef.current.textContent);
   };
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && isOneParagraph) {
@@ -46,12 +46,15 @@ const InputFieldDecorated = ({
     }
   };
   const onBlur = () => {
+    const isEmpty = text?.split("").some((letter) => letter !== " ");
+    console.log(text?.charAt(0));
     if (
       divRef.current &&
       placeholderElement &&
       (text === "" || text === undefined || text === null)
     ) {
       divRef.current.innerHTML = "";
+      console.log(placeholderElement);
       divRef.current.appendChild(placeholderElement);
     }
     window.getSelection()?.removeAllRanges();

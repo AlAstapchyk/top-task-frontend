@@ -40,40 +40,39 @@ svg {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-button.complete-task {
-  width: 1.25rem;
-  height: 1.25rem;
-  padding: 0;
-  background-color: var(--color-3);
-  border: solid 2px white;
-  border-radius: 50%;
+button {
   cursor: pointer;
-}
-button.complete-subtask {
-  width: 1rem;
-  height: 1rem;
-  margin: 2px;
   padding: 0;
-  background-color: var(--color-3);
-  border: solid 2px lightgray;
-  border-radius: 50%;
-  cursor: pointer;
-}
-button.set-priority-task {
-  padding: 0;
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 0px;
-  border-radius: var(--border-radius-1);
-  background-color: rgba(#ffffff, 0);
-  cursor: pointer;
-  overflow: hidden;
 
-  span {
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
+  &.complete-task {
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: var(--color-3);
+    border: solid 2px white;
+    border-radius: 50%;
+  }
+  &.complete-subtask {
+    width: 1rem;
+    height: 1rem;
+    margin: 2px;
+    background-color: var(--color-3);
+    border: solid 2px lightgray;
+    border-radius: 50%;
+  }
+  &.set-priority-task {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0px;
+    border-radius: var(--border-radius-1);
+    background-color: rgba(#ffffff, 0);
+    overflow: hidden;
+
+    span {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+    }
   }
 }
 

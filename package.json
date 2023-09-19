@@ -2,6 +2,11 @@
   "name": "top-tasks",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
@@ -12,22 +17,19 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/react-redux": "^7.1.25",
+    "@vitejs/plugin-react-swc": "^3.3.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
-    "react-scripts": "5.0.1",
     "react-textarea-autosize": "^8.5.0",
     "sass": "^1.62.1",
     "typescript": "^4.9.5",
+    "vite": "^4.4.9",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.1",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

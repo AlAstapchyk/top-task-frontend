@@ -40,13 +40,16 @@ const RightPanel = () => {
   }, [rightPanel, tasks]);
 
   const titleOnChange = (newValue: string) => {
-    setTitle(newValue);
-    const newTask = { ...task, title: newValue } as Task;
-    dispatch(editTask({ task: newTask }));
+    if (newValue !== "") {
+      setTitle(newValue);
+      const newTask = { ...task, title: newValue } as Task;
+      dispatch(editTask({ task: newTask }));
+    }
   };
   const descriptionOnChange = (newValue: string) => {
     setDescription(newValue);
     const newTask = { ...task, description: newValue } as Task;
+    console.log(newTask);
     dispatch(editTask({ task: newTask }));
   };
 

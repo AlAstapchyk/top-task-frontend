@@ -78,7 +78,7 @@ const InputFieldPlain = ({
   };
 
   const callbackOnChange = () => {
-    if (onChange && text) onChange(text);
+    if (onChange && text !== undefined) onChange(text);
     const selection = window.getSelection();
     selection?.removeAllRanges();
   };

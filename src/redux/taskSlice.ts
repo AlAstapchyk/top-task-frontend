@@ -117,7 +117,6 @@ const taskSlice = createSlice({
       return state.filter((task) => task.id !== action.payload.id);
     },
     editTask: (state: Task[], action: PayloadAction<{ task: Task }>) => {
-      console.log("edit task")
       const taskIndex = state.findIndex(
         (task) => task.id === action.payload.task.id
       );

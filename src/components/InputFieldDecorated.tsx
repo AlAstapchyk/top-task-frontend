@@ -27,7 +27,7 @@ const InputFieldDecorated = ({
       else {
         divRef.current.innerHTML = "";
         newPlaceholderElement &&
-        divRef.current.appendChild(newPlaceholderElement);
+          divRef.current.appendChild(newPlaceholderElement);
       }
     }
   };
@@ -67,11 +67,31 @@ const InputFieldDecorated = ({
     clearPlaceholder();
   };
   const onBlur = () => {
-    text && onChange && onChange(text);
+    console.log(text)
+    text !== undefined && onChange && onChange(text);
 
     window.getSelection()?.removeAllRanges();
-    if (placeholderElement && !text) setContentDefault(placeholderElement);
+    if (placeholderElement)
+      if (divRef.current) {
+        if (text !== "" && text !== undefined && text !== null) {
+          divRef.current.innerHTML = text;
+        } else {
+          divRef.current.innerHTML = "";
+          placeholderElement && divRef.current.appendChild(placeholderElement);
+        }
+      }
   };
+
+  useEffect(() => {
+    if (placeholder) {
+      const newPlaceholderElement = document.createElement("span");
+      newPlaceholderElement.className = "placeholder non-clickable";
+      newPlaceholderElement.textContent = placeholder;
+      setPlaceholderElement(newPlaceholderElement);
+
+      setContentDefault(newPlaceholderElement);
+    }
+  }, []);
 
   useEffect(() => {
     setText(value);
@@ -92,17 +112,6 @@ const InputFieldDecorated = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [divRef]);
-
-  useEffect(() => {
-    if (placeholder) {
-      const newPlaceholderElement = document.createElement("span");
-      newPlaceholderElement.className = "placeholder non-clickable";
-      newPlaceholderElement.textContent = placeholder;
-      setPlaceholderElement(newPlaceholderElement);
-
-      setContentDefault(newPlaceholderElement);
-    }
-  }, []);
 
   return (
     <div

@@ -45,6 +45,9 @@ const TaskForm: React.FC<TaskFormProps> = () => {
           value={value}
           onChange={onChange}
         />
+        <button className="set-priority-task">
+          <span></span>
+        </button>
       </form>
     </div>
   );

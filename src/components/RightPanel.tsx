@@ -17,8 +17,9 @@ const RightPanel = () => {
   const [task, setTask] = useState<Task>();
 
   const [title, setTitle] = useState<string>();
+  const [description, setDescription] = useState<string>();
 
-  const refRightPanel = useRef<HTMLDivElement>(null);
+  const rightPanelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const closeRightPanel = () => {
@@ -40,27 +41,42 @@ const RightPanel = () => {
 
   const titleOnChange = (newValue: string) => {
     setTitle(newValue);
-    if (task?.title) {  
-      const newTask = {...task, title: newValue} as Task;
-      dispatch(editTask({task: newTask}));
-    } 
+    const newTask = { ...task, title: newValue } as Task;
+    dispatch(editTask({ task: newTask }));
+  };
+  const descriptionOnChange = (newValue: string) => {
+    setDescription(newValue);
+    const newTask = { ...task, description: newValue } as Task;
+    dispatch(editTask({ task: newTask }));
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setTitle(task?.title);
   }, [task?.title]);
+  useEffect(() => {
+    setDescription(task?.description);
+  }, [task?.description]);
 
   if (isOpen) {
     return (
-      <div className="right-panel" ref={refRightPanel}>
-        <Resizer elementRef={refRightPanel} isOnStart={true} />
+      <div className="right-panel" ref={rightPanelRef}>
+        <Resizer elementRef={rightPanelRef} isOnStart={true} />
         <div
           className={`task-details ${task?.priority} ${
             task?.isComplete ? "complete" : ""
           }`}
         >
           <div className="topbar">
-            <img className="close" onClick={closeRightPanel} alt="close"></img>
+            <svg
+              className="right-arrow"
+              viewBox="0 0 100 100"
+              strokeWidth="10"
+              strokeLinecap="round"
+              onClick={closeRightPanel}
+            >
+              <line x1="30" y1="10" x2="70" y2="50" className="line-1" />
+              <line x1="70" y1="50" x2="30" y2="90" className="line-2" />
+            </svg>
             <div className="list"></div>
             <div className="date"></div>
           </div>
@@ -69,7 +85,12 @@ const RightPanel = () => {
             <div className="scroll-content">
               <div className="task">
                 {task && <CompleteTaskButton dispatch={dispatch} task={task} />}
-                <InputFieldPlain isOneParagraph={true} isDecorated={false} placeholder="Add title" value={ title } onChange={titleOnChange}/>
+                <InputFieldPlain
+                  isOneParagraph={true}
+                  placeholder="Add title"
+                  value={title}
+                  onChange={titleOnChange}
+                />
                 <button className="set-priority-task">
                   <span></span>
                 </button>
@@ -89,7 +110,12 @@ const RightPanel = () => {
               </div>
 
               <div className="note">
-                <InputFieldDecorated isOneParagraph={false} placeholder="Add note"/>
+                <InputFieldDecorated
+                  value={description}
+                  isOneParagraph={false}
+                  placeholder="Add note"
+                  onChange={descriptionOnChange}
+                />
               </div>
             </div>
           </div>

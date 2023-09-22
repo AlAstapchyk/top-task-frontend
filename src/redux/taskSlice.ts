@@ -40,7 +40,7 @@ const initialState: Task[] = [
         isComplete: false,
       },
     ],
-    description: "",
+    description: "Przywiet 1",
     isComplete: false,
     priority: "A",
   },
@@ -49,7 +49,7 @@ const initialState: Task[] = [
     position: 2,
     title: "task 2",
     subtasks: [],
-    description: "",
+    description: "Przywiet 2",
     isComplete: true,
     priority: "E",
   },
@@ -67,7 +67,7 @@ const initialState: Task[] = [
     position: 4,
     title: "task 4",
     subtasks: [],
-    description: "",
+    description: "Przywiet 4",
     isComplete: false,
     priority: "B",
   },
@@ -76,7 +76,7 @@ const initialState: Task[] = [
     position: 5,
     title: "task 5",
     subtasks: [],
-    description: "",
+    description: "Przywiet 5",
     isComplete: false,
     priority: "D",
   },
@@ -117,6 +117,7 @@ const taskSlice = createSlice({
       return state.filter((task) => task.id !== action.payload.id);
     },
     editTask: (state: Task[], action: PayloadAction<{ task: Task }>) => {
+      console.log("edit task")
       const taskIndex = state.findIndex(
         (task) => task.id === action.payload.task.id
       );

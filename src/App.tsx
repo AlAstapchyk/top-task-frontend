@@ -5,7 +5,6 @@ import { Route, Routes } from "react-router-dom";
 import Upcoming from "./pages/Upcoming/Upcoming";
 import Today from "./pages/Today/Today";
 import RightPanel from "./components/RightPanel";
-import Resizer from "./components/Resizer";
 
 const App: React.FC = () => {
   return (

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface InputFieldPlainProps {
   isOneParagraph: boolean;
+  isDecorated: boolean;
   placeholder?: string;
   value?: string;
   onChange?: (newValue: string) => void;
@@ -9,6 +10,7 @@ interface InputFieldPlainProps {
 
 const InputFieldPlain = ({
   isOneParagraph = true,
+  isDecorated = false,
   placeholder,
   value,
   onChange,
@@ -31,7 +33,7 @@ const InputFieldPlain = ({
     }
   };
 
-  const onMouseDown = () => {
+  const onMouseDown = (event: any) => {
     const clearPlaceholder = () => {
       if (
         divRef.current &&
@@ -43,9 +45,9 @@ const InputFieldPlain = ({
 
     clearPlaceholder();
   };
-
   const onInput = () => {
-    if (divRef.current) setText(divRef.current.innerHTML);
+    if (divRef.current && divRef.current.innerHTML !== null)
+      setText(divRef.current.innerHTML);
   };
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && isOneParagraph) {

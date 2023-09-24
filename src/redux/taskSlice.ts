@@ -51,7 +51,7 @@ const initialState: Task[] = [
     subtasks: [],
     description: "Przywiet 2",
     isComplete: true,
-    priority: "E",
+    priority: "A",
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const initialState: Task[] = [
     subtasks: [],
     description: "",
     isComplete: false,
-    priority: "C",
+    priority: "A",
   },
   {
     id: 4,
@@ -69,7 +69,7 @@ const initialState: Task[] = [
     subtasks: [],
     description: "Przywiet 4",
     isComplete: false,
-    priority: "B",
+    priority: "A",
   },
   {
     id: 5,
@@ -78,7 +78,7 @@ const initialState: Task[] = [
     subtasks: [],
     description: "Przywiet 5",
     isComplete: false,
-    priority: "D",
+    priority: "A",
   },
 ];
 
@@ -87,15 +87,10 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state: Task[], action: PayloadAction<{ title: string }>) => {
-      const biggestPosition: number = state.reduce<number>(
-        (maxPosition, task) => {
-          return task.position > maxPosition ? task.position : maxPosition;
-        },
-        0
-      );
+      state.forEach((task) => task.position++);
       const newTask: Task = {
         id: Date.now(),
-        position: biggestPosition,
+        position: 1,
         title: action.payload.title,
         subtasks: [],
         description: "",
@@ -133,6 +128,38 @@ const taskSlice = createSlice({
         (task) => task.id === action.payload.id
       );
       state[taskIndex].priority = action.payload.priority;
+    },
+    setPositionTask: (
+      state: Task[],
+      action: PayloadAction<{
+        id: number;
+        newPosition: number;
+        isRestIncrease?: boolean;
+        isRestDecrease?: boolean;
+      }>
+    ) => {
+      const currentTask = state.find((task) => task.id === action.payload.id);
+      if (currentTask) {
+        const oldCurrentTaskPosition = currentTask.position;
+        currentTask.position = action.payload.newPosition;
+
+        if (action.payload.isRestIncrease)
+          state.forEach(
+            (task) =>
+              task.position >= currentTask.position &&
+              task.position < oldCurrentTaskPosition &&
+              task !== currentTask &&
+              task.position++
+          );
+        else if (action.payload.isRestDecrease)
+          state.forEach(
+            (task) =>
+              task.position <= currentTask.position &&
+              task.position > oldCurrentTaskPosition &&
+              task !== currentTask &&
+              task.position--
+          );
+      }
     },
     addSubtask: (
       state: Task[],
@@ -191,6 +218,7 @@ export const {
   addSubtask,
   completeSubtask,
   deleteSubtask,
+  setPositionTask,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

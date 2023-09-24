@@ -20,32 +20,31 @@ const InputFieldDecorated = ({
   const [placeholderElement, setPlaceholderElement] =
     useState<HTMLSpanElement>();
 
-  const setContentDefault = (newPlaceholderElement?: HTMLSpanElement) => {
+  const setContentDefault = (newPlaceholderElement: HTMLSpanElement) => {
     if (divRef.current) {
       if (value !== "" && value !== undefined && value !== null)
         divRef.current.innerHTML = value;
       else {
         divRef.current.innerHTML = "";
-        newPlaceholderElement &&
-          divRef.current.appendChild(newPlaceholderElement);
+        divRef.current.appendChild(newPlaceholderElement);
       }
     }
   };
-  const clearPlaceholder = () => {
-    if (
-      divRef.current &&
-      (text === "" || text === undefined || text === null)
-    ) {
-      divRef.current.innerHTML = "";
-    }
-  };
-  const onMouseDown = (event: any) => {
+  const onMouseDown = () => {
+    const clearPlaceholder = () => {
+      if (
+        divRef.current &&
+        (text === "" || text === undefined || text === null)
+      ) {
+        divRef.current.innerHTML = "";
+      }
+    };
+
     clearPlaceholder();
   };
 
-  const onInput = (event: React.FormEvent<HTMLDivElement>) => {
-    if (divRef?.current && divRef.current.textContent !== null) {
-      const content = divRef.current.textContent;
+  const onInput = () => {
+    if (divRef.current) {
       setText(divRef.current.innerHTML);
     }
   };
@@ -60,26 +59,27 @@ const InputFieldDecorated = ({
     if (isOneParagraph) text = text.replace(/[\r\n]+/g, ""); // Remove line breaks
     document.execCommand("insertText", false, text);
     setText(text);
-    if (onChange && text) onChange(text);
   };
 
   const onFocus = () => {
-    clearPlaceholder();
+    // placeholderElement && setContentDefault(placeholderElement);
   };
   const onBlur = () => {
-    console.log(text)
-    text !== undefined && onChange && onChange(text);
+    if (
+      divRef.current &&
+      placeholderElement &&
+      (text === "" || text === undefined || text === null)
+    ) {
+      divRef.current.innerHTML = "";
+      divRef.current.appendChild(placeholderElement);
+    }
+    callbackOnChange();
+  };
 
+  const callbackOnChange = () => {
+    if (onChange && text !== undefined)
+      text === "<br>" ? onChange("") : onChange(text);
     window.getSelection()?.removeAllRanges();
-    if (placeholderElement)
-      if (divRef.current) {
-        if (text !== "" && text !== undefined && text !== null) {
-          divRef.current.innerHTML = text;
-        } else {
-          divRef.current.innerHTML = "";
-          placeholderElement && divRef.current.appendChild(placeholderElement);
-        }
-      }
   };
 
   useEffect(() => {
@@ -94,14 +94,6 @@ const InputFieldDecorated = ({
   }, []);
 
   useEffect(() => {
-    setText(value);
-    if (onChange && value) onChange(value);
-
-    if (placeholderElement) setContentDefault(placeholderElement);
-    window.getSelection()?.removeAllRanges();
-  }, [value]);
-
-  useEffect(() => {
     function handleClickOutside(event: any) {
       if (divRef.current && !divRef.current.contains(event.target)) {
         divRef.current.blur();
@@ -113,13 +105,20 @@ const InputFieldDecorated = ({
     };
   }, [divRef]);
 
+  useEffect(() => {
+    setText(value);
+
+    if (placeholderElement) setContentDefault(placeholderElement);
+    window.getSelection()?.removeAllRanges();
+  }, [value]);
+
   return (
     <div
       className="input-field-decorated input-field"
       contentEditable={true}
       ref={divRef}
-      onKeyDown={onKeyDown}
       onMouseDown={onMouseDown}
+      onKeyDown={onKeyDown}
       onPaste={OnPaste}
       onInput={onInput}
       onFocus={onFocus}

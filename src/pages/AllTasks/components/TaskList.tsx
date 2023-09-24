@@ -7,7 +7,10 @@ interface TaskListProps {
   tasks: Task[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({ priority, tasks }: TaskListProps) => {
+const TaskList: React.FC<TaskListProps> = ({
+  priority,
+  tasks,
+}: TaskListProps) => {
   return (
     <div className={`task-list ${priority}`}>
       <p className="task-list-title">Priority {priority}</p>
@@ -16,6 +19,7 @@ const TaskList: React.FC<TaskListProps> = ({ priority, tasks }: TaskListProps) =
           <ul ref={provided.innerRef} {...provided.droppableProps}>
             {tasks
               .filter((task) => task.priority === `${priority}`)
+              .sort((a, b) => a.position - b.position)
               .map((task, index) => (
                 <Draggable
                   key={task.id}

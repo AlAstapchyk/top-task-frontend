@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   PriorityLevel,
-  setPositionTask,
+  setPriorityPositionTask,
   setPriorityTask,
 } from "../../../redux/taskSlice";
 import TaskList from "./TaskList";
@@ -28,36 +28,18 @@ const TaskLists = () => {
     }
 
     // Reorder the items array based on the drag and drop result
-
     const draggableIdNum = Number(draggableId);
-
-    dispatch(
-      setPriorityTask({
-        id: draggableIdNum,
-        priority: destination.droppableId as PriorityLevel,
-      })
-    );
-
     const taskDraggable = tasks.find((task) => task.id === draggableIdNum);
-    const destinationPosition = destination.index + 1;
-
     if (taskDraggable) {
-      if (taskDraggable.position > destinationPosition) {
-        dispatch(
-          setPositionTask({
-            id: draggableIdNum,
-            newPosition: destinationPosition,
-            isRestIncrease: true,
-          })
-        );
-      } else
-        dispatch(
-          setPositionTask({
-            id: draggableIdNum,
-            newPosition: destinationPosition,
-            isRestDecrease: true,
-          })
-        );
+      const destinationPosition = destination.index + 1;
+
+      dispatch(
+        setPriorityPositionTask({
+          id: draggableIdNum,
+          newPosition: destinationPosition,
+          newPriority: destination.droppableId as PriorityLevel,
+        })
+      );
     }
   };
 

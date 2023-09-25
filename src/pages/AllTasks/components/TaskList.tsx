@@ -19,7 +19,7 @@ const TaskList: React.FC<TaskListProps> = ({
           <ul ref={provided.innerRef} {...provided.droppableProps}>
             {tasks
               .filter((task) => task.priority === `${priority}`)
-              .sort((a, b) => a.position - b.position)
+              .sort((a, b) => a.priorityPosition - b.priorityPosition)
               .map((task, index) => (
                 <Draggable
                   key={task.id}

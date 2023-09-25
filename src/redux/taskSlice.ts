@@ -10,7 +10,7 @@ export type PriorityLevel = "A" | "B" | "C" | "D" | "E";
 
 export interface Task {
   id: number;
-  position: number;
+  priorityPosition: number;
   title: string;
   subtasks: Subtask[];
   description: string;
@@ -21,64 +21,141 @@ export interface Task {
 const initialState: Task[] = [
   {
     id: 1,
-    position: 1,
-    title: "task 1",
+    priorityPosition: 1,
+    title:
+      "Conduct critical systems checks on the Mars Rover to ensure its continued operation",
     subtasks: [
       {
         id: 1,
-        title: "subtask 1",
+        title: "Rover systems check today",
         isComplete: false,
       },
       {
         id: 2,
-        title: "subtask 2",
-        isComplete: false,
-      },
-      {
-        id: 3,
-        title: "subtask 3",
+        title: "Optimize all systems",
         isComplete: false,
       },
     ],
-    description: "Przywiet 1",
+    description: "<div>Data analysis is <b><u>crucial</u></b></div>",
     isComplete: false,
     priority: "A",
   },
   {
     id: 2,
-    position: 2,
-    title: "task 2",
-    subtasks: [],
-    description: "Przywiet 2",
-    isComplete: true,
-    priority: "A",
-  },
-  {
-    id: 3,
-    position: 3,
-    title: "task 3",
+    priorityPosition: 2,
+    title: "Collaborate on ISS technical issue resolution",
     subtasks: [],
     description: "",
     isComplete: false,
     priority: "A",
   },
   {
-    id: 4,
-    position: 4,
-    title: "task 4",
+    id: 3,
+    priorityPosition: 1,
+    title: "Analyze Hubble Telescope data for study targets",
     subtasks: [],
-    description: "Przywiet 4",
+    description: "",
     isComplete: false,
-    priority: "A",
+    priority: "B",
+  },
+  {
+    id: 4,
+    priorityPosition: 2,
+    title: "Lead risk assessment for spacewalk mission",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "B",
   },
   {
     id: 5,
-    position: 5,
-    title: "task 5",
+    priorityPosition: 3,
+    title: "Breakfast",
     subtasks: [],
-    description: "Przywiet 5",
+    description: "<i>Cześć</i>",
+    isComplete: true,
+    priority: "B",
+  },
+  {
+    id: 6,
+    priorityPosition: 4,
+    title: "Calibrate James Webb Telescope instruments",
+    subtasks: [],
+    description: "",
     isComplete: false,
-    priority: "A",
+    priority: "B",
+  },
+  {
+    id: 7,
+    priorityPosition: 1,
+    title: "Develop astronaut training procedures",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "C",
+  },
+  {
+    id: 8,
+    priorityPosition: 2,
+    title: "Review colleague's space research paper",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "C",
+  },
+  {
+    id: 9,
+    priorityPosition: 3,
+    title: "Update Lunar Gateway maintenance docs",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "C",
+  },
+  {
+    id: 10,
+    priorityPosition: 1,
+    title: "Join weekly research project team meeting",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "E",
+  },
+  {
+    id: 11,
+    priorityPosition: 2,
+    title: " Handle urgent emails and communications",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "E",
+  },
+  {
+    id: 12,
+    priorityPosition: 3,
+    title: " Complete admin tasks, report submission",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "E",
+  },
+  {
+    id: 13,
+    priorityPosition: 4,
+    title: "Set up lab equipment for testing",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "E",
+  },
+  {
+    id: 14,
+    priorityPosition: 5,
+    title: "Attend safety training, ensure compliance",
+    subtasks: [],
+    description: "",
+    isComplete: false,
+    priority: "E",
   },
 ];
 
@@ -87,10 +164,10 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: (state: Task[], action: PayloadAction<{ title: string }>) => {
-      state.forEach((task) => task.position++);
+      state.forEach((task) => task.priorityPosition++);
       const newTask: Task = {
         id: Date.now(),
-        position: 1,
+        priorityPosition: 1,
         title: action.payload.title,
         subtasks: [],
         description: "",
@@ -129,36 +206,67 @@ const taskSlice = createSlice({
       );
       state[taskIndex].priority = action.payload.priority;
     },
-    setPositionTask: (
+    setPriorityPositionTask: (
       state: Task[],
       action: PayloadAction<{
         id: number;
         newPosition: number;
-        isRestIncrease?: boolean;
-        isRestDecrease?: boolean;
+        newPriority?: PriorityLevel;
+        // isRestIncrease?: boolean;
+        // isRestDecrease?: boolean;
       }>
     ) => {
       const currentTask = state.find((task) => task.id === action.payload.id);
       if (currentTask) {
-        const oldCurrentTaskPosition = currentTask.position;
-        currentTask.position = action.payload.newPosition;
+        const oldCurrentTaskPosition = currentTask.priorityPosition;
+        const oldCurrentTaskPriority = currentTask.priority;
+        const isDefferentPriority =
+          oldCurrentTaskPriority !== action.payload.newPriority;
+        console.log(action.payload.newPosition);
 
-        if (action.payload.isRestIncrease)
-          state.forEach(
-            (task) =>
-              task.position >= currentTask.position &&
-              task.position < oldCurrentTaskPosition &&
-              task !== currentTask &&
-              task.position++
-          );
-        else if (action.payload.isRestDecrease)
-          state.forEach(
-            (task) =>
-              task.position <= currentTask.position &&
-              task.position > oldCurrentTaskPosition &&
-              task !== currentTask &&
-              task.position--
-          );
+        currentTask.priorityPosition = action.payload.newPosition;
+
+        if (isDefferentPriority) {
+          state
+            .filter((task) => task.priority === oldCurrentTaskPriority)
+            .forEach(
+              (task) =>
+                task.priorityPosition > oldCurrentTaskPosition &&
+                task.id !== action.payload.id &&
+                task.priorityPosition--
+            );
+          state
+            .filter((task) => task.priority === action.payload.newPriority)
+            .forEach(
+              (task) =>
+                task.priorityPosition >= action.payload.newPosition &&
+                task.id !== action.payload.id &&
+                task.priorityPosition++
+            );
+        } else {
+          if (oldCurrentTaskPosition > action.payload.newPosition)
+            state
+              .filter((task) => task.priority === action.payload.newPriority)
+              .forEach(
+                (task) =>
+                  task.priorityPosition >= currentTask.priorityPosition &&
+                  task.priorityPosition < oldCurrentTaskPosition &&
+                  task.id !== action.payload.id &&
+                  task.priorityPosition++
+              );
+          else
+            state
+              .filter((task) => task.priority === action.payload.newPriority)
+              .forEach(
+                (task) =>
+                  task.priorityPosition <= currentTask.priorityPosition &&
+                  task.priorityPosition > oldCurrentTaskPosition &&
+                  task.id !== action.payload.id &&
+                  task.priorityPosition--
+              );
+        }
+        if (action.payload.newPriority)
+          currentTask.priority = action.payload.newPriority;
       }
     },
     addSubtask: (
@@ -218,7 +326,30 @@ export const {
   addSubtask,
   completeSubtask,
   deleteSubtask,
-  setPositionTask,
+  setPriorityPositionTask,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
+
+// if (
+//   action.payload.newPriority !== undefined &&
+//   action.payload.newPriority !== "A"
+// ) {
+//   const startingPoint = state
+//     .filter(
+//       (task) => task.priority === action.payload.newPriority
+//       // ||
+//       // (task.id === action.payload.id && task.priority === action.payload.newPriority)
+//     )
+//     .reduce((min, task) => {
+//       return Math.min(min, task.priorityPosition);
+//     }, state.length) - 1;
+//   console.log("-------------");
+//   console.log(currentTask.priorityPosition);
+//   console.log(startingPoint);
+//   console.log(action.payload.newPosition);
+//   currentTask.priorityPosition = startingPoint + action.payload.newPosition;
+//   console.log(currentTask.priorityPosition);
+// } else {
+
+// }

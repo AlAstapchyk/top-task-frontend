@@ -8,6 +8,7 @@ import SubtaskForm from "./SubtaskForm";
 import SubtaskList from "./SubtaskList";
 import InputFieldPlain from "./InputFieldPlain";
 import InputFieldDecorated from "./InputFieldDecorated";
+import PrioritySelector from "./PrioritySelector";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
@@ -94,9 +95,8 @@ const RightPanel = () => {
                   value={title}
                   onChange={titleOnChange}
                 />
-                <button className="set-priority-task">
-                  <span></span>
-                </button>
+                
+                <PrioritySelector dispatch={dispatch} task={task}/>
               </div>
 
               <div className="subtasks">

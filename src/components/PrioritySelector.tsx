@@ -1,56 +1,65 @@
 import { useState, useEffect } from "react";
-import { PriorityLevel, Task, editTask } from "../redux/taskSlice";
-import { Dispatch } from "@reduxjs/toolkit";
-
+import { PriorityLevel } from "../redux/taskSlice";
+type Direction = "to-top" | "to-bottom";
 interface PrioritySelectorProps {
-  dispatch: Dispatch;
-  task?: Task;
+  priority?: PriorityLevel;
+  priorityOnChange: (priority: PriorityLevel) => void;
+  direction?: Direction;
 }
-
-const PrioritySelector = ({ dispatch, task }: PrioritySelectorProps) => {
+const PrioritySelector = ({
+  priority,
+  priorityOnChange,
+  direction = "to-bottom",
+}: PrioritySelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(false);
-  }, [task]);
+  }, []);
 
-  const buttonSetPriorityOnClick = () => {
-    setIsOpen(!isOpen);
+  const onClickPriorityLevel = (priority: PriorityLevel) => {
+    priorityOnChange(priority);
+    setIsOpen(false);
   };
 
-  const buttonPriorityOnClick = (priority: PriorityLevel) => {
-    const newTask = { ...task, priority: priority } as Task;
-    dispatch(editTask({ task: newTask }));
-    setIsOpen(false);
+  const PriorityMenu = () => {
+    if (isOpen)
+      return (
+        <div
+          className={"priority-menu " + (direction ? direction : "to-bottom")}
+        >
+          <button onClick={() => onClickPriorityLevel("A")}>
+            <span className={"priority-level A"}>A</span>
+          </button>
+          <button onClick={() => onClickPriorityLevel("B")}>
+            <span className={"priority-level B"}>B</span>
+          </button>
+          <button onClick={() => onClickPriorityLevel("C")}>
+            <span className={"priority-level C"}>C</span>
+          </button>
+          <button onClick={() => onClickPriorityLevel("D")}>
+            <span className={"priority-level D"}>D</span>
+          </button>
+          <button onClick={() => onClickPriorityLevel("E")}>
+            <span className={"priority-level E"}>E</span>
+          </button>
+        </div>
+      );
   };
 
   return (
     <div className="priority-selector">
-      <button className="set-priority-task" onClick={buttonSetPriorityOnClick}>
-        <span className={"priority-level " + task?.priority}>
-          {task?.priority}
-        </span>
+      {direction === "to-top" && <PriorityMenu />}
+      <button
+        type="button"
+        className="set-priority-task"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {priority && (
+          <span className={"priority-level " + priority}>{priority}</span>
+        )}
       </button>
-
-      {isOpen && (
-        <div className="priority-menu">
-          <button onClick={() => buttonPriorityOnClick("A" as PriorityLevel)}>
-            <span className={"priority-level A"}>A</span>
-          </button>
-          <button onClick={() => buttonPriorityOnClick("B" as PriorityLevel)}>
-            <span className={"priority-level B"}>B</span>
-          </button>
-          <button onClick={() => buttonPriorityOnClick("C" as PriorityLevel)}>
-            <span className={"priority-level C"}>C</span>
-          </button>
-          <button onClick={() => buttonPriorityOnClick("D" as PriorityLevel)}>
-            <span className={"priority-level D"}>D</span>
-          </button>
-          <button onClick={() => buttonPriorityOnClick("E" as PriorityLevel)}>
-            <span className={"priority-level E"}>E</span>
-          </button>
-        </div>
-      )}
+      {direction === "to-bottom" && <PriorityMenu />}
     </div>
   );
 };

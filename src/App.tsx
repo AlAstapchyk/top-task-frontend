@@ -13,9 +13,9 @@ const App: React.FC = () => {
 
       <div className="main-view">
         <Routes>
-          <Route path="/top-tasks/today" element={<Today />} />
-          <Route path="/top-tasks/upcoming/" element={<Upcoming />} />
-          <Route path="/top-tasks/all-tasks" element={<AllTasks />} />
+          <Route path="/today" element={<Today />} />
+          <Route path="/upcoming/" element={<Upcoming />} />
+          <Route path="/all-tasks" element={<AllTasks />} />
         </Routes>
       </div>
 

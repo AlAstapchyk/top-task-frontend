@@ -1,13 +1,24 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
-import { addTask } from "../../../redux/taskSlice";
+import { PriorityLevel, addTask } from "../../../redux/taskSlice";
+import PrioritySelector from "../../../components/PrioritySelector";
 
-interface TaskFormProps {}
+const plusSvg = (
+  <svg className="plus" viewBox="0 0 16 16" stroke="#FFF" strokeWidth="2">
+    <line x1="8" y1="1" x2="8" y2="15" strokeLinecap="round" />
+    <line x1="1" y1="8" x2="15" y2="8" strokeLinecap="round" />
+  </svg>
+);
 
-const TaskForm: React.FC<TaskFormProps> = () => {
+const TaskForm = () => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<string>("");
+  const [priority, setPriority] = useState<PriorityLevel>("A");
+
+  useEffect(() => {
+    setPriority("A");
+  }, []);
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -15,6 +26,7 @@ const TaskForm: React.FC<TaskFormProps> = () => {
       dispatch(
         addTask({
           title: value,
+          priority: priority,
         })
       );
       setValue("");
@@ -25,29 +37,25 @@ const TaskForm: React.FC<TaskFormProps> = () => {
     setValue(event.target.value);
   };
 
+  const onPriorityChange = (newPriority: PriorityLevel) => {
+    setPriority(newPriority);
+  };
+
   return (
     <div className="add-task card">
-      <form className="task-form A" onSubmit={onSubmit}>
-        <button type="submit">
-          <svg
-            className="plus"
-            viewBox="0 0 16 16"
-            stroke="#FFF"
-            strokeWidth="2"
-          >
-            <line x1="8" y1="1" x2="8" y2="15" strokeLinecap="round" />
-            <line x1="1" y1="8" x2="15" y2="8" strokeLinecap="round" />
-          </svg>
-        </button>
+      <form className={"task-form " + priority} onSubmit={onSubmit}>
+        <button className="add-task" type="submit">{plusSvg}</button>
         <input
           type="text"
           placeholder="Add task"
           value={value}
           onChange={onChange}
         />
-        <button className="set-priority-task">
-          <span></span>
-        </button>
+        <PrioritySelector
+          priority={priority}
+          priorityOnChange={onPriorityChange}
+          direction="to-top"
+        />
       </form>
     </div>
   );

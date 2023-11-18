@@ -1,8 +1,8 @@
 # Top Task Front-end
 
-Top Task is a web application for task management based on the react library. 
+Top Task is a web application for task management based on the React library, powered by Vite.
 
-The application is available at the link address: https://toptask.netlify.app/top-tasks/all-tasks
+The application is available at the link address: https://toptask.netlify.app/all-tasks
 
 The current view of the app is shown in the screenshot below:
 
@@ -14,5 +14,5 @@ The current view of the app is shown in the screenshot below:
 2. CRUD and complete tasks
 3. Create, complete and delete subtasks
 4. Resizer of the right panel
-5. Drag and drop tasks also outside the priority list using react-beautiful-dnd library
+5. Drag and drop tasks both within a list and to other prioritized lists using the react-beautiful-dnd library
 6. Own input field with the ability to write in one paragraph or not and the ability to add text decorations in the form of bold, italic and underline font using hotkeys or not

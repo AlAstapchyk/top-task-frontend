@@ -5,21 +5,21 @@ const LeftBar: React.FC = () => {
     <div className="leftbar">
       <div className="navigation">
         <input className="search" placeholder="Search"/>
-        <Link to="/top-tasks/all-tasks">
+        <Link to="/all-tasks">
           <div className="tab">
             <img alt="All tasks"></img>
             <p>All tasks</p>
             <span>3</span>
           </div>
         </Link>
-        <Link to="/top-tasks/today">
+        <Link to="/today">
           <div className="tab">
             <img alt="Today"></img>
             <p>Today</p>
             <span>1</span>
           </div>
         </Link>
-        <Link to="/top-tasks/upcoming">
+        <Link to="/upcoming">
           <div className="tab">
             <img alt="Upcoming"></img>
             <p>Upcoming</p>

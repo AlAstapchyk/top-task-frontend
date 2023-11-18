@@ -163,8 +163,14 @@ const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    addTask: (state: Task[], action: PayloadAction<{ title: string }>) => {
-      state.forEach((task) => task.priorityPosition++);
+    addTask: (
+      state: Task[],
+      action: PayloadAction<{ title: string; priority: PriorityLevel }>
+    ) => {
+      state.forEach(
+        (task) =>
+          task.priority === action.payload.priority && task.priorityPosition++
+      );
       const newTask: Task = {
         id: Date.now(),
         priorityPosition: 1,
@@ -172,7 +178,7 @@ const taskSlice = createSlice({
         subtasks: [],
         description: "",
         isComplete: false,
-        priority: "A",
+        priority: action.payload.priority ? action.payload.priority : "A",
       };
       state.push(newTask);
     },
@@ -194,26 +200,12 @@ const taskSlice = createSlice({
       );
       state[taskIndex] = action.payload.task;
     },
-    setPriorityTask: (
-      state: Task[],
-      action: PayloadAction<{
-        id: number;
-        priority: PriorityLevel;
-      }>
-    ) => {
-      const taskIndex = state.findIndex(
-        (task) => task.id === action.payload.id
-      );
-      state[taskIndex].priority = action.payload.priority;
-    },
     setPriorityPositionTask: (
       state: Task[],
       action: PayloadAction<{
         id: number;
         newPosition: number;
         newPriority?: PriorityLevel;
-        // isRestIncrease?: boolean;
-        // isRestDecrease?: boolean;
       }>
     ) => {
       const currentTask = state.find((task) => task.id === action.payload.id);
@@ -322,7 +314,6 @@ export const {
   completeTask,
   deleteTask,
   editTask,
-  setPriorityTask,
   addSubtask,
   completeSubtask,
   deleteSubtask,

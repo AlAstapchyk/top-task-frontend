@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { Task, editTask } from "../redux/taskSlice";
+import {
+  PriorityLevel,
+  Task,
+  editTask,
+  setPriorityPositionTask,
+} from "../redux/taskSlice";
 import { RightPanelType, setRightPanelType } from "../redux/RightPanelSlice";
 import Resizer from "./Resizer";
 import CompleteTaskButton from "./CompleteTaskButton";
@@ -46,6 +51,16 @@ const RightPanel = () => {
       const newTask = { ...task, title: newValue } as Task;
       dispatch(editTask({ task: newTask }));
     }
+  };
+  const priorityOnChange = (priority: PriorityLevel) => {
+    if (task)
+      dispatch(
+        setPriorityPositionTask({
+          id: task.id,
+          newPosition: 1,
+          newPriority: priority,
+        })
+      );
   };
   const descriptionOnChange = (newValue: string) => {
     setDescription(newValue);
@@ -95,8 +110,12 @@ const RightPanel = () => {
                   value={title}
                   onChange={titleOnChange}
                 />
-                
-                <PrioritySelector dispatch={dispatch} task={task}/>
+
+                <PrioritySelector
+                  priority={task?.priority}
+                  priorityOnChange={priorityOnChange}
+                  direction="to-bottom"
+                />
               </div>
 
               <div className="subtasks">

@@ -170,7 +170,11 @@
         background-color: var(--color-2);
         border-radius: var(--border-radius-1);
 
-        button {
+        div.priority-menu.to-top {
+          bottom: 3.75rem;
+        }
+
+        button.add-task {
           padding: 0;
           margin: auto;
           margin-inline: var(--border-radius-1);
@@ -187,6 +191,7 @@
         input {
           flex-grow: 1;
           padding-block: var(--border-radius-1);
+          margin-right: var(--padding-2);
           border-radius: var(--border-radius-1);
           background-color: var(--color-2);
           color: white;

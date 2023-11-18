@@ -2,7 +2,6 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   PriorityLevel,
   setPriorityPositionTask,
-  setPriorityTask,
 } from "../../../redux/taskSlice";
 import TaskList from "./TaskList";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";

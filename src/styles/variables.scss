@@ -109,9 +109,21 @@ div.priority-selector {
     border-radius: var(--border-radius-1);
     background-color: var(--color-2);
     box-shadow: var(--shadow-1);
+    transition: transform 0.3s ease;
 
     &.to-bottom {
-      margin-top: var(--padding-2);
+      transform: scale(0) translateY(0);
+      transform-origin: top;
+      &.open {
+        transform: scale(1) translateY(var(--padding-2));
+      }
+    }
+    &.to-top {
+      transform: scale(0) translateY(-9.25rem);
+      transform-origin: top;
+      &.open {
+        transform: scale(1) translateY(-9.25rem);
+      }
     }
 
     button {

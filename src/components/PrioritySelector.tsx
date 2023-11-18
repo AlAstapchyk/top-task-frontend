@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { PriorityLevel } from "../redux/taskSlice";
 type Direction = "to-top" | "to-bottom";
 interface PrioritySelectorProps {
@@ -12,10 +12,18 @@ const PrioritySelector = ({
   direction = "to-bottom",
 }: PrioritySelectorProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const animateMenu = async () => {
+    setTimeout(() => {
+      if (isOpen) menuRef.current?.classList.add("open");
+      else menuRef.current?.classList.remove("open");
+    }, 0);
+  };
 
   useEffect(() => {
-    setIsOpen(false);
-  }, []);
+    animateMenu();
+  }, [isOpen]);
 
   const onClickPriorityLevel = (priority: PriorityLevel) => {
     priorityOnChange(priority);
@@ -27,6 +35,7 @@ const PrioritySelector = ({
       return (
         <div
           className={"priority-menu " + (direction ? direction : "to-bottom")}
+          ref={menuRef}
         >
           <button onClick={() => onClickPriorityLevel("A")}>
             <span className={"priority-level A"}>A</span>

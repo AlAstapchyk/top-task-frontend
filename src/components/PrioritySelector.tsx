@@ -30,7 +30,7 @@ const PrioritySelector = ({
     setIsOpen(false);
   };
 
-  const PriorityMenu = () => {
+  const PriorityMenu = (): JSX.Element => {
     if (isOpen)
       return (
         <div
@@ -54,6 +54,7 @@ const PrioritySelector = ({
           </button>
         </div>
       );
+      else return(<></>)
   };
 
   return (

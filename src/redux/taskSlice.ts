@@ -192,7 +192,20 @@ const taskSlice = createSlice({
       state[taskIndex].isComplete = action.payload.isComplete;
     },
     deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
-      return state.filter((task) => task.id !== action.payload.id);
+      const currentTask = state.find((task) => task.id === action.payload.id);
+      if (!currentTask) return state;
+
+      const newState = state.map((task) => ({
+        ...task,
+        priorityPosition:
+          task.id !== currentTask.id &&
+          task.priority === currentTask.priority &&
+          task.priorityPosition > currentTask.priorityPosition
+            ? task.priorityPosition - 1
+            : task.priorityPosition,
+      }));
+
+      return newState.filter((task) => task.id !== action.payload.id);
     },
     editTask: (state: Task[], action: PayloadAction<{ task: Task }>) => {
       const taskIndex = state.findIndex(
@@ -321,26 +334,3 @@ export const {
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
-
-// if (
-//   action.payload.newPriority !== undefined &&
-//   action.payload.newPriority !== "A"
-// ) {
-//   const startingPoint = state
-//     .filter(
-//       (task) => task.priority === action.payload.newPriority
-//       // ||
-//       // (task.id === action.payload.id && task.priority === action.payload.newPriority)
-//     )
-//     .reduce((min, task) => {
-//       return Math.min(min, task.priorityPosition);
-//     }, state.length) - 1;
-//   console.log("-------------");
-//   console.log(currentTask.priorityPosition);
-//   console.log(startingPoint);
-//   console.log(action.payload.newPosition);
-//   currentTask.priorityPosition = startingPoint + action.payload.newPosition;
-//   console.log(currentTask.priorityPosition);
-// } else {
-
-// }

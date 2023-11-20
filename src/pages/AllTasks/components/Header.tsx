@@ -1,9 +1,19 @@
+import {
+  AllTasksSvg,
+  ThreeDotsSvg,
+  VerticalPriorityGradient,
+} from "../../../../public/assets/svgs";
+
 const Header = () => {
   return (
     <header className="">
-      <img className="page" src="" alt="all tasks" />
-      <p>All tasks</p>
-      <img className="options" src="" alt="options" />
+      <AllTasksSvg width={40} height={40}>
+        <VerticalPriorityGradient />
+      </AllTasksSvg>
+      <p className="title">All tasks</p>
+      <ThreeDotsSvg width={24} height={24}>
+        <VerticalPriorityGradient />
+      </ThreeDotsSvg>
     </header>
   );
 };

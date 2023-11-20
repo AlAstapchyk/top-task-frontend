@@ -1,6 +1,9 @@
+@import "./variables.scss";
+
 body {
   margin: 0;
   background-color: var(--color-1);
+
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -19,15 +22,17 @@ code {
   .leftbar {
     display: flex;
     flex-direction: column;
-    width: 16rem;
+    min-width: 16rem;
     height: 100vh;
     background-color: var(--color-3);
     box-shadow: var(--shadow-1);
+    z-index: 1;
 
     .navigation {
       display: flex;
       flex-direction: column;
       color: white;
+      width: 100%;
 
       input.search {
         width: 13rem;
@@ -46,18 +51,25 @@ code {
         padding-right: 1rem;
         cursor: pointer;
 
-        img {
+        svg {
           height: 1.5rem;
           width: 1.5rem;
+          fill: url(#VerticalPriorityGradient);
         }
         p {
           margin-left: 0.5rem;
-          width: 9.5rem;
+          // width: 9.5rem;
+          font-weight: bold;
+          @extend .priority-text-gradient;
+          @extend .for-text-gradient;
         }
         span {
-          width: 2rem;
+          margin-left: auto;
           justify-self: right;
           text-align: right;
+          // font-weight: bold;
+          @extend .priority-text-gradient;
+          @extend .for-text-gradient;
         }
 
         &:hover {
@@ -70,12 +82,13 @@ code {
       display: inline-flex;
       height: 5rem;
 
-      img {
+      div.profile-picture {
         width: 2.5rem;
         height: 2.5rem;
-        margin-inline: 1rem;
+        margin-inline: 1.5rem 0.5rem;
         border-radius: 50%;
         align-self: center;
+        @extend  .priority-text-gradient;
       }
       .info {
         font-size: small;
@@ -83,15 +96,18 @@ code {
 
         p {
           margin-block: 0.25rem;
+          &.name {
+            color: white;
+            font-weight: bold;
+            font-size: medium;
+            @extend .priority-text-gradient;
+            @extend .for-text-gradient;
+          }
+          &.email {
+            color: lightgray;
+          }
         }
-        .name {
-          color: white;
-          font-weight: bold;
-          font-size: medium;
-        }
-        .email {
-          color: lightgray;
-        }
+        
       }
     }
   }

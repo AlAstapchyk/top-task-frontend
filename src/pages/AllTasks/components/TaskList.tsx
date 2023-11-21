@@ -2,12 +2,12 @@ import TaskItem from "./TaskItem";
 import { Task } from "../../../redux/taskSlice";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useAppSelector } from "../../../redux/hooks";
+import { RightPanelType } from "../../../redux/RightPanelSlice";
 
 interface TaskListProps {
   priority?: string;
   tasks: Task[];
 }
-
 const TaskList: React.FC<TaskListProps> = ({
   priority,
   tasks,
@@ -38,8 +38,7 @@ const TaskList: React.FC<TaskListProps> = ({
                     >
                       <TaskItem
                         task={task}
-                        additionalClassName={String(task.id === rightPanel.id ? "active " : "") + (task.isComplete ? "complete" : "")}
-
+                        additionalClassName={String(task.id === rightPanel.id && rightPanel.type === RightPanelType.showTask ? "active " : "") + (task.isComplete ? "complete" : "")}
                       />
                     </li>
                   )}

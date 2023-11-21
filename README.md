@@ -6,7 +6,7 @@ The application is available at the link address: https://toptask.netlify.app/al
 
 The current view of the app is shown in the screenshot below:
 
-<img width="1120" alt="Screenshot 2023-11-14 180741" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/8b34ccbb-d73a-48d5-920a-253b75d80f60">
+<img width="1120" alt="Screenshot 2023-11-20 160233" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/93b3cd05-898a-416c-b44b-aae9423cdb4f">
 
 ### Implemented
 

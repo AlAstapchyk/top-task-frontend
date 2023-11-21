@@ -1,6 +1,7 @@
 import TaskItem from "./TaskItem";
 import { Task } from "../../../redux/taskSlice";
-import { Draggable, Droppable, DraggableProps } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useAppSelector } from "../../../redux/hooks";
 
 interface TaskListProps {
   priority?: string;
@@ -11,6 +12,8 @@ const TaskList: React.FC<TaskListProps> = ({
   priority,
   tasks,
 }: TaskListProps) => {
+  const rightPanel = useAppSelector((state) => state.rightPanel);
+
   return (
     <div className={`task-list ${priority}`}>
       <p className="task-list-title">Priority {priority}</p>
@@ -33,7 +36,11 @@ const TaskList: React.FC<TaskListProps> = ({
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <TaskItem task={task} />
+                      <TaskItem
+                        task={task}
+                        additionalClassName={String(task.id === rightPanel.id ? "active " : "") + (task.isComplete ? "complete" : "")}
+
+                      />
                     </li>
                   )}
                 </Draggable>

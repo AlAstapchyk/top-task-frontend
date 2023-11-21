@@ -1,12 +1,13 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Task, deleteTask } from "../../../redux/taskSlice";
 import { setRightPanelTask } from "../../../redux/RightPanelSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 import CompleteTaskButton from "../../../components/CompleteTaskButton";
 
-const TaskItem: React.FC<{ task: Task }> = ({ task }) => {
+const TaskItem: React.FC<{ task: Task; additionalClassName?: string }> = ({
+  task, additionalClassName
+}) => {
   const dispatch = useAppDispatch();
-  const taskItemRef = useRef<HTMLLIElement>(null);
 
   const chooseTaskOnClick = () => {
     dispatch(setRightPanelTask({ id: task.id }));
@@ -19,11 +20,10 @@ const TaskItem: React.FC<{ task: Task }> = ({ task }) => {
 
   return (
     <li
-      className="task-item card"
+      className={"task-item card " + additionalClassName}
       onClick={chooseTaskOnClick}
-      ref={taskItemRef}
     >
-      <CompleteTaskButton task={task} dispatch={dispatch} liRef={taskItemRef} />
+      <CompleteTaskButton task={task} dispatch={dispatch} />
       <div className="title-wrapper">
         <span className="title">{task.title}</span>
       </div>

@@ -101,6 +101,10 @@ div.all-tasks {
               padding: var(--padding-1);
               list-style: none;
 
+              &.task-item.active {
+                background-color: var(--color-1);
+              }
+
               button.complete-task {
                 margin: 0 0.5rem 0 0;
               }
@@ -113,9 +117,12 @@ div.all-tasks {
 
               &:hover {
                 cursor: pointer;
-                background-color: var(--color-1);
+                background-color: var(--color-4);
               }
-              &.complete {
+              &:active {
+                background-color: var(--color-4);
+              }
+              &:has(.complete) {
                 p.title {
                   text-decoration: line-through;
                 }

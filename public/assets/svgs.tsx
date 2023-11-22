@@ -178,6 +178,56 @@ export const CompletedTasksSvg: ISvg = (props) => {
     </svg>
   );
 };
+export const SearchSvg: ISvg = (props) => {
+  return (
+    <svg
+      className="search"
+      fill="white"
+      width="24px"
+      height="24px"
+      viewBox="2 2 48 48"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M49.62,45.27,36.22,32a18.9,18.9,0,1,0-34.1-9.2A18.91,18.91,0,0,0,32,36.27l13.3,13.3a1.45,1.45,0,0,0,2.1,0l2.1-2.1A1.68,1.68,0,0,0,49.62,45.27Zm-28.7-11.5a12.9,12.9,0,1,1,12.9-12.9A12.87,12.87,0,0,1,20.92,33.77Z"
+        fill-rule="evenodd"
+      />
+      {props.children}
+    </svg>
+  );
+};
+export const LeftBarSvg: ISvg = (props) => {
+  return (
+    <svg
+      fill="white"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24px"
+      height="24px"
+      viewBox="0 0 52 52"
+      {...props}
+    >
+      <path
+        d="M48.5,4h-27C20.7,4,20,4.7,20,5.5v41c0,0.8,0.7,1.5,1.5,1.5h27c0.8,0,1.5-0.7,1.5-1.5v-41
+	C50,4.7,49.3,4,48.5,4z"
+      />
+      <path d="M14.5,4h-11C2.7,4,2,4.7,2,5.5v5C2,11.3,2.7,12,3.5,12h11c0.8,0,1.5-0.7,1.5-1.5v-5C16,4.7,15.3,4,14.5,4z" />
+      <path
+        d="M14.5,16h-11C2.7,16,2,16.7,2,17.5v5C2,23.3,2.7,24,3.5,24h11c0.8,0,1.5-0.7,1.5-1.5v-5
+	C16,16.7,15.3,16,14.5,16z"
+      />
+      <path
+        d="M14.5,28h-11C2.7,28,2,28.7,2,29.5v5C2,35.3,2.7,36,3.5,36h11c0.8,0,1.5-0.7,1.5-1.5v-5
+	C16,28.7,15.3,28,14.5,28z"
+      />
+      <path
+        d="M14.5,40h-11C2.7,40,2,40.7,2,41.5v5C2,47.3,2.7,48,3.5,48h11c0.8,0,1.5-0.7,1.5-1.5v-5
+	C16,40.7,15.3,40,14.5,40z"
+      />
+      {props.children}
+    </svg>
+  );
+};
 // Others ↓↓↓
 export const SunSvg: ISvg = (props) => {
   return (
@@ -199,15 +249,37 @@ export const SunSvg: ISvg = (props) => {
     </svg>
   );
 };
+export const CollapseLeftSvg: ISvg = (props) => {
+  return (
+    <svg
+      className="collapse-left"
+      fill="white"
+      stroke="white"
+      color="white"
+      width="24px"
+      height="24px"
+      viewBox="2.5 3 19 19"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke-width="1"
+      {...props}
+    >
+      <path d="M8.70710678,12 L19.5,12 C19.7761424,12 20,12.2238576 20,12.5 C20,12.7761424 19.7761424,13 19.5,13 L8.70710678,13 L11.8535534,16.1464466 C12.0488155,16.3417088 12.0488155,16.6582912 11.8535534,16.8535534 C11.6582912,17.0488155 11.3417088,17.0488155 11.1464466,16.8535534 L7.14644661,12.8535534 C6.95118446,12.6582912 6.95118446,12.3417088 7.14644661,12.1464466 L11.1464466,8.14644661 C11.3417088,7.95118446 11.6582912,7.95118446 11.8535534,8.14644661 C12.0488155,8.34170876 12.0488155,8.65829124 11.8535534,8.85355339 L8.70710678,12 L8.70710678,12 Z M4,5.5 C4,5.22385763 4.22385763,5 4.5,5 C4.77614237,5 5,5.22385763 5,5.5 L5,19.5 C5,19.7761424 4.77614237,20 4.5,20 C4.22385763,20 4,19.7761424 4,19.5 L4,5.5 Z" />{" "}
+      {props.children}
+    </svg>
+  );
+};
 
 export const VerticalPriorityGradient: React.FC = () => (
   <defs>
-    <linearGradient id="VerticalPriorityGradient" gradientTransform="rotate(90)">
-      <stop style={{ stopColor: 'var(--color-a)' }} offset="0%" />
-      <stop style={{ stopColor: 'var(--color-b)' }} offset="25%" />
-      <stop style={{ stopColor: 'var(--color-c)' }} offset="50%" />
-      <stop style={{ stopColor: 'var(--color-d)' }} offset="75%" />
-      <stop style={{ stopColor: 'var(--color-e)' }} offset="100%" />
+    <linearGradient
+      id="VerticalPriorityGradient"
+      gradientTransform="rotate(90)"
+    >
+      <stop style={{ stopColor: "var(--color-a)" }} offset="0%" />
+      <stop style={{ stopColor: "var(--color-b)" }} offset="25%" />
+      <stop style={{ stopColor: "var(--color-c)" }} offset="50%" />
+      <stop style={{ stopColor: "var(--color-d)" }} offset="75%" />
+      <stop style={{ stopColor: "var(--color-e)" }} offset="100%" />
     </linearGradient>
   </defs>
 );

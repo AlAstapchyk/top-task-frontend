@@ -34,14 +34,42 @@ code {
       color: white;
       width: 100%;
 
-      input.search {
-        width: 13rem;
-        height: 1.5rem;
-        margin: var(--padding-1) auto 0.25rem;
-        background-color: var(--color-3);
-        border: solid 2px var(--color-1);
-        border-radius: var(--border-radius-1);
-        color: white;
+      div.left-bar-collapser-container {
+        display: flex;
+        padding-left: 1.5rem;
+        padding-right: 1rem;
+        height: 3rem;
+        align-items: center;
+        margin-top: var(--padding-1);
+        svg.collapse-left {
+          margin-left: auto;
+          stroke: url(#VerticalPriorityGradient);
+          
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      div.search {
+        display: flex;
+        padding-left: 1.5rem;
+        padding-right: 1rem;
+        height: 3rem;
+        align-items: center;
+
+        svg.search {
+          fill: url(#VerticalPriorityGradient);
+        }
+        input.search {
+          flex-grow: 1;
+          height: 1.5rem;
+          margin-left: var(--border-radius-1);
+          background-color: var(--color-3);
+          border: solid 2px var(--color-1);
+          border-radius: var(--border-radius-1);
+          color: white;
+        }
       }
 
       .tab {
@@ -88,7 +116,7 @@ code {
         margin-inline: 1.5rem 0.5rem;
         border-radius: 50%;
         align-self: center;
-        @extend  .priority-text-gradient;
+        @extend .priority-text-gradient;
       }
       .info {
         font-size: small;
@@ -107,7 +135,6 @@ code {
             color: lightgray;
           }
         }
-        
       }
     }
   }

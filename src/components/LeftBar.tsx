@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import {
   AllTasksSvg,
+  CollapseLeftSvg,
+  SearchSvg,
   SunSvg,
   UpcomingTasksSvg,
   VerticalPriorityGradient,
@@ -10,7 +12,18 @@ const LeftBar: React.FC = () => {
   return (
     <div className="leftbar">
       <div className="navigation">
-        <input className="search" placeholder="Search" />
+        <div className="left-bar-collapser-container">
+          <CollapseLeftSvg width={24} height={24}>
+            <VerticalPriorityGradient />
+          </CollapseLeftSvg>
+        </div>
+        <div className="search">
+          <SearchSvg width={24} height={24}>
+            <VerticalPriorityGradient />
+          </SearchSvg>
+          <input className="search" placeholder="Search" />
+        </div>
+
         <Link to="/all-tasks">
           <div className="tab">
             <AllTasksSvg width={24} height={24}>

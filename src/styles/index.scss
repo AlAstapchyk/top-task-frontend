@@ -22,11 +22,22 @@ code {
   .leftbar {
     display: flex;
     flex-direction: column;
-    min-width: 16rem;
     height: 100vh;
     background-color: var(--color-3);
     box-shadow: var(--shadow-1);
     z-index: 1;
+
+    &.open {
+      min-width: 16rem;
+      svg.collapse-left {
+        margin-left: auto;
+      }
+    }
+    &.close {
+      svg.collapse-left {
+        transform: scaleX(-1);
+      }
+    }
 
     .navigation {
       display: flex;
@@ -41,10 +52,10 @@ code {
         height: 3rem;
         align-items: center;
         margin-top: var(--padding-1);
+
         svg.collapse-left {
-          margin-left: auto;
           stroke: url(#VerticalPriorityGradient);
-          
+
           &:hover {
             cursor: pointer;
           }
@@ -57,6 +68,13 @@ code {
         padding-right: 1rem;
         height: 3rem;
         align-items: center;
+        cursor: text;
+
+        &:hover {
+          input.search {
+            background-color: var(--color-1);
+          }
+        }
 
         svg.search {
           fill: url(#VerticalPriorityGradient);
@@ -66,15 +84,18 @@ code {
           height: 1.5rem;
           margin-left: var(--border-radius-1);
           background-color: var(--color-3);
-          border: solid 2px var(--color-1);
           border-radius: var(--border-radius-1);
+          border: none;
+          color: var(--color-1);
           color: white;
+          font-size: medium;
         }
       }
 
       .tab {
         display: flex;
         align-items: center;
+        height: 3.5rem;
         padding-left: 1.5rem;
         padding-right: 1rem;
         cursor: pointer;
@@ -86,7 +107,6 @@ code {
         }
         p {
           margin-left: 0.5rem;
-          // width: 9.5rem;
           font-weight: bold;
           @extend .priority-text-gradient;
           @extend .for-text-gradient;
@@ -95,7 +115,6 @@ code {
           margin-left: auto;
           justify-self: right;
           text-align: right;
-          // font-weight: bold;
           @extend .priority-text-gradient;
           @extend .for-text-gradient;
         }

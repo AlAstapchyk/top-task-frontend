@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import RightPanel from "../components/RightPanel";
-import { Task } from "./taskSlice";
 
-export enum RightPanelType {
+export const enum RightPanelType {
   close = 0,
   createTask,
   showTask,

@@ -6,7 +6,7 @@ import {
   editTask,
   setPriorityPositionTask,
 } from "../redux/taskSlice";
-import { RightPanelType, setRightPanelTask, setRightPanelType } from "../redux/RightPanelSlice";
+import { RightPanelType, setRightPanelType } from "../redux/RightPanelSlice";
 import Resizer from "./Resizer";
 import CompleteTaskButton from "./CompleteTaskButton";
 import SubtaskForm from "./SubtaskForm";

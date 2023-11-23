@@ -6,11 +6,11 @@ interface LeftPanel {
 const initialState: LeftPanel = {
   isOpen: true,
 };
-const LeftPanelSlice = createSlice({
-  name: "leftPanel",
+const LeftBarSlice = createSlice({
+  name: "leftBar",
   initialState,
   reducers: {
-    setRightPanelIsOpen: (
+    setLeftPanelIsOpen: (
       state: LeftPanel,
       action: PayloadAction<{ isOpen: boolean }>
     ) => {
@@ -19,5 +19,5 @@ const LeftPanelSlice = createSlice({
   },
 });
 
-export const { setRightPanelIsOpen } = LeftPanelSlice.actions;
-export default LeftPanelSlice.reducer;
+export const { setLeftPanelIsOpen } = LeftBarSlice.actions;
+export default LeftBarSlice.reducer;

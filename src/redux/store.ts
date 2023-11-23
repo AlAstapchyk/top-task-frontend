@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import taskReducer from "./taskSlice";
 import rightPanelReducer from "./RightPanelSlice";
-import leftPanelReducer from "./LeftPanelSlice";
+import leftBarReducer from "./LeftBarSlice";
 
 export const store = configureStore({
   reducer: {
     tasks: taskReducer,
     rightPanel: rightPanelReducer,
-    leftPanel: leftPanelReducer,
+    leftBar: leftBarReducer,
   },
 });
 

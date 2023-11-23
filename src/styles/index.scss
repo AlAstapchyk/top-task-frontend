@@ -28,7 +28,6 @@ code {
     z-index: 1;
 
     &.open {
-      min-width: 16rem;
       svg.collapse-left {
         margin-left: auto;
       }
@@ -66,7 +65,6 @@ code {
         display: flex;
         padding-left: 1.5rem;
         padding-right: 1rem;
-        height: 3rem;
         align-items: center;
         cursor: text;
 
@@ -78,10 +76,13 @@ code {
 
         svg.search {
           fill: url(#VerticalPriorityGradient);
+          min-height: 1.5rem;
+          min-width: 1.5rem;
         }
         input.search {
           flex-grow: 1;
           height: 1.5rem;
+          min-width: 10rem;
           margin-left: var(--border-radius-1);
           background-color: var(--color-3);
           border-radius: var(--border-radius-1);

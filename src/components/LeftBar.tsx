@@ -8,20 +8,20 @@ import {
   VerticalPriorityGradient,
 } from "../../public/assets/svgs";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setRightPanelIsOpen } from "../redux/LeftPanelSlice";
+import { setLeftPanelIsOpen } from "../redux/LeftBarSlice";
 import { useRef } from "react";
 
 const LeftBar: React.FC = () => {
-  const leftPanel = useAppSelector((state) => state.leftPanel);
+  const leftPanel = useAppSelector((state) => state.leftBar);
   const dispatch = useAppDispatch();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   const collapserOnClick = () => {
-    dispatch(setRightPanelIsOpen({ isOpen: !leftPanel.isOpen }));
+    dispatch(setLeftPanelIsOpen({ isOpen: !leftPanel.isOpen }));
   };
 
   const searchOnClick = () => {
-    dispatch(setRightPanelIsOpen({ isOpen: true }));
+    dispatch(setLeftPanelIsOpen({ isOpen: true }));
     setTimeout(() => {
       searchInputRef.current?.focus();
     }, 0);

@@ -36,7 +36,7 @@ const initialState: Task[] = [
         isComplete: false,
       },
     ],
-    description: "<div>Data analysis is <b><u>crucial</u></b></div>",
+    description: "<div>Data analysis is <b><u>crucial</u></b></div></br><div><i>!!!</i></div>",
     isComplete: false,
     priority: "A",
   },

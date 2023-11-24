@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Upcoming from "./pages/Upcoming/Upcoming";
 import Today from "./pages/Today/Today";
 import RightPanel from "./components/RightPanel";
+import Search from "./pages/Search/Search";
 
 const App: React.FC = () => {
   return (
@@ -13,9 +14,10 @@ const App: React.FC = () => {
 
       <div className="main-view">
         <Routes>
+          <Route path="/search" element={<Search />} />
+          <Route path="/all-tasks" element={<AllTasks />} />
           <Route path="/today" element={<Today />} />
           <Route path="/upcoming/" element={<Upcoming />} />
-          <Route path="/all-tasks" element={<AllTasks />} />
         </Routes>
       </div>
 

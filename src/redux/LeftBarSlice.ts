@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface LeftPanel {
   isOpen: boolean;
+  searchValue: string;
 }
 const initialState: LeftPanel = {
   isOpen: true,
+  searchValue: "",
 };
 const LeftBarSlice = createSlice({
   name: "leftBar",
@@ -16,8 +18,14 @@ const LeftBarSlice = createSlice({
     ) => {
       state.isOpen = action.payload.isOpen;
     },
+    setSearchValue: (
+      state: LeftPanel,
+      action: PayloadAction<{ searchValue: string }>
+    ) => {
+      state.searchValue = action.payload.searchValue;
+    },
   },
 });
 
-export const { setLeftPanelIsOpen } = LeftBarSlice.actions;
+export const { setLeftPanelIsOpen, setSearchValue } = LeftBarSlice.actions;
 export default LeftBarSlice.reducer;

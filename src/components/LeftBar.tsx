@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AllTasksSvg,
   CollapseLeftSvg,
@@ -8,23 +8,35 @@ import {
   VerticalPriorityGradient,
 } from "../../public/assets/svgs";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { setLeftPanelIsOpen } from "../redux/LeftBarSlice";
-import { useRef } from "react";
+import { setLeftPanelIsOpen, setSearchValue } from "../redux/LeftBarSlice";
+import { useState, useRef, useEffect } from "react";
 
 const LeftBar: React.FC = () => {
   const leftPanel = useAppSelector((state) => state.leftBar);
   const dispatch = useAppDispatch();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const [searchInputValue, setSearchInputValue] = useState<string>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchInputValue) navigate("/search");
+  }, [searchInputValue]);
 
   const collapserOnClick = () => {
     dispatch(setLeftPanelIsOpen({ isOpen: !leftPanel.isOpen }));
   };
 
-  const searchOnClick = () => {
+  const searchTabOnClick = () => {
     dispatch(setLeftPanelIsOpen({ isOpen: true }));
     setTimeout(() => {
       searchInputRef.current?.focus();
     }, 0);
+    if (searchInputValue) navigate("/search");
+  };
+
+  const searchInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInputValue(event.target.value);
+    dispatch(setSearchValue({ searchValue: event.target.value }));
   };
 
   return (
@@ -35,7 +47,7 @@ const LeftBar: React.FC = () => {
             <VerticalPriorityGradient />
           </CollapseLeftSvg>
         </div>
-        <div className="search tab" onClick={searchOnClick}>
+        <div className="search tab" onClick={searchTabOnClick}>
           <SearchSvg width={24} height={24}>
             <VerticalPriorityGradient />
           </SearchSvg>
@@ -44,6 +56,8 @@ const LeftBar: React.FC = () => {
               className="search"
               placeholder="Search"
               ref={searchInputRef}
+              value={searchInputValue}
+              onChange={searchInputOnChange}
             />
           )}
         </div>

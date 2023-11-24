@@ -18,6 +18,13 @@ code {
 .App {
   display: flex;
   user-select: none;
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-3) 0%,
+    var(--color-1) 20%,
+    var(--color-1) 85%,
+    var(--color-3) 110%
+  );
 
   .leftbar {
     display: flex;
@@ -161,6 +168,27 @@ code {
   .main-view {
     height: 100vh;
     flex-grow: 1;
+  }
+  header.page-header {
+    display: flex;
+    margin: var(--padding-1);
+    padding-block: var(--padding-1);
+    height: 2.5rem;
+    align-items: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+
+    svg.page-svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      fill: url(#VerticalPriorityGradient);
+    }
+    p.title {
+      margin: 0 0 0 1rem;
+
+      @extend .priority-text-gradient;
+      @extend .for-text-gradient;
+    }
   }
   .right-panel {
     min-width: 18rem;

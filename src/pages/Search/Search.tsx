@@ -1,7 +1,11 @@
-import { useState } from "react";
+import Header from "./components/Header";
 
 const Search = () => {
-  return <div className="search">Search</div>;
+  return (
+    <div className="search">
+      <Header />
+    </div>
+  );
 };
 
 export default Search;

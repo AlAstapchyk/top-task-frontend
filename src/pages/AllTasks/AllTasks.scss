@@ -10,13 +10,6 @@ div.all-tasks {
   height: 100%;
   color: white;
   background-size: 100%;
-  background-image: linear-gradient(
-    to bottom,
-    var(--color-3) 0%,
-    var(--color-1) 20%,
-    var(--color-1) 85%,
-    var(--color-3) 110%
-  );
 
   header {
     display: flex;
@@ -32,7 +25,6 @@ div.all-tasks {
       height: 2.5rem;
       fill: url(#VerticalPriorityGradient);
     }
-
     svg.three-dots {
       margin-left: auto;
       width: 1.5rem;
@@ -42,16 +34,8 @@ div.all-tasks {
     }
     p.title {
       margin: 0 0 0 1rem;
-
       @extend .priority-text-gradient;
       @extend .for-text-gradient;
-    }
-    .separator {
-      background-color: white;
-      width: 1px;
-      height: 2rem;
-      margin-inline: var(--padding-1);
-      align-self: center;
     }
   }
 

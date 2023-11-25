@@ -1,4 +1,4 @@
-import TaskItem from "./TaskItem";
+import TaskItem from "../../../components/TaskItem";
 import { Task } from "../../../redux/taskSlice";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useAppSelector } from "../../../redux/hooks";

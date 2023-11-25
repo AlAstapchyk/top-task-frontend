@@ -1,8 +1,8 @@
 import React from "react";
-import { Task, deleteTask } from "../../../redux/taskSlice";
-import { setRightPanelTask } from "../../../redux/RightPanelSlice";
-import { useAppDispatch } from "../../../redux/hooks";
-import CompleteTaskButton from "../../../components/CompleteTaskButton";
+import { Task, deleteTask } from "../redux/taskSlice";
+import { setRightPanelTask } from "../redux/RightPanelSlice";
+import { useAppDispatch } from "../redux/hooks";
+import CompleteTaskButton from "./CompleteTaskButton";
 
 const TaskItem: React.FC<{ task: Task; additionalClassName?: string }> = ({
   task, additionalClassName

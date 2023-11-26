@@ -10,6 +10,8 @@ The current view of the app is shown in the screenshot below:
 
 <img width="1120" alt="Screenshot 2023-11-25 115038" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/aaf16129-e85a-4f66-bd07-3fd156363f6a">
 
+<img width="1120" alt="Screenshot 2023-11-26 084905" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/b8e8e4e0-bf88-4f2f-9f24-be04ecfce5a3">
+
 ### Implemented
 
 1. State management using Redux Toolkit
@@ -20,3 +22,4 @@ The current view of the app is shown in the screenshot below:
 6. Custom input field with the ability to write in one paragraph or not and the ability to add text decorations in the form of bold, italic and underline font using hotkeys or not
 7. Priority selector
 8. Left bar collapse and search tasks by name
+9. Collapse lists

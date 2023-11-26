@@ -45,11 +45,36 @@ const TaskLists = () => {
   return (
     <div className="task-lists scroll-content">
       <DragDropContext onDragEnd={onDragEnd}>
-        <TaskList priority="A" tasks={tasks} />
-        <TaskList priority="B" tasks={tasks} />
-        <TaskList priority="C" tasks={tasks} />
-        <TaskList priority="D" tasks={tasks} />
-        <TaskList priority="E" tasks={tasks} />
+        <TaskList
+          priority="A"
+          tasks={tasks
+            .filter((task) => task.priority === `A`)
+            .sort((a, b) => a.priorityPosition - b.priorityPosition)}
+        />
+        <TaskList
+          priority="B"
+          tasks={tasks
+            .filter((task) => task.priority === `B`)
+            .sort((a, b) => a.priorityPosition - b.priorityPosition)}
+        />
+        <TaskList
+          priority="C"
+          tasks={tasks
+            .filter((task) => task.priority === `C`)
+            .sort((a, b) => a.priorityPosition - b.priorityPosition)}
+        />
+        <TaskList
+          priority="D"
+          tasks={tasks
+            .filter((task) => task.priority === `D`)
+            .sort((a, b) => a.priorityPosition - b.priorityPosition)}
+        />
+        <TaskList
+          priority="E"
+          tasks={tasks
+            .filter((task) => task.priority === `E`)
+            .sort((a, b) => a.priorityPosition - b.priorityPosition)}
+        />
       </DragDropContext>
     </div>
   );

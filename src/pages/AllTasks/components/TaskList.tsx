@@ -3,6 +3,8 @@ import { Task } from "../../../redux/taskSlice";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useAppSelector } from "../../../redux/hooks";
 import { RightPanelType } from "../../../redux/RightPanelSlice";
+import { useState } from "react";
+import { HamburgerSvg } from "../../../../public/assets/svgs";
 
 interface TaskListProps {
   priority?: string;
@@ -13,14 +15,24 @@ const TaskList: React.FC<TaskListProps> = ({
   tasks,
 }: TaskListProps) => {
   const rightPanel = useAppSelector((state) => state.rightPanel);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   return (
     <div className={`task-list ${priority}`}>
-      <p className="task-list-title">Priority {priority}</p>
+      <div className="list-header">
+        <p className="task-list-title">Priority {priority}</p>
+        {tasks.length !== 0 && (
+          <HamburgerSvg
+            className="hamburger collapse-list"
+            onClick={() => setIsOpen(!isOpen)}
+          />
+        )}
+      </div>
+
       <Droppable droppableId={priority || ""}>
         {(provided) => (
           <ul ref={provided.innerRef} {...provided.droppableProps}>
-            {tasks
+            {isOpen && tasks
               .filter((task) => task.priority === `${priority}`)
               .sort((a, b) => a.priorityPosition - b.priorityPosition)
               .map((task, index) => (
@@ -38,7 +50,14 @@ const TaskList: React.FC<TaskListProps> = ({
                     >
                       <TaskItem
                         task={task}
-                        additionalClassName={String(task.id === rightPanel.id && rightPanel.type === RightPanelType.showTask ? "active " : "") + (task.isComplete ? "complete" : "")}
+                        additionalClassName={
+                          String(
+                            task.id === rightPanel.id &&
+                              rightPanel.type === RightPanelType.showTask
+                              ? "active "
+                              : ""
+                          ) + (task.isComplete ? "complete" : "")
+                        }
                       />
                     </li>
                   )}

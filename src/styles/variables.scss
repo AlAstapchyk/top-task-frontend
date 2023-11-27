@@ -15,6 +15,15 @@
   --task-svg-size: 1.25rem;
   --plus-svg-size: 1rem;
 
+  --priority-text-gradient: linear-gradient(
+    150deg,
+    var(--color-a) 0%,
+    var(--color-b) 25%,
+    var(--color-c) 50%,
+    var(--color-d) 75%,
+    var(--color-e) 100%
+  );
+
   --border-radius-1: 0.5rem;
 
   --shadow-1: 0 0 12px rgba(0, 0, 0, 0.5);
@@ -148,16 +157,7 @@ div.priority-selector {
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
 }
-.priority-text-gradient {
-  background-image: linear-gradient(
-    150deg,
-    var(--color-a) 0%,
-    var(--color-b) 25%,
-    var(--color-c) 50%,
-    var(--color-d) 75%,
-    var(--color-e) 100%
-  );
-}
+
 
 $colors: (
   A: var(--color-a),

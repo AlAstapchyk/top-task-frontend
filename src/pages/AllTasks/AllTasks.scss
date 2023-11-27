@@ -33,7 +33,7 @@ div.all-tasks {
     }
     p.title {
       margin: 0 0 0 1rem;
-      @extend .priority-text-gradient;
+      background-image: var(--priority-text-gradient);
       @extend .for-text-gradient;
     }
   }

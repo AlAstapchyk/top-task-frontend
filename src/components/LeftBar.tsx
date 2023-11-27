@@ -13,6 +13,7 @@ import { useState, useRef, useEffect } from "react";
 
 const LeftBar: React.FC = () => {
   const leftPanel = useAppSelector((state) => state.leftBar);
+  const tasks = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const [searchInputValue, setSearchInputValue] = useState<string>();
@@ -70,7 +71,9 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>All tasks</p>
-                <span>3</span>
+                <div className="counter">
+                  <span>{tasks.filter((task) => !task.isComplete).length}</span>
+                </div>
               </>
             )}
           </div>
@@ -83,7 +86,9 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>Today</p>
-                <span>1</span>
+                <div className="counter">
+                  <span>2</span>
+                </div>
               </>
             )}
           </div>
@@ -94,7 +99,9 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>Upcoming</p>
-                <span>2</span>
+                <div className="counter">
+                  <span>2</span>
+                </div>
               </>
             )}
           </div>

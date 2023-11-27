@@ -117,15 +117,24 @@ code {
         p {
           margin-left: 0.5rem;
           font-weight: bold;
-          @extend .priority-text-gradient;
+          background-image: var(--priority-text-gradient);
           @extend .for-text-gradient;
         }
-        span {
+        div.counter {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           margin-left: auto;
-          justify-self: right;
-          text-align: right;
-          @extend .priority-text-gradient;
-          @extend .for-text-gradient;
+          box-sizing: border-box;
+          min-width: 1.5rem;
+          height: 1.5rem;
+          border-radius: 0.75rem;
+          padding-inline: var(--padding-2);
+          color: var(--color-1);
+          background-image: var(--priority-text-gradient);
+          span {
+            font-weight: bold;
+          }
         }
 
         &:hover {
@@ -144,7 +153,7 @@ code {
         margin-inline: 1.5rem 0.5rem;
         border-radius: 50%;
         align-self: center;
-        @extend .priority-text-gradient;
+        background-image: var(--priority-text-gradient);
       }
       .info {
         font-size: small;
@@ -156,7 +165,7 @@ code {
             color: white;
             font-weight: bold;
             font-size: medium;
-            @extend .priority-text-gradient;
+            background-image: var(--priority-text-gradient);
             @extend .for-text-gradient;
           }
           &.email {

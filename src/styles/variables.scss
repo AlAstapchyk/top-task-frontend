@@ -54,19 +54,35 @@ button {
   padding: 0;
 
   &.complete-task {
+    display: flex;
     width: 1.25rem;
     height: 1.25rem;
     background-color: var(--color-3);
     border: solid 2px white;
     border-radius: 50%;
+    svg {
+      margin: auto;
+      align-self: center;
+      fill: var(--color-3);
+      stroke: var(--color-3);
+      stroke-width: 3px;
+    }
   }
   &.complete-subtask {
-    width: 1rem;
+    min-width: 1rem;
     height: 1rem;
     margin: 2px;
     background-color: var(--color-3);
-    border: solid 2px lightgray;
+    border: solid 2px white;
     border-radius: 50%;
+
+    svg {
+      margin: auto;
+      align-self: center;
+      fill: var(--color-3);
+      stroke: var(--color-3);
+      stroke-width: 3px;
+    }
   }
   &.delete-subtask,
   &.delete-task {
@@ -157,7 +173,6 @@ div.priority-selector {
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
 }
-
 
 $colors: (
   A: var(--color-a),

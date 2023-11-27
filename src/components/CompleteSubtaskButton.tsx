@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { Subtask, completeSubtask } from "../redux/taskSlice";
+import { CompleteSvg } from "../../public/assets/svgs";
 
 interface CompleteSubtaskButtonProps {
   dispatch?: Dispatch;
@@ -33,7 +34,7 @@ const CompleteSubtaskButton = ({
     <button
       className={`complete-subtask ${isComplete ? "complete" : ""}`}
       onClick={dispatch && subtask && completeOnClick}
-    ></button>
+    >{isComplete === true && <CompleteSvg width={10} height={10} />}</button>
   );
 };
 

@@ -6,6 +6,7 @@ import Upcoming from "./pages/Upcoming/Upcoming";
 import Today from "./pages/Today/Today";
 import RightPanel from "./components/RightPanel";
 import Search from "./pages/Search/Search";
+import Completed from "./pages/Completed/Completed";
 
 const App: React.FC = () => {
   return (
@@ -17,7 +18,8 @@ const App: React.FC = () => {
           <Route path="/search" element={<Search />} />
           <Route path="/all-tasks" element={<AllTasks />} />
           <Route path="/today" element={<Today />} />
-          <Route path="/upcoming/" element={<Upcoming />} />
+          <Route path="/upcoming" element={<Upcoming />} />
+          <Route path="/completed" element={<Completed />} />
         </Routes>
       </div>
 

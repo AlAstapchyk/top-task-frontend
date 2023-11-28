@@ -1,0 +1,191 @@
+@import "../../styles/variables.scss";
+
+div.completed.page {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-size: 100%;
+
+  header.page-header {
+    display: flex;
+    margin: var(--padding-1);
+    padding-block: var(--padding-1);
+    height: 2.5rem;
+    align-items: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+
+    svg.page-svg {
+      width: 2.5rem;
+      height: 2.5rem;
+      fill: url(#VerticalPriorityGradient);
+    }
+    p.title {
+      margin: 0 0 0 1rem;
+      background-image: var(--priority-text-gradient);
+      @extend .for-text-gradient;
+    }
+  }
+  .task-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+
+    .scroll-container {
+      flex-direction: column;
+      overflow-y: scroll;
+      margin-left: var(--padding-1);
+      margin-right: 4px;
+      padding-right: 4px;
+      height: 100%;
+
+      .task-lists.scroll-content {
+        ul {
+          padding: 0;
+          margin: var(--border-radius-1) 0 0 0;
+        }
+        .task-list {
+          padding: var(--border-radius-1);
+          border-radius: var(--border-radius-1);
+          margin-block: var(--border-radius-1);
+          background-color: var(--color-3);
+
+          .task-list-title {
+            padding-block: var(--border-radius-1);
+            margin: 0;
+            padding-left: var(--padding-1);
+            font-weight: bold;
+            @extend .end-ellipsis;
+          }
+          .draggable-task-item {
+            margin-top: var(--border-radius-1);
+
+            .task-item {
+              display: flex;
+              align-items: center;
+              height: 1.5rem;
+              padding: var(--padding-1);
+              list-style: none;
+
+              &.task-item.active {
+                background-color: var(--color-1);
+              }
+
+              button.complete-task {
+                margin: 0 0.5rem 0 0;
+              }
+              .title-wrapper {
+                flex-grow: 1;
+                margin-right: var(--border-radius-1);
+                width: 5rem;
+                @extend .end-ellipsis;
+              }
+
+              &:hover {
+                cursor: pointer;
+                background-color: var(--color-4);
+              }
+              &:active {
+                background-color: var(--color-4);
+              }
+              &:has(.complete) {
+                p.title {
+                  text-decoration: line-through;
+                }
+              }
+            }
+          }
+          &.A {
+            .task-list-title {
+              color: var(--color-a);
+            }
+          }
+          &.B {
+            .task-list-title {
+              color: var(--color-b);
+            }
+          }
+          &.C {
+            .task-list-title {
+              color: var(--color-c);
+            }
+          }
+          &.D {
+            .task-list-title {
+              color: var(--color-d);
+            }
+          }
+          &.E {
+            .task-list-title {
+              color: var(--color-e);
+            }
+          }
+        }
+      }
+
+      &::-webkit-scrollbar {
+        left: 0;
+        width: var(--border-radius-1);
+        padding: 0rem;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: rgba(#000000, 0);
+      }
+      &::-webkit-scrollbar-thumb {
+        width: var(--border-radius-1);
+        background-color: var(--color-2);
+        border-radius: 4px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+      }
+    }
+
+    .add-task {
+      display: flex;
+      align-items: center;
+      padding: var(--border-radius-1);
+      margin: var(--border-radius-1) var(--padding-1);
+      background-color: var(--color-3);
+
+      .task-form {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: 100%;
+        height: 2rem;
+        padding: var(--border-radius-1);
+        background-color: var(--color-2);
+        border-radius: var(--border-radius-1);
+
+        button.add-task {
+          padding: 0;
+          margin: auto;
+          margin-inline: var(--border-radius-1);
+          width: var(--task-svg-size);
+          height: var(--task-svg-size);
+          border: none;
+          background-color: rgba(#000000, 0);
+          cursor: pointer;
+
+          svg.plus {
+            padding: 2px;
+          }
+        }
+        input {
+          flex-grow: 1;
+          padding-block: var(--border-radius-1);
+          margin-right: var(--padding-2);
+          border-radius: var(--border-radius-1);
+          background-color: var(--color-2);
+          color: white;
+          border: none;
+        }
+      }
+    }
+  }
+}

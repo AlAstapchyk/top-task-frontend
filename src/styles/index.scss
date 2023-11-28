@@ -130,10 +130,11 @@ code {
           height: 1.5rem;
           border-radius: 0.75rem;
           padding-inline: var(--padding-2);
-          color: var(--color-1);
+          
           background-image: var(--priority-text-gradient);
           span {
             font-weight: bold;
+            color: var(--color-3);
           }
         }
 

@@ -5,7 +5,8 @@ import { useAppDispatch } from "../redux/hooks";
 import CompleteTaskButton from "./CompleteTaskButton";
 
 const TaskItem: React.FC<{ task: Task; additionalClassName?: string }> = ({
-  task, additionalClassName
+  task,
+  additionalClassName,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -23,7 +24,7 @@ const TaskItem: React.FC<{ task: Task; additionalClassName?: string }> = ({
       className={"task-item card " + additionalClassName}
       onClick={chooseTaskOnClick}
     >
-      <CompleteTaskButton task={task} dispatch={dispatch} />
+      <CompleteTaskButton task={task} dispatch={dispatch} key={task.id}/>
       <div className="title-wrapper">
         <span className="title">{task.title}</span>
       </div>

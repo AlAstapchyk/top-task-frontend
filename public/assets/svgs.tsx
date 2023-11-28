@@ -161,7 +161,7 @@ export const CompletedTasksSvg: ISvg = (props) => {
       xmlns="http://www.w3.org/2000/svg"
       width="24px"
       height="24px"
-      viewBox="0 0 52 52"
+      viewBox="2 2 48 48"
       className="completed-tasks"
       {...props}
     >

@@ -20,11 +20,10 @@ const CompleteTaskButton = ({ dispatch, task }: CompleteTaskButtonProps) => {
   const completeOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setIsCompleting(!isCompleting);
-    setTimeout(() => {
-      if (dispatch && task) {
-        dispatch(completeTask({ id: task.id, isComplete: !task?.isComplete }));
-      }
-    }, 0);
+
+    if (dispatch && task) {
+      dispatch(completeTask({ id: task.id, isComplete: !task?.isComplete }));
+    }
   };
 
   return (

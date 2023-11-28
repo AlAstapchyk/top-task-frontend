@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   AllTasksSvg,
   CollapseLeftSvg,
+  CompletedTasksSvg,
   SearchSvg,
   SunSvg,
   UpcomingTasksSvg,
@@ -101,6 +102,19 @@ const LeftBar: React.FC = () => {
                 <p>Upcoming</p>
                 <div className="counter">
                   <span>2</span>
+                </div>
+              </>
+            )}
+          </div>
+        </Link>
+        <Link to="/completed">
+          <div className="tab">
+            <CompletedTasksSvg width={24} height={24} />
+            {leftPanel.isOpen && (
+              <>
+                <p>Completed</p>
+                <div className="counter">
+                  <span>{tasks.filter((task) => task.isComplete).length}</span>
                 </div>
               </>
             )}

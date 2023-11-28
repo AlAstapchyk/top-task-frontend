@@ -24,6 +24,9 @@ const RightPanel = () => {
 
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
+  // const [createdAt, setCreatedAt] = useState<Date>();
+  // const [completedAt, setCompletedAt] = useState<Date>();
+  const [dateStr, setDateStr] = useState<string | undefined>(""); // completed or created at
 
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -75,6 +78,11 @@ const RightPanel = () => {
   useEffect(() => {
     setDescription(task?.description);
   }, [task?.description]);
+  useEffect(() => {
+    if (task?.isComplete && task?.completedAt)
+      setDateStr(formattedDate(task.completedAt));
+    else if (task?.createdAt) setDateStr(formattedDate(task.createdAt));
+  }, [task?.createdAt, task?.completedAt]);
 
   if (isOpen) {
     return (
@@ -142,11 +150,30 @@ const RightPanel = () => {
             </div>
           </div>
 
-          <div className="footer"></div>
+          <div className="footer">
+            <p className="date">
+              {task?.isComplete ? "Completed " : "Created "} {dateStr}
+            </p>
+          </div>
         </div>
       </div>
     );
   } else return <></>;
+
+  function formattedDate(date: Date) {
+    const currentYear = new Date().getFullYear();
+    return (
+      `${date.getDate()} ${date.toLocaleString("en", {
+        month: "short",
+      })} ` +
+      (currentYear !== date.getFullYear()
+        ? date.getFullYear().toString()
+        : `· ${date?.getHours().toString().padStart(2, "0")}:${date
+            ?.getMinutes()
+            .toString()
+            .padStart(2, "0")}`)
+    );
+  }
 };
 
 export default RightPanel;

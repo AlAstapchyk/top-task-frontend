@@ -305,8 +305,6 @@ export const TimeSvg: ISvg = (props) => {
     <svg
       className="time"
       fill="white"
-      // stroke="white"
-      // color="white"
       width="20px"
       height="20px"
       viewBox="1 1 22 22"

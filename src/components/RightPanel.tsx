@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   PriorityLevel,
@@ -15,6 +15,8 @@ import InputFieldPlain from "./InputFieldPlain";
 import InputFieldDecorated from "./InputFieldDecorated";
 import PrioritySelector from "./PrioritySelector";
 import { ThreeDotsSvg, TimeSvg } from "../../public/assets/svgs";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
@@ -25,14 +27,15 @@ const RightPanel = () => {
 
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
-  // const [createdAt, setCreatedAt] = useState<Date>();
-  // const [completedAt, setCompletedAt] = useState<Date>();
   const [dateStr, setDateStr] = useState<string | undefined>(""); // completed or created at
 
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [isDueDateOpen, setIsDueDateOpen] = useState<boolean>(false);
+
+  const dueDateInputRef = useRef<DatePicker>(null);
+  const dueDateButtonRef = useRef<HTMLButtonElement>(null);
+  const [selectedDueDate, setSelectedDate] = useState<Date | null>(null);
 
   const closeRightPanel = () => {
     dispatch(setRightPanelType({ type: RightPanelType.close }));
@@ -74,8 +77,26 @@ const RightPanel = () => {
     console.log(newTask);
     dispatch(editTask({ task: newTask }));
   };
-  const dueDateOnClick = () => {
-    setIsDueDateOpen(!isDueDateOpen);
+  const dueDateOnChange = (date: Date) => {
+    setSelectedDate(date);
+  };
+
+  const SetDueDateButton = ({ value, onClick }: any, ref: any) => {
+    const [isDueDateOpen, setIsDueDateOpen] = useState<boolean>(false);
+    const dueDateOnClick = () => {
+      if (dueDateInputRef.current) {
+        dueDateInputRef.current.setOpen(!isDueDateOpen);
+      }
+      setIsDueDateOpen(!isDueDateOpen);
+    };
+    return (
+      <button className="date" onClick={dueDateOnClick} ref={dueDateButtonRef}>
+        <TimeSvg />
+        <p className="due">
+          {task?.due ? task?.due.toDateString() : "Set due"}
+        </p>
+      </button>
+    );
   };
 
   useEffect(() => {
@@ -110,13 +131,17 @@ const RightPanel = () => {
               <line x1="30" y1="10" x2="70" y2="50" className="line-1" />
               <line x1="70" y1="50" x2="30" y2="90" className="line-2" />
             </svg>
-            <div className="date" onClick={dueDateOnClick}>
-              <TimeSvg />
-              <p className="due">
-                {task?.due ? task?.due.toDateString() : "Set due"}
-              </p>
-            </div>
-            {isDueDateOpen === true && <input type="date"></input>}
+
+            <DatePicker
+              className="due-datepicker"
+              selected={selectedDueDate}
+              onChange={dueDateOnChange}
+              customInput={<SetDueDateButton />}
+              ref={dueDateInputRef}
+              popperPlacement="bottom"
+              closeOnScroll={true}
+            />
+
             <ThreeDotsSvg height={20} width={20} />
           </div>
 
@@ -130,7 +155,6 @@ const RightPanel = () => {
                   value={title}
                   onChange={titleOnChange}
                 />
-
                 <PrioritySelector
                   priority={task?.priority}
                   priorityOnChange={priorityOnChange}

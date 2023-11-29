@@ -14,6 +14,7 @@ import SubtaskList from "./SubtaskList";
 import InputFieldPlain from "./InputFieldPlain";
 import InputFieldDecorated from "./InputFieldDecorated";
 import PrioritySelector from "./PrioritySelector";
+import { ThreeDotsSvg, TimeSvg } from "../../public/assets/svgs";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
@@ -30,6 +31,8 @@ const RightPanel = () => {
 
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [isDueDateOpen, setIsDueDateOpen] = useState<boolean>(false);
 
   const closeRightPanel = () => {
     dispatch(setRightPanelType({ type: RightPanelType.close }));
@@ -71,6 +74,9 @@ const RightPanel = () => {
     console.log(newTask);
     dispatch(editTask({ task: newTask }));
   };
+  const dueDateOnClick = () => {
+    setIsDueDateOpen(!isDueDateOpen);
+  };
 
   useEffect(() => {
     setTitle(task?.title);
@@ -104,8 +110,14 @@ const RightPanel = () => {
               <line x1="30" y1="10" x2="70" y2="50" className="line-1" />
               <line x1="70" y1="50" x2="30" y2="90" className="line-2" />
             </svg>
-            <div className="list"></div>
-            <div className="date"></div>
+            <div className="date" onClick={dueDateOnClick}>
+              <TimeSvg />
+              <p className="due">
+                {task?.due ? task?.due.toDateString() : "Set due"}
+              </p>
+            </div>
+            {isDueDateOpen === true && <input type="date"></input>}
+            <ThreeDotsSvg height={20} width={20} />
           </div>
 
           <div className="scroll-container">

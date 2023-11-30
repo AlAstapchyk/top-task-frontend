@@ -109,7 +109,7 @@ const RightPanel = () => {
               <line x1="70" y1="50" x2="30" y2="90" className="line-2" />
             </svg>
 
-            <SetDueButton task={task} onChange={dueButtonOnClick} initialDate={task?.due ?? null} key={task?.id}/>
+            <SetDueButton onChange={dueButtonOnClick} initialDate={task?.due ?? null} key={task?.id}/>
 
             <ThreeDotsSvg height={20} width={20} />
           </div>

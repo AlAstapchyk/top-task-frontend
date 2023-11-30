@@ -9,7 +9,7 @@ export interface Subtask {
 export type PriorityLevel = "A" | "B" | "C" | "D" | "E";
 
 export interface Task {
-  id: number;
+  id: Readonly<number>;
   priorityPosition: number;
   title: string;
   createdAt: Date;
@@ -29,7 +29,7 @@ const initialState: Task[] = [
       "Conduct critical systems checks on the Mars Rover to ensure its continued operation",
     createdAt: new Date("2023-10-01T09:10:00.703413Z"),
     completedAt: null,
-    due: null,
+    due: new Date("2023-12-12T23:00:00.000Z"),
     subtasks: [
       {
         id: 1,
@@ -243,27 +243,20 @@ const taskSlice = createSlice({
         : null;
       state[taskIndex].isComplete = action.payload.isComplete;
     },
-    deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
-      const currentTask = state.find((task) => task.id === action.payload.id);
-      if (!currentTask) return state;
-
-      const newState = state.map((task) => ({
-        ...task,
-        priorityPosition:
-          task.id !== currentTask.id &&
-          task.priority === currentTask.priority &&
-          task.priorityPosition > currentTask.priorityPosition
-            ? task.priorityPosition - 1
-            : task.priorityPosition,
-      }));
-
-      return newState.filter((task) => task.id !== action.payload.id);
-    },
     editTask: (state: Task[], action: PayloadAction<{ task: Task }>) => {
       const taskIndex = state.findIndex(
         (task) => task.id === action.payload.task.id
       );
       state[taskIndex] = action.payload.task;
+    },
+    setDueTask: (
+      state: Task[],
+      action: PayloadAction<{ id: number; newDate: Date | null }>
+    ) => {
+      const taskIndex = state.findIndex(
+        (task) => task.id === action.payload.id
+      );
+      state[taskIndex].due = action.payload.newDate;
     },
     setPriorityPositionTask: (
       state: Task[],
@@ -326,6 +319,22 @@ const taskSlice = createSlice({
           currentTask.priority = action.payload.newPriority;
       }
     },
+    deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
+      const currentTask = state.find((task) => task.id === action.payload.id);
+      if (!currentTask) return state;
+
+      const newState = state.map((task) => ({
+        ...task,
+        priorityPosition:
+          task.id !== currentTask.id &&
+          task.priority === currentTask.priority &&
+          task.priorityPosition > currentTask.priorityPosition
+            ? task.priorityPosition - 1
+            : task.priorityPosition,
+      }));
+
+      return newState.filter((task) => task.id !== action.payload.id);
+    },
     addSubtask: (
       state: Task[],
       action: PayloadAction<{
@@ -377,8 +386,9 @@ const taskSlice = createSlice({
 export const {
   addTask,
   completeTask,
-  deleteTask,
   editTask,
+  setDueTask,
+  deleteTask,
   addSubtask,
   completeSubtask,
   deleteSubtask,

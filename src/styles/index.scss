@@ -216,40 +216,10 @@ code {
             stroke: white;
           }
         }
-        button.date {
-          position: relative;
-          display: flex;
-          margin-inline: auto;
-          align-items: center;
-          justify-content: center;
-          // margin-inline: 1.5rem;
-          padding: var(--border-radius-1);
-          height: 1.75rem;
-          border-radius: var(--border-radius-1);
-          border: none;
-          background-color: var(--color-3);
-          cursor: pointer;
 
-          &:hover {
-            background-color: var(--color-1);
-            p.due {
-              color: white;
-            }
-            svg {
-              fill: white;
-              margin-right: 0.5rem;
-            }
-          }
-          p.due {
-            color: var(--color-5);
-          }
-          svg {
-            fill: var(--color-5);
-            margin-right: 0.5rem;
-          }
-        }
         svg.three-dots {
           fill: var(--color-5);
+          justify-self: right;
           cursor: pointer;
           &:hover {
             fill: white;

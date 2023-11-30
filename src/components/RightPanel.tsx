@@ -4,6 +4,7 @@ import {
   PriorityLevel,
   Task,
   editTask,
+  setDueTask,
   setPriorityPositionTask,
 } from "../redux/taskSlice";
 import { RightPanelType, setRightPanelType } from "../redux/RightPanelSlice";
@@ -14,6 +15,8 @@ import SubtaskList from "./SubtaskList";
 import InputFieldPlain from "./InputFieldPlain";
 import InputFieldDecorated from "./InputFieldDecorated";
 import PrioritySelector from "./PrioritySelector";
+import { ThreeDotsSvg } from "../../public/assets/svgs";
+import SetDueButton from "./SetDueButton";
 
 const RightPanel = () => {
   const dispatch = useAppDispatch();
@@ -24,8 +27,6 @@ const RightPanel = () => {
 
   const [title, setTitle] = useState<string>();
   const [description, setDescription] = useState<string>();
-  // const [createdAt, setCreatedAt] = useState<Date>();
-  // const [completedAt, setCompletedAt] = useState<Date>();
   const [dateStr, setDateStr] = useState<string | undefined>(""); // completed or created at
 
   const rightPanelRef = useRef<HTMLDivElement>(null);
@@ -71,6 +72,9 @@ const RightPanel = () => {
     console.log(newTask);
     dispatch(editTask({ task: newTask }));
   };
+  const dueButtonOnClick = (date: Date | null) => {
+    if (task?.id) dispatch(setDueTask({ id: task.id, newDate: date }));
+  };
 
   useEffect(() => {
     setTitle(task?.title);
@@ -104,8 +108,10 @@ const RightPanel = () => {
               <line x1="30" y1="10" x2="70" y2="50" className="line-1" />
               <line x1="70" y1="50" x2="30" y2="90" className="line-2" />
             </svg>
-            <div className="list"></div>
-            <div className="date"></div>
+
+            <SetDueButton onChange={dueButtonOnClick} initialDate={task?.due ?? null} key={task?.id}/>
+
+            <ThreeDotsSvg height={20} width={20} />
           </div>
 
           <div className="scroll-container">
@@ -118,7 +124,6 @@ const RightPanel = () => {
                   value={title}
                   onChange={titleOnChange}
                 />
-
                 <PrioritySelector
                   priority={task?.priority}
                   priorityOnChange={priorityOnChange}

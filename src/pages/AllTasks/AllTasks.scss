@@ -74,9 +74,11 @@ div.all-tasks {
               @extend .end-ellipsis;
             }
             svg.hamburger {
+              width: 1.25rem;
+              height: 1.25rem;
               margin-left: auto;
               padding-right: 1rem;
-              fill: var(--color-1);
+              fill: var(--color-5);
               cursor: pointer;
             }
           }

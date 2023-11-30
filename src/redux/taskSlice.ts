@@ -9,11 +9,12 @@ export interface Subtask {
 export type PriorityLevel = "A" | "B" | "C" | "D" | "E";
 
 export interface Task {
-  id: number;
+  id: Readonly<number>;
   priorityPosition: number;
   title: string;
   createdAt: Date;
   completedAt: Date | null;
+  due: Date | null;
   subtasks: Subtask[];
   description: string;
   isComplete: boolean;
@@ -28,6 +29,7 @@ const initialState: Task[] = [
       "Conduct critical systems checks on the Mars Rover to ensure its continued operation",
     createdAt: new Date("2023-10-01T09:10:00.703413Z"),
     completedAt: null,
+    due: new Date("2023-12-12T23:00:00.000Z"),
     subtasks: [
       {
         id: 1,
@@ -51,6 +53,7 @@ const initialState: Task[] = [
     title: "Collaborate on ISS technical issue resolution",
     createdAt: new Date("2023-10-01T09:11:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -62,6 +65,7 @@ const initialState: Task[] = [
     title: "Analyze Hubble Telescope data for study targets",
     createdAt: new Date("2023-10-01T09:12:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -73,6 +77,7 @@ const initialState: Task[] = [
     title: "Lead risk assessment for spacewalk mission",
     createdAt: new Date("2023-10-01T09:13:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -84,6 +89,7 @@ const initialState: Task[] = [
     title: "Breakfast",
     createdAt: new Date("1969-09-02T07:00:00Z"),
     completedAt: new Date("1970-09-02T08:00:00Z"),
+    due: null,
     subtasks: [],
     description: "<i>Cześć</i>",
     isComplete: true,
@@ -95,6 +101,7 @@ const initialState: Task[] = [
     title: "Calibrate James Webb Telescope instruments",
     createdAt: new Date("2023-10-01T09:15:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -106,6 +113,7 @@ const initialState: Task[] = [
     title: "Develop astronaut training procedures",
     createdAt: new Date("2023-10-01T09:16:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -117,6 +125,7 @@ const initialState: Task[] = [
     title: "Review colleague's space research paper",
     createdAt: new Date("2023-10-01T09:17:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -128,6 +137,7 @@ const initialState: Task[] = [
     title: "Update Lunar Gateway maintenance docs",
     createdAt: new Date("2023-10-01T09:18:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -139,6 +149,7 @@ const initialState: Task[] = [
     title: "Join weekly research project team meeting",
     createdAt: new Date("2023-10-01T09:19:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -150,6 +161,7 @@ const initialState: Task[] = [
     title: " Handle urgent emails and communications",
     createdAt: new Date("2023-10-01T09:20:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -161,6 +173,7 @@ const initialState: Task[] = [
     title: " Complete admin tasks, report submission",
     createdAt: new Date("2023-11-01T09:10:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -172,6 +185,7 @@ const initialState: Task[] = [
     title: "Set up lab equipment for testing",
     createdAt: new Date("2023-11-01T10:15:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -183,6 +197,7 @@ const initialState: Task[] = [
     title: "Attend safety training, ensure compliance",
     createdAt: new Date("2023-11-01T11:20:00.703413Z"),
     completedAt: null,
+    due: null,
     subtasks: [],
     description: "",
     isComplete: false,
@@ -208,10 +223,11 @@ const taskSlice = createSlice({
         title: action.payload.title,
         createdAt: new Date(),
         completedAt: null,
+        due: null,
         subtasks: [],
         description: "",
         isComplete: false,
-        priority: action.payload.priority ? action.payload.priority : "A",
+        priority: action.payload.priority ?? "A",
       };
       state.push(newTask);
     },
@@ -227,27 +243,20 @@ const taskSlice = createSlice({
         : null;
       state[taskIndex].isComplete = action.payload.isComplete;
     },
-    deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
-      const currentTask = state.find((task) => task.id === action.payload.id);
-      if (!currentTask) return state;
-
-      const newState = state.map((task) => ({
-        ...task,
-        priorityPosition:
-          task.id !== currentTask.id &&
-          task.priority === currentTask.priority &&
-          task.priorityPosition > currentTask.priorityPosition
-            ? task.priorityPosition - 1
-            : task.priorityPosition,
-      }));
-
-      return newState.filter((task) => task.id !== action.payload.id);
-    },
     editTask: (state: Task[], action: PayloadAction<{ task: Task }>) => {
       const taskIndex = state.findIndex(
         (task) => task.id === action.payload.task.id
       );
       state[taskIndex] = action.payload.task;
+    },
+    setDueTask: (
+      state: Task[],
+      action: PayloadAction<{ id: number; newDate: Date | null }>
+    ) => {
+      const taskIndex = state.findIndex(
+        (task) => task.id === action.payload.id
+      );
+      state[taskIndex].due = action.payload.newDate;
     },
     setPriorityPositionTask: (
       state: Task[],
@@ -310,6 +319,22 @@ const taskSlice = createSlice({
           currentTask.priority = action.payload.newPriority;
       }
     },
+    deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
+      const currentTask = state.find((task) => task.id === action.payload.id);
+      if (!currentTask) return state;
+
+      const newState = state.map((task) => ({
+        ...task,
+        priorityPosition:
+          task.id !== currentTask.id &&
+          task.priority === currentTask.priority &&
+          task.priorityPosition > currentTask.priorityPosition
+            ? task.priorityPosition - 1
+            : task.priorityPosition,
+      }));
+
+      return newState.filter((task) => task.id !== action.payload.id);
+    },
     addSubtask: (
       state: Task[],
       action: PayloadAction<{
@@ -361,8 +386,9 @@ const taskSlice = createSlice({
 export const {
   addTask,
   completeTask,
-  deleteTask,
   editTask,
+  setDueTask,
+  deleteTask,
   addSubtask,
   completeSubtask,
   deleteSubtask,

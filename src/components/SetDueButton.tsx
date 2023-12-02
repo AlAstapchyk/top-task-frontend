@@ -11,7 +11,7 @@ interface SetDueButtonProps {
 }
 const SetDueButton = forwardRef(({ value, onClick }: any, ref: any) => {
   const date = value ? new Date(value) : null;
-  // -2 date is null; -1 past; 0 today; 1 tomorrow; 2 future
+  // null date is null; -1 past; 0 today; 1 tomorrow; 2 future
   const key = date ? compareWithToday(date) : null;
   const dueClass = key !== null ? dueByKey(key) : "";
   const pText = date ? pTextByKey(date, key) : "Set due";
@@ -30,13 +30,13 @@ const DueDatePicker: React.FC<SetDueButtonProps> = ({
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
 
-  const clearOnclick = () => {
-    setIsDatePickerOpen(true);
+  const clearOnclick = (e: any) => {
+    setIsDatePickerOpen(false);
     onChange(null);
     setSelectedDate(null);
   };
   const todayOnclick = (date: Date) => {
-    setIsDatePickerOpen(true);
+    setIsDatePickerOpen(false);
     onChange(date);
     setSelectedDate(date);
   };
@@ -45,7 +45,12 @@ const DueDatePicker: React.FC<SetDueButtonProps> = ({
     <DatePicker
       calendarClassName="react-datepicker"
       selected={selectedDate}
-      onChange={(date) => date && (setSelectedDate(date), onChange(date))}
+      onChange={(date) =>
+        date &&
+        (setSelectedDate(date),
+        setIsDatePickerOpen(!isDatePickerOpen),
+        onChange(date))
+      }
       customInput={<SetDueButton />}
       showPopperArrow={false}
       popperPlacement="auto"
@@ -53,10 +58,9 @@ const DueDatePicker: React.FC<SetDueButtonProps> = ({
       disabledKeyboardNavigation
       wrapperClassName="set-due-wrapper"
       open={isDatePickerOpen}
-      onCalendarOpen={() => setIsDatePickerOpen(true)}
-      onCalendarClose={() => setIsDatePickerOpen(false)}
+      onInputClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
     >
-      <button className="clear" onClick={() => clearOnclick()}>
+      <button className="clear" onClick={(e) => clearOnclick(e)}>
         Clear
       </button>
       <button className="today" onClick={() => todayOnclick(new Date())}>
@@ -69,9 +73,9 @@ const DueDatePicker: React.FC<SetDueButtonProps> = ({
 function compareWithToday(date: Date) {
   const today = new Date();
 
-  if (isToday(date)) return 0; // Today
-  if (isTomorrow(date)) return 1; // Tomorrow
-  return compareAsc(date, today) < 0 ? -1 : 2; // Past or Future
+  if (isToday(date)) return 0;
+  if (isTomorrow(date)) return 1;
+  return compareAsc(date, today) < 0 ? -1 : 2;
 }
 
 function dueByKey(key: number | null) {

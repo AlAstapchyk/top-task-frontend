@@ -6,14 +6,14 @@ import { compareAsc, format, isToday, isTomorrow } from "date-fns";
 import "../styles/set-due-button.scss";
 
 interface SetDueButtonProps {
-  onChange: (date: Date) => void;
+  onChange: (date: Date | null) => void;
   initialDate: Date | null;
 }
-const SetDueDateButton = forwardRef(({ value, onClick }: any, ref: any) => {
+const SetDueButton = forwardRef(({ value, onClick }: any, ref: any) => {
   const date = value ? new Date(value) : null;
-  // -2 date is null; -1 past; 0 today; 1 tomorrow; 2 future
-  const key = date ? compareWithToday(date) : -2;
-  const dueClass = key !== -2 ? dueByKey(key) : "";
+  // null date is null; -1 past; 0 today; 1 tomorrow; 2 future
+  const key = date ? compareWithToday(date) : null;
+  const dueClass = key !== null ? dueByKey(key) : "";
   const pText = date ? pTextByKey(date, key) : "Set due";
   return (
     <button className={`date ${dueClass}`} onClick={onClick} ref={ref}>
@@ -23,41 +23,62 @@ const SetDueDateButton = forwardRef(({ value, onClick }: any, ref: any) => {
   );
 });
 
-const SetDueButton: React.FC<SetDueButtonProps> = ({
+const DueDatePicker: React.FC<SetDueButtonProps> = ({
   onChange,
   initialDate,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
 
+  const clearOnclick = (e: any) => {
+    setIsDatePickerOpen(false);
+    onChange(null);
+    setSelectedDate(null);
+  };
+  const todayOnclick = (date: Date) => {
+    setIsDatePickerOpen(false);
+    onChange(date);
+    setSelectedDate(date);
+  };
+
   return (
     <DatePicker
       calendarClassName="react-datepicker"
       selected={selectedDate}
-      onChange={(date) => date && (setSelectedDate(date), onChange(date))}
-      customInput={<SetDueDateButton />}
+      onChange={(date) =>
+        date &&
+        (setSelectedDate(date),
+        setIsDatePickerOpen(!isDatePickerOpen),
+        onChange(date))
+      }
+      customInput={<SetDueButton />}
       showPopperArrow={false}
       popperPlacement="auto"
       closeOnScroll={true}
       disabledKeyboardNavigation
-      todayButton="Set Today"
       wrapperClassName="set-due-wrapper"
       open={isDatePickerOpen}
-      onCalendarOpen={() => setIsDatePickerOpen(true)}
-      onCalendarClose={() => setIsDatePickerOpen(false)}
-    />
+      onInputClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+    >
+      <button className="clear" onClick={(e) => clearOnclick(e)}>
+        Clear
+      </button>
+      <button className="today" onClick={() => todayOnclick(new Date())}>
+        Set Today
+      </button>
+    </DatePicker>
   );
 };
 
 function compareWithToday(date: Date) {
   const today = new Date();
 
-  if (isToday(date)) return 0; // Today
-  if (isTomorrow(date)) return 1; // Tomorrow
-  return compareAsc(date, today) < 0 ? -1 : 2; // Past or Future
+  if (isToday(date)) return 0;
+  if (isTomorrow(date)) return 1;
+  return compareAsc(date, today) < 0 ? -1 : 2;
 }
 
-function dueByKey(key: number) {
+function dueByKey(key: number | null) {
   return key === 0
     ? "today"
     : key === 1
@@ -67,7 +88,7 @@ function dueByKey(key: number) {
     : "future";
 }
 
-function pTextByKey(date: Date, key: number) {
+function pTextByKey(date: Date, key: number | null) {
   return key === 0
     ? "Today"
     : key === 1
@@ -82,4 +103,4 @@ function isSameYear(date1: Date, date2: Date) {
   return date1.getFullYear() === date2.getFullYear();
 }
 
-export default SetDueButton;
+export default DueDatePicker;

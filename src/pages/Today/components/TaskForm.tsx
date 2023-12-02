@@ -2,13 +2,7 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { PriorityLevel, addTask } from "../../../redux/taskSlice";
 import PrioritySelector from "../../../components/PrioritySelector";
-
-const plusSvg = (
-  <svg className="plus" viewBox="0 0 16 16" stroke="#FFF" strokeWidth="2">
-    <line x1="8" y1="1" x2="8" y2="15" strokeLinecap="round" />
-    <line x1="1" y1="8" x2="15" y2="8" strokeLinecap="round" />
-  </svg>
-);
+import { PlusSvg } from "../../../../public/assets/svgs";
 
 const TaskForm = () => {
   const dispatch = useAppDispatch();
@@ -45,11 +39,11 @@ const TaskForm = () => {
     <div className="add-task card">
       <form className={"task-form " + priority} onSubmit={onSubmit}>
         <button className="add-task" type="submit">
-          {plusSvg}
+          <PlusSvg />
         </button>
         <input
           type="text"
-          placeholder="Add task"
+          placeholder="Add task due today"
           value={value}
           onChange={onChange}
         />

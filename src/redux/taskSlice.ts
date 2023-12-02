@@ -211,23 +211,27 @@ const taskSlice = createSlice({
   reducers: {
     addTask: (
       state: Task[],
-      action: PayloadAction<{ title: string; priority: PriorityLevel }>
+      action: PayloadAction<{
+        title: string;
+        taskProps: Partial<Task>;
+      }>
     ) => {
+      const priority = action.payload.taskProps.priority;
       state.forEach(
-        (task) =>
-          task.priority === action.payload.priority && task.priorityPosition++
+        (task) => task.priority === (priority ?? "A") && task.priorityPosition++
       );
+
       const newTask: Task = {
         id: Date.now(),
         priorityPosition: 1,
         title: action.payload.title,
         createdAt: new Date(),
-        completedAt: null,
-        due: null,
+        completedAt: action.payload.taskProps.completedAt ?? null,
+        due: action.payload.taskProps.due ?? null,
         subtasks: [],
         description: "",
         isComplete: false,
-        priority: action.payload.priority ?? "A",
+        priority: priority ?? "A",
       };
       state.push(newTask);
     },

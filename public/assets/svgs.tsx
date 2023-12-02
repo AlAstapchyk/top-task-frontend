@@ -317,6 +317,14 @@ export const TimeSvg: ISvg = (props) => {
     </svg>
   );
 };
+export const PlusSvg: ISvg = (props) => {
+  return (
+    <svg className="plus" viewBox="0 0 16 16" stroke="white" strokeWidth="2" {...props}>
+      <line x1="8" y1="1" x2="8" y2="15" strokeLinecap="round" />
+      <line x1="1" y1="8" x2="15" y2="8" strokeLinecap="round" />
+    </svg>
+  );
+};
 
 export const VerticalPriorityGradient: React.FC = () => (
   <defs>

@@ -136,7 +136,7 @@ div.priority-selector {
     border-radius: var(--border-radius-1);
     background-color: var(--color-2);
     box-shadow: var(--shadow-1);
-    transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
 
     &.to-bottom {
       transform: scale(0) translateY(0);

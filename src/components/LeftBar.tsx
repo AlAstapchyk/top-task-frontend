@@ -11,6 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setLeftPanelIsOpen, setSearchValue } from "../redux/LeftBarSlice";
 import { useState, useRef, useEffect } from "react";
+import { compareAsc, format, isToday, isTomorrow } from "date-fns";
 
 const LeftBar: React.FC = () => {
   const leftPanel = useAppSelector((state) => state.leftBar);
@@ -72,9 +73,9 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>All tasks</p>
-                <div className="counter">
-                  <span>{tasks.filter((task) => !task.isComplete).length}</span>
-                </div>
+                <Counter
+                  value={tasks.filter((task) => !task.isComplete).length}
+                />
               </>
             )}
           </div>
@@ -87,9 +88,13 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>Today</p>
-                <div className="counter">
-                  <span>2</span>
-                </div>
+                <Counter
+                  value={
+                    tasks?.filter(
+                      (task) => task.due !== null && isToday(task.due)
+                    )?.length
+                  }
+                />
               </>
             )}
           </div>
@@ -100,9 +105,7 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>Upcoming</p>
-                <div className="counter">
-                  <span>2</span>
-                </div>
+                <Counter value={99} />
               </>
             )}
           </div>
@@ -113,9 +116,9 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>Completed</p>
-                <div className="counter">
-                  <span>{tasks.filter((task) => task.isComplete).length}</span>
-                </div>
+                <Counter
+                  value={tasks.filter((task) => task.isComplete).length}
+                />
               </>
             )}
           </div>
@@ -123,7 +126,6 @@ const LeftBar: React.FC = () => {
       </div>
       <div className="profile">
         <div className="profile-picture"></div>
-        {/* <img alt="Profile picture"></img> */}
         {leftPanel.isOpen && (
           <div className="info">
             <p className="name">Aliaksandr Astapchyk</p>
@@ -133,5 +135,14 @@ const LeftBar: React.FC = () => {
       </div>
     </div>
   );
+
+  function Counter({ value }: { value: number }) {
+    if (value)
+      return (
+        <div className="counter">
+          <span>{value}</span>
+        </div>
+      );
+  }
 };
 export default LeftBar;

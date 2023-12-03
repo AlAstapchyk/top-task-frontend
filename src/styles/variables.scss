@@ -175,6 +175,22 @@ div.priority-selector {
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
 }
+div.scroll-container {
+  &::-webkit-scrollbar {
+    left: 0;
+    width: var(--border-radius-1);
+    height: var(--border-radius-1);
+    padding: 0rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(#000000, 0);
+  }
+  &::-webkit-scrollbar-thumb {
+    width: var(--border-radius-1);
+    background-color: var(--color-3);
+    border-radius: 4px;
+  }
+}
 
 $colors: (
   A: var(--color-a),

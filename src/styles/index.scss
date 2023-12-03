@@ -1,5 +1,8 @@
 @import "./variables.scss";
 
+html {
+  overflow: hidden;
+}
 body {
   margin: 0;
   background-color: var(--color-1);
@@ -26,6 +29,7 @@ code {
     var(--color-1) 85%,
     var(--color-3) 110%
   );
+  overflow: hidden;
 
   .leftbar {
     display: flex;
@@ -179,7 +183,8 @@ code {
   .main-view {
     height: 100vh;
     flex-grow: 1;
-    padding-inline: var(--padding-1);
+    overflow: hidden;
+    white-space: nowrap;
   }
   .right-panel {
     min-width: 18rem;

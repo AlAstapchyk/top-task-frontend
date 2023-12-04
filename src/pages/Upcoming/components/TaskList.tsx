@@ -8,7 +8,7 @@ import { HamburgerSvg } from "../../../../public/assets/svgs";
 
 interface TaskListProps {
   dateNum: number;
-  tasks: Task[];
+  tasks: Task[] | [];
   initialIsOpen?: boolean;
 }
 const TaskList: React.FC<TaskListProps> = ({
@@ -17,27 +17,27 @@ const TaskList: React.FC<TaskListProps> = ({
   initialIsOpen,
 }: TaskListProps) => {
   const rightPanel = useAppSelector((state) => state.rightPanel);
-  const [isOpen, setIsOpen] = useState<boolean>(initialIsOpen !== false);
 
   return (
     <div className="task-list">
       <div className="list-header">
         <p className="task-list-title">{dateNum}</p>
-        {tasks.length !== 0 && (
-          <HamburgerSvg
-            className="hamburger collapse-list"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        )}
       </div>
 
-      <Droppable droppableId={dateNum || ""}>
-        {(provided) => (
-          <ul ref={provided.innerRef} {...provided.droppableProps}>
-            {isOpen &&
-              tasks
-                // .filter((task) => task.priority === `${dateName}`)
-                .sort((a, b) => a.priorityPosition - b.priorityPosition)
+      <div className="scroll-container">
+        <Droppable droppableId={dateNum.toString() ?? ""}>
+          {(provided) => (
+            <ul
+              ref={provided.innerRef}
+              className="scroll-content"
+              {...provided.droppableProps}
+            >
+              {tasks
+                .filter(
+                  (task) =>
+                    task.due &&
+                    task.due.getDate() - dateNum === new Date().getDate()
+                )
                 .map((task, index) => (
                   <Draggable
                     key={task.id}
@@ -66,10 +66,11 @@ const TaskList: React.FC<TaskListProps> = ({
                     )}
                   </Draggable>
                 ))}
-            {provided.placeholder}
-          </ul>
-        )}
-      </Droppable>
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </div>
     </div>
   );
 };

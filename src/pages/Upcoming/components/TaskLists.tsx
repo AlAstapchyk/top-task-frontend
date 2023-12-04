@@ -1,17 +1,36 @@
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import {
-  PriorityLevel,
-  setPriorityPositionTask,
-} from "../../../redux/taskSlice";
+import { Task, setDueTask } from "../../../redux/taskSlice";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 
 const TaskLists = () => {
-  const uncompletedTasks = useAppSelector((state) => state.tasks).filter(
-    (task) => !task.isComplete
-  );
+  const tasks = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
+  const [sortedTasks, setSortedTasks] = useState<Task[] | []>();
+
+  useEffect(() => {
+    const sortedTasks = [
+      ...tasks
+        .filter((task) => task.priority === "A")
+        .sort((a, b) => a.priorityPosition - b.priorityPosition),
+      ,
+      ...tasks
+        .filter((task) => task.priority === "B")
+        .sort((a, b) => a.priorityPosition - b.priorityPosition),
+      ...tasks
+        .filter((task) => task.priority === "C")
+        .sort((a, b) => a.priorityPosition - b.priorityPosition),
+      ...tasks
+        .filter((task) => task.priority === "D")
+        .sort((a, b) => a.priorityPosition - b.priorityPosition),
+      ...tasks
+        .filter((task) => task.priority === "E")
+        .sort((a, b) => a.priorityPosition - b.priorityPosition),
+    ];
+    setSortedTasks(sortedTasks as Task[]);
+  }, [tasks]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;
@@ -29,21 +48,17 @@ const TaskLists = () => {
       return;
     }
 
+    if (!sortedTasks?.length) return;
     // Reorder the items array based on the drag and drop result
     const draggableIdNum = Number(draggableId);
-    const taskDraggable = uncompletedTasks.find(
+    const taskDraggable = sortedTasks.find(
       (task) => task.id === draggableIdNum
     );
     if (taskDraggable) {
       const destinationPosition = destination.index + 1;
-
-      dispatch(
-        setPriorityPositionTask({
-          id: draggableIdNum,
-          newPosition: destinationPosition,
-          newPriority: destination.droppableId as PriorityLevel,
-        })
-      );
+      const newDate = new Date();
+      newDate.setDate(new Date().getDate() - draggableIdNum);
+      dispatch(setDueTask({ id: taskDraggable.id, newDate: newDate }));
     }
   };
 
@@ -51,107 +66,35 @@ const TaskLists = () => {
     <div className="task-lists scroll-content">
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={-1}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={-1} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={0}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={0} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={1}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={1} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={2}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={2} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={3}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={3} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={4}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={4} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={5}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={5} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
         <div className="card">
-          <div className="scroll-container">
-            <div className="scroll-content">
-              <TaskList
-                dateNum={6}
-                tasks={uncompletedTasks.sort(
-                  (a, b) => a.priorityPosition - b.priorityPosition
-                )}
-              />
-            </div>
-          </div>
+          <TaskList dateNum={6} tasks={sortedTasks ?? []} />
           <TaskForm />
         </div>
       </DragDropContext>

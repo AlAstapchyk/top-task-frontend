@@ -180,15 +180,21 @@ code {
       }
     }
   }
+  .page {
+    padding-inline: 1rem;
+  }
   .main-view {
     height: 100vh;
     flex-grow: 1;
     overflow: hidden;
-    white-space: nowrap;
+    min-width: 24rem;
+    flex-shrink: 9999;
   }
   .right-panel {
+    z-index: 20;
     min-width: 18rem;
     width: 25rem;
+
     input::placeholder {
       color: var(--color-5);
     }

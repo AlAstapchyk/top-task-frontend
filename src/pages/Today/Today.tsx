@@ -6,7 +6,7 @@ interface AllTasksProps {}
 
 const AllTasks: React.FC<AllTasksProps> = () => {
   return (
-    <div className="today">
+    <div className="today page">
       <Header/>
       <TaskSection/>
     </div>

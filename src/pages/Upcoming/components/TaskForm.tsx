@@ -4,7 +4,10 @@ import { PriorityLevel, addTask } from "../../../redux/taskSlice";
 import PrioritySelector from "../../../components/PrioritySelector";
 import { PlusSvg } from "../../../../public/assets/svgs";
 
-const TaskForm = () => {
+interface TaskFormProps {
+  dateNum?: number;
+}
+const TaskForm = ({ dateNum }: TaskFormProps) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<string>("");
@@ -17,10 +20,12 @@ const TaskForm = () => {
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (value) {
+      const due = new Date();
+      if (dateNum) due.setDate(due.getDate() + dateNum);
       dispatch(
         addTask({
           title: value,
-          taskProps: { priority: priority, due: new Date() },
+          taskProps: { priority: priority, due: due },
         })
       );
       setValue("");

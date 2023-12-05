@@ -37,7 +37,7 @@ code {
     height: 100vh;
     background-color: var(--color-3);
     box-shadow: var(--shadow-1);
-    z-index: 1;
+    z-index: 5001;
 
     &.open {
       svg.collapse-left {
@@ -191,7 +191,7 @@ code {
     flex-shrink: 9999;
   }
   .right-panel {
-    z-index: 20;
+    z-index: 10000;
     min-width: 18rem;
     width: 25rem;
 

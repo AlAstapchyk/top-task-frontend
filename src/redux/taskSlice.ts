@@ -271,57 +271,68 @@ const taskSlice = createSlice({
       }>
     ) => {
       const currentTask = state.find((task) => task.id === action.payload.id);
-      if (currentTask) {
-        const oldCurrentTaskPosition = currentTask.priorityPosition;
-        const oldCurrentTaskPriority = currentTask.priority;
-        const isDefferentPriority =
-          oldCurrentTaskPriority !== action.payload.newPriority;
-        console.log(action.payload.newPosition);
+      if (!currentTask) return;
 
-        currentTask.priorityPosition = action.payload.newPosition;
+      const oldCurrentTaskPosition = currentTask.priorityPosition;
+      const oldCurrentTaskPriority = currentTask.priority;
+      const isDifferentPriority =
+        action.payload.newPriority !== undefined &&
+        oldCurrentTaskPriority !== action.payload.newPriority;
+      console.log(action.payload.newPosition);
 
-        if (isDefferentPriority) {
+      currentTask.priorityPosition = action.payload.newPosition;
+
+      if (isDifferentPriority) {
+        state
+          .filter((task) => task.priority === oldCurrentTaskPriority)
+          .forEach(
+            (task) =>
+              task.priorityPosition > oldCurrentTaskPosition &&
+              task.id !== action.payload.id &&
+              task.priorityPosition--
+          );
+        state
+          .filter((task) => task.priority === action.payload.newPriority)
+          .forEach(
+            (task) =>
+              task.priorityPosition >= action.payload.newPosition &&
+              task.id !== action.payload.id &&
+              task.priorityPosition++
+          );
+      } else {
+        if (oldCurrentTaskPosition > action.payload.newPosition)
           state
-            .filter((task) => task.priority === oldCurrentTaskPriority)
+            .filter(
+              (task) =>
+                task.priority === action.payload.newPriority ||
+                (action.payload.newPriority === undefined &&
+                  task.priority === oldCurrentTaskPriority)
+            )
             .forEach(
               (task) =>
+                task.priorityPosition >= currentTask.priorityPosition &&
+                task.priorityPosition < oldCurrentTaskPosition &&
+                task.id !== action.payload.id &&
+                task.priorityPosition++
+            );
+        else
+          state
+            .filter(
+              (task) =>
+                task.priority === action.payload.newPriority ||
+                (action.payload.newPriority === undefined &&
+                  task.priority === oldCurrentTaskPriority)
+            )
+            .forEach(
+              (task) =>
+                task.priorityPosition <= currentTask.priorityPosition &&
                 task.priorityPosition > oldCurrentTaskPosition &&
                 task.id !== action.payload.id &&
                 task.priorityPosition--
             );
-          state
-            .filter((task) => task.priority === action.payload.newPriority)
-            .forEach(
-              (task) =>
-                task.priorityPosition >= action.payload.newPosition &&
-                task.id !== action.payload.id &&
-                task.priorityPosition++
-            );
-        } else {
-          if (oldCurrentTaskPosition > action.payload.newPosition)
-            state
-              .filter((task) => task.priority === action.payload.newPriority)
-              .forEach(
-                (task) =>
-                  task.priorityPosition >= currentTask.priorityPosition &&
-                  task.priorityPosition < oldCurrentTaskPosition &&
-                  task.id !== action.payload.id &&
-                  task.priorityPosition++
-              );
-          else
-            state
-              .filter((task) => task.priority === action.payload.newPriority)
-              .forEach(
-                (task) =>
-                  task.priorityPosition <= currentTask.priorityPosition &&
-                  task.priorityPosition > oldCurrentTaskPosition &&
-                  task.id !== action.payload.id &&
-                  task.priorityPosition--
-              );
-        }
-        if (action.payload.newPriority)
-          currentTask.priority = action.payload.newPriority;
       }
+      if (action.payload.newPriority)
+        currentTask.priority = action.payload.newPriority;
     },
     deleteTask: (state: Task[], action: PayloadAction<{ id: number }>) => {
       const currentTask = state.find((task) => task.id === action.payload.id);

@@ -56,7 +56,6 @@ div.upcoming {
 
       div.task-lists.scroll-content {
         width: max-content;
-        position: relative;
         height: calc(100% - 0.25rem);
         padding-inline: 1.5rem;
         display: flex;
@@ -64,6 +63,7 @@ div.upcoming {
         overflow: hidden;
 
         div.card {
+          position: relative;
           display: flex;
           flex-direction: column;
           width: 20rem;
@@ -71,14 +71,11 @@ div.upcoming {
           margin-inline: var(--border-radius-1);
           background-color: var(--color-3);
           box-shadow: none;
-          height: calc(100% - var(--border-radius-1));
+          max-height: calc(100% - var(--border-radius-1));
+          // height: max-content; // to make compressed
 
-          ul {
-            padding: 0;
-            height: 100%;
-          }
           .task-list {
-            height: calc(100% - 6rem);
+            max-height: calc(100% - 7rem);
             display: flex;
             flex-direction: column;
             padding: var(--border-radius-1);
@@ -98,32 +95,34 @@ div.upcoming {
                 padding-left: var(--padding-1);
                 font-weight: bold;
                 @extend .end-ellipsis;
-              }
-              svg.hamburger {
-                // display: none;
-                width: 1.25rem;
-                height: 1.25rem;
-                margin-left: auto;
-                padding-right: 1rem;
-                fill: var(--color-5);
-                cursor: pointer;
+
+                span.overdue {
+                  color: var(--color-red);
+                }
               }
             }
 
             div.scroll-container {
               display: flex;
-              flex-grow: 1;
+              height: 100%;
               flex-shrink: 0;
               flex-direction: column;
               overflow-y: scroll;
               overflow-x: hidden;
-              padding-right: 0.3rem;
+              padding-right: 0.15rem;
+              margin-right: 0.15rem;
 
               &::-webkit-scrollbar {
                 width: 0.2rem;
               }
               &::-webkit-scrollbar-thumb {
-                background-color: var(--color-5);
+                background-color: var(--color-1);
+              }
+
+              ul.scroll-content {
+                margin-top: var(--border-radius-1);
+                padding: 0;
+                height: 100%;
               }
             }
 
@@ -162,6 +161,32 @@ div.upcoming {
                   p.title {
                     text-decoration: line-through;
                   }
+                }
+              }
+
+              &.A {
+                .task-list-title {
+                  color: var(--color-a);
+                }
+              }
+              &.B {
+                .task-list-title {
+                  color: var(--color-b);
+                }
+              }
+              &.C {
+                .task-list-title {
+                  color: var(--color-c);
+                }
+              }
+              &.D {
+                .task-list-title {
+                  color: var(--color-d);
+                }
+              }
+              &.E {
+                .task-list-title {
+                  color: var(--color-e);
                 }
               }
             }

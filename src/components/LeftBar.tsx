@@ -155,6 +155,7 @@ const LeftBar: React.FC = () => {
           <span>{value}</span>
         </div>
       );
+    return <></>;
   }
 };
 export default LeftBar;

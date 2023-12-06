@@ -11,6 +11,7 @@ const TaskLists = () => {
   const [sortedTasks, setSortedTasks] = useState<Task[] | []>();
 
   useEffect(() => {
+    if (!tasks) return;
     const sortedTasks = [
       ...tasks
         .filter((task) => task.priority === "A")

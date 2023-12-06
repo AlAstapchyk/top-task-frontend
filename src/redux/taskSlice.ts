@@ -276,12 +276,8 @@ const taskSlice = createSlice({
       const oldCurrentTaskPosition = currentTask.priorityPosition;
       const oldCurrentTaskPriority = currentTask.priority;
       const isDifferentPriority =
-        action.payload.newPriority !== undefined &&
         oldCurrentTaskPriority !== action.payload.newPriority;
-      console.log(action.payload.newPosition);
-
       currentTask.priorityPosition = action.payload.newPosition;
-
       if (isDifferentPriority) {
         state
           .filter((task) => task.priority === oldCurrentTaskPriority)
@@ -302,12 +298,7 @@ const taskSlice = createSlice({
       } else {
         if (oldCurrentTaskPosition > action.payload.newPosition)
           state
-            .filter(
-              (task) =>
-                task.priority === action.payload.newPriority ||
-                (action.payload.newPriority === undefined &&
-                  task.priority === oldCurrentTaskPriority)
-            )
+            .filter((task) => task.priority === action.payload.newPriority)
             .forEach(
               (task) =>
                 task.priorityPosition >= currentTask.priorityPosition &&
@@ -317,12 +308,7 @@ const taskSlice = createSlice({
             );
         else
           state
-            .filter(
-              (task) =>
-                task.priority === action.payload.newPriority ||
-                (action.payload.newPriority === undefined &&
-                  task.priority === oldCurrentTaskPriority)
-            )
+            .filter((task) => task.priority === action.payload.newPriority)
             .forEach(
               (task) =>
                 task.priorityPosition <= currentTask.priorityPosition &&

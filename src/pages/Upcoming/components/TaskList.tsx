@@ -3,7 +3,8 @@ import { Task } from "../../../redux/taskSlice";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useAppSelector } from "../../../redux/hooks";
 import { RightPanelType } from "../../../redux/RightPanelSlice";
-import { compareAsc, format, isToday, isTomorrow } from "date-fns";
+import { format, isSameYear, isBefore } from "date-fns";
+import { useEffect, useState } from "react";
 
 interface TaskListProps {
   dateNum: number;
@@ -14,6 +15,7 @@ const TaskList: React.FC<TaskListProps> = ({
   tasks,
 }: TaskListProps) => {
   const rightPanel = useAppSelector((state) => state.rightPanel);
+  const [thisDayTasks, setThisDayTasks] = useState<Task[]>();
 
   const dueDate = new Date();
   dueDate.setDate(dueDate.getDate() + dateNum);
@@ -26,6 +28,17 @@ const TaskList: React.FC<TaskListProps> = ({
       : dateNum === 1
       ? "Tomorrow | "
       : "";
+
+  useEffect(() => {
+    const filteredTasks = tasks.filter(
+      (task) =>
+        task.due &&
+        (dateNum < 0
+          ? isDateYesterdayOrEarlier(task.due)
+          : isDateEqualDateNum(task.due, dateNum))
+    );
+    setThisDayTasks(filteredTasks);
+  }, [tasks]);
 
   return (
     <div className="task-list">
@@ -44,6 +57,10 @@ const TaskList: React.FC<TaskListProps> = ({
         </p>
       </div>
 
+      {thisDayTasks && thisDayTasks?.length === 0 && (
+        <p className="no-tasks">No tasks this day</p>
+      )}
+
       <div className="scroll-container">
         <Droppable
           droppableId={dateNum.toString() ?? ""}
@@ -55,15 +72,9 @@ const TaskList: React.FC<TaskListProps> = ({
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {tasks
-                .filter(
-                  (task) =>
-                    task.due &&
-                    (dateNum < 0
-                      ? isDateYesterdayOrEarlier(task.due)
-                      : task.due.getDate() - dateNum === new Date().getDate())
-                )
-                .map((task, index) => (
+              {thisDayTasks &&
+                thisDayTasks?.length !== 0 &&
+                thisDayTasks.map((task, index) => (
                   <Draggable
                     key={task.id}
                     draggableId={task.id.toString()}
@@ -124,12 +135,19 @@ function getStyle(style: any, snapshot: any) {
   };
 }
 
-function isSameYear(date1: Date, date2: Date) {
-  return date1.getFullYear() === date2.getFullYear();
-}
-function isDateYesterdayOrEarlier(date: Date) {
+function isDateYesterdayOrEarlier(date: Date): boolean {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
-  return date <= currentDate;
+  return isBefore(date, currentDate);
+}
+function isDateEqualDateNum(date: Date, dateNum: number): boolean {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + dateNum);
+
+  return (
+    date.getFullYear() === currentDate.getFullYear() &&
+    date.getMonth() === currentDate.getMonth() &&
+    date.getDate() === currentDate.getDate()
+  );
 }

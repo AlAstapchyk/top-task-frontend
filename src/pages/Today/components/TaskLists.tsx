@@ -4,8 +4,8 @@ import {
   setPriorityPositionTask,
 } from "../../../redux/taskSlice";
 import TaskList from "./TaskList";
-import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
-import { compareAsc, format, isToday, isTomorrow } from "date-fns";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { isToday } from "date-fns";
 
 const TaskLists = () => {
   const uncompletedTasks = useAppSelector((state) => state.tasks).filter(

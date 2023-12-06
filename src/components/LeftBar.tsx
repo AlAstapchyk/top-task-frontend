@@ -11,7 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setLeftPanelIsOpen, setSearchValue } from "../redux/LeftBarSlice";
 import { useState, useRef, useEffect } from "react";
-import { compareAsc, format, isToday, isTomorrow } from "date-fns";
+import { isToday } from "date-fns";
 
 const LeftBar: React.FC = () => {
   const leftPanel = useAppSelector((state) => state.leftBar);
@@ -91,7 +91,10 @@ const LeftBar: React.FC = () => {
                 <Counter
                   value={
                     tasks?.filter(
-                      (task) => task.due !== null && isToday(task.due)
+                      (task) =>
+                        task.due !== null &&
+                        isToday(task.due) &&
+                        !task.isComplete
                     )?.length
                   }
                 />
@@ -105,7 +108,16 @@ const LeftBar: React.FC = () => {
             {leftPanel.isOpen && (
               <>
                 <p>Upcoming</p>
-                <Counter value={99} />
+                <Counter
+                  value={
+                    tasks.filter(
+                      (task) =>
+                        !task.isComplete &&
+                        task.due &&
+                        isDateYesterdayOrEarlier(task.due)
+                    ).length
+                  }
+                />
               </>
             )}
           </div>
@@ -146,3 +158,10 @@ const LeftBar: React.FC = () => {
   }
 };
 export default LeftBar;
+
+function isDateYesterdayOrEarlier(date: Date) {
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+
+  return date <= currentDate;
+}

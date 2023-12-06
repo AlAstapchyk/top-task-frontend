@@ -52,12 +52,12 @@ div.all-tasks {
       padding-right: 4px;
       height: 100%;
 
-      .task-lists.scroll-content {
+      div.task-lists.scroll-content {
         ul {
           padding: 0;
           margin: 0 0 0.001px 0;
         }
-        .task-list {
+        div.task-list {
           padding: var(--border-radius-1);
           border-radius: var(--border-radius-1);
           margin-block: var(--border-radius-1);

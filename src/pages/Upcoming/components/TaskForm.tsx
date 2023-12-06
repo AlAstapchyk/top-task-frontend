@@ -2,15 +2,12 @@ import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useAppDispatch } from "../../../redux/hooks";
 import { PriorityLevel, addTask } from "../../../redux/taskSlice";
 import PrioritySelector from "../../../components/PrioritySelector";
+import { PlusSvg } from "../../../../public/assets/svgs";
 
-const plusSvg = (
-  <svg className="plus" viewBox="0 0 16 16" stroke="#FFF" strokeWidth="2">
-    <line x1="8" y1="1" x2="8" y2="15" strokeLinecap="round" />
-    <line x1="1" y1="8" x2="15" y2="8" strokeLinecap="round" />
-  </svg>
-);
-
-const TaskForm = () => {
+interface TaskFormProps {
+  dateNum?: number;
+}
+const TaskForm = ({ dateNum }: TaskFormProps) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<string>("");
@@ -23,10 +20,12 @@ const TaskForm = () => {
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
     if (value) {
+      const due = new Date();
+      if (dateNum) due.setDate(due.getDate() + dateNum);
       dispatch(
         addTask({
           title: value,
-          taskProps: { priority: priority, due: new Date() },
+          taskProps: { priority: priority, due: due },
         })
       );
       setValue("");
@@ -42,24 +41,22 @@ const TaskForm = () => {
   };
 
   return (
-    <div className="add-task card">
-      <form className={"task-form " + priority} onSubmit={onSubmit}>
-        <button className="add-task" type="submit">
-          {plusSvg}
-        </button>
-        <input
-          type="text"
-          placeholder="Add task"
-          value={value}
-          onChange={onChange}
-        />
-        <PrioritySelector
-          priority={priority}
-          priorityOnChange={onPriorityChange}
-          direction="to-top"
-        />
-      </form>
-    </div>
+    <form className={"task-form " + priority} onSubmit={onSubmit}>
+      <button className="add-task" type="submit">
+        <PlusSvg />
+      </button>
+      <input
+        type="text"
+        placeholder="Add task"
+        value={value}
+        onChange={onChange}
+      />
+      <PrioritySelector
+        priority={priority}
+        priorityOnChange={onPriorityChange}
+        direction="to-top"
+      />
+    </form>
   );
 };
 

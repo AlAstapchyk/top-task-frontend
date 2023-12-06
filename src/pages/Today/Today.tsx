@@ -1,15 +1,16 @@
-import './Today.scss'
+import "./Today.scss";
+import Header from "./components/Header";
+import TaskSection from "./components/TaskSection";
 
-interface TodayProps {}
+interface AllTasksProps {}
 
-const Today: React.FC<TodayProps> = () => {
+const AllTasks: React.FC<AllTasksProps> = () => {
   return (
-    <div className="main-view">
-      <div className="today">
-        <p>Today</p>
-      </div>
+    <div className="today page">
+      <Header/>
+      <TaskSection/>
     </div>
   );
 };
 
-export default Today;
+export default AllTasks;

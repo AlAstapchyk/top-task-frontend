@@ -1,5 +1,8 @@
 @import "./variables.scss";
 
+html {
+  overflow: hidden;
+}
 body {
   margin: 0;
   background-color: var(--color-1);
@@ -26,6 +29,7 @@ code {
     var(--color-1) 85%,
     var(--color-3) 110%
   );
+  overflow: hidden;
 
   .leftbar {
     display: flex;
@@ -33,7 +37,7 @@ code {
     height: 100vh;
     background-color: var(--color-3);
     box-shadow: var(--shadow-1);
-    z-index: 1;
+    z-index: 5001;
 
     &.open {
       svg.collapse-left {
@@ -176,14 +180,21 @@ code {
       }
     }
   }
+  .page {
+    padding-inline: 1rem;
+  }
   .main-view {
     height: 100vh;
     flex-grow: 1;
-    padding-inline: var(--padding-1);
+    overflow: hidden;
+    min-width: 24rem;
+    flex-shrink: 9999;
   }
   .right-panel {
+    z-index: 10000;
     min-width: 18rem;
     width: 25rem;
+
     input::placeholder {
       color: var(--color-5);
     }

@@ -1,9 +1,248 @@
-.upcoming{
-    p {
-        font-size: 2rem;
-        margin: 1rem;
-        color:white;
-        font-weight: bold;
-    }
+@import "../../styles/variables.scss";
+div.main-view {
+  padding-inline: 0;
+  min-width: 26rem;
 }
+div.upcoming {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-size: 100%;
+  overflow: hidden;
 
+  header {
+    display: flex;
+    margin: var(--padding-1);
+    padding: var(--padding-1);
+    height: 2.5rem;
+    align-items: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+
+    svg.upcoming {
+      width: 2.5rem;
+      height: 2.5rem;
+      fill: url(#VerticalPriorityGradient);
+    }
+    svg.three-dots {
+      margin-left: auto;
+      width: 1.5rem;
+      height: 1.5rem;
+      cursor: pointer;
+      fill: url(#VerticalPriorityGradient);
+    }
+    p.title {
+      margin: 0 0 0 1rem;
+      background-image: var(--priority-text-gradient);
+      @extend .for-text-gradient;
+    }
+  }
+
+  .task-section {
+    height: 100%;
+    overflow: hidden;
+
+    div.scroll-container {
+      overflow-x: auto;
+      box-sizing: border-box;
+      height: calc(100% - 1rem);
+
+      &::-webkit-scrollbar-track {
+        margin-inline: 2rem;
+      }
+
+      div.task-lists.scroll-content {
+        width: max-content;
+        height: calc(100% - 0.25rem);
+        padding-inline: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+
+        div.card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          width: 20rem;
+          margin-top: var(--border-radius-1);
+          margin-inline: var(--border-radius-1);
+          background-color: var(--color-3);
+          box-shadow: none;
+          max-height: calc(100% - var(--border-radius-1));
+
+          .task-list {
+            height: calc(100% - 6rem);
+            display: flex;
+            flex-direction: column;
+            padding: var(--border-radius-1);
+            padding-right: 0;
+            margin-bottom: var(--border-radius-1);
+
+            p.no-tasks {
+              position: absolute;
+              width: max-content;
+              margin: auto;
+              color: var(--color-5);
+              left: 6.25rem;
+              top: 4rem;
+            }
+
+            div.list-header {
+              display: flex;
+              align-items: center;
+              flex-grow: 1;
+              flex-shrink: 0;
+              padding-right: var(--border-radius-1);
+
+              p.task-list-title {
+                padding-block: var(--border-radius-1);
+                margin: 0;
+                padding-left: var(--padding-1);
+                font-weight: bold;
+                @extend .end-ellipsis;
+
+                span.overdue {
+                  color: var(--color-red);
+                }
+              }
+            }
+
+            div.scroll-container {
+              display: flex;
+              max-height: 100%;
+              flex-shrink: 0;
+              flex-direction: column;
+              overflow-y: scroll;
+              overflow-x: hidden;
+              padding-right: 0.15rem;
+              margin-right: 0.15rem;
+
+              &::-webkit-scrollbar {
+                width: 0.2rem;
+              }
+              &::-webkit-scrollbar-thumb {
+                background-color: var(--color-1);
+                &:hover {
+                  background-color: var(--color-5);
+                }
+              }
+
+              ul.scroll-content {
+                margin-top: var(--border-radius-1);
+                padding: 0;
+                min-height: calc(100% - 1.5rem);
+                display: flex;
+                flex-direction: column;
+              }
+            }
+
+            .draggable-task-item {
+              margin-top: var(--border-radius-1);
+
+              .task-item {
+                display: flex;
+                align-items: center;
+                height: 1.5rem;
+                padding: var(--padding-1);
+                list-style: none;
+
+                &.task-item.active {
+                  background-color: var(--color-1);
+                }
+
+                button.complete-task {
+                  margin: 0 0.5rem 0 0;
+                }
+                .title-wrapper {
+                  flex-grow: 1;
+                  margin-right: var(--border-radius-1);
+                  width: 5rem;
+                  @extend .end-ellipsis;
+                }
+
+                &:hover {
+                  cursor: pointer;
+                  background-color: var(--color-4);
+                }
+                &:active {
+                  background-color: var(--color-4);
+                }
+                &:has(.complete) {
+                  p.title {
+                    text-decoration: line-through;
+                  }
+                }
+              }
+
+              &.A {
+                .task-list-title {
+                  color: var(--color-a);
+                }
+              }
+              &.B {
+                .task-list-title {
+                  color: var(--color-b);
+                }
+              }
+              &.C {
+                .task-list-title {
+                  color: var(--color-c);
+                }
+              }
+              &.D {
+                .task-list-title {
+                  color: var(--color-d);
+                }
+              }
+              &.E {
+                .task-list-title {
+                  color: var(--color-e);
+                }
+              }
+            }
+          }
+
+          .task-form {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            width: calc(100% - (--border-radius-1) * 4);
+            padding: var(--border-radius-1);
+            margin: var(--border-radius-1);
+            margin-top: auto;
+            background-color: var(--color-2);
+            border-radius: var(--border-radius-1);
+
+            button.add-task {
+              padding: 0;
+              margin: auto;
+              margin-inline: var(--border-radius-1);
+              width: var(--task-svg-size);
+              height: var(--task-svg-size);
+              border: none;
+              background-color: rgba(#000000, 0);
+              cursor: pointer;
+
+              svg.plus {
+                padding: 2px;
+              }
+            }
+            input {
+              flex-grow: 1;
+              padding-block: var(--border-radius-1);
+              margin-right: var(--padding-2);
+              border-radius: var(--border-radius-1);
+              background-color: var(--color-2);
+              font-size: 1rem;
+              color: white;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

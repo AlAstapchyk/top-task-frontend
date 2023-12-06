@@ -1,13 +1,14 @@
-import './Upcoming.scss'
+import "./Upcoming.scss";
+import Header from "./components/Header";
+import TaskSection from "./components/TaskSection";
 
 interface UpcomingProps {}
 
 const Upcoming: React.FC<UpcomingProps> = () => {
   return (
-    <div className="main-view">
-      <div className="upcoming">
-        <p>Upcoming</p>
-      </div>
+    <div className="upcoming">
+      <Header />
+      <TaskSection />
     </div>
   );
 };

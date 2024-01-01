@@ -238,11 +238,23 @@ code {
         }
       }
       .scroll-container {
-        overflow-y: auto;
+        overflow-y: scroll;
         flex-grow: 1;
         border-top: 1px solid var(--color-4);
         border-bottom: 1px solid var(--color-4);
         padding-inline: var(--border-radius-1);
+        padding-right: var(--border-radius-1);
+        box-sizing: border-box;
+
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--color-1);
+          &:hover {
+            background-color: var(--color-5);
+          }
+        }
+        &::-webkit-scrollbar {
+          width: var(--padding-2) !important;
+        }
 
         .scroll-content {
           .task {

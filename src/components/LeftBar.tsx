@@ -61,6 +61,11 @@ const LeftBar: React.FC = () => {
               ref={searchInputRef}
               value={searchInputValue}
               onChange={searchInputOnChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  searchInputRef.current?.blur();
+                }
+              }}
             />
           )}
         </div>

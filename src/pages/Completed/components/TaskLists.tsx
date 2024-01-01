@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useAppSelector } from "../../../redux/hooks";
 import TaskList from "./TaskList";
 import { Task } from "../../../redux/taskSlice";
@@ -13,9 +13,7 @@ const TaskLists = () => {
     [],
   ]);
 
-  useEffect(() => {
-    if (!tasks) return;
-
+  useLayoutEffect(() => {
     const newTaskLists = [
       tasks.filter((task) => task.priority === "A" && task.isComplete),
       tasks.filter((task) => task.priority === "B" && task.isComplete),
@@ -23,8 +21,6 @@ const TaskLists = () => {
       tasks.filter((task) => task.priority === "D" && task.isComplete),
       tasks.filter((task) => task.priority === "E" && task.isComplete),
     ];
-
-    console.log(newTaskLists);
 
     setTaskLists(newTaskLists);
   }, [tasks]);

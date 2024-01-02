@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import { TimeSvg } from "../../public/assets/svgs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,6 +29,7 @@ const DueDatePicker: React.FC<SetDueButtonProps> = ({
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState<boolean>(false);
+  const setDueButtonRef = useRef<HTMLButtonElement>(null);
 
   const clearOnclick = (e: any) => {
     setIsDatePickerOpen(false);
@@ -51,14 +52,21 @@ const DueDatePicker: React.FC<SetDueButtonProps> = ({
         setIsDatePickerOpen(!isDatePickerOpen),
         onChange(date))
       }
-      customInput={<SetDueButton />}
+      customInput={<SetDueButton ref={setDueButtonRef} />}
       showPopperArrow={false}
       popperPlacement="auto"
       closeOnScroll={true}
       disabledKeyboardNavigation
       wrapperClassName="set-due-wrapper"
       open={isDatePickerOpen}
-      onInputClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
+      onInputClick={() => {
+        setIsDatePickerOpen(!isDatePickerOpen);
+      }}
+      onClickOutside={(e) => {
+        const eventTarget = e.target as HTMLDivElement;
+        if (!eventTarget.closest(".react-datepicker-wrapper"))
+          setIsDatePickerOpen(false);
+      }}
     >
       <button className="clear" onClick={(e) => clearOnclick(e)}>
         Clear

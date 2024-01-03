@@ -277,7 +277,16 @@ const taskSlice = createSlice({
       const oldCurrentTaskPriority = currentTask.priority;
       const isDifferentPriority =
         oldCurrentTaskPriority !== action.payload.newPriority;
-      currentTask.priorityPosition = action.payload.newPosition;
+
+      const completedTaskNumberBefore = state.filter(
+        (task) =>
+          task.isComplete &&
+          task.priority === action.payload.newPriority &&
+          task.priorityPosition <= action.payload.newPosition
+      ).length;
+
+      currentTask.priorityPosition =
+        completedTaskNumberBefore + action.payload.newPosition;
       if (isDifferentPriority) {
         state
           .filter((task) => task.priority === oldCurrentTaskPriority)

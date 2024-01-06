@@ -202,7 +202,7 @@ const initialState: Task[] = [
     description: "",
     isComplete: false,
     priority: "E",
-  },
+  }
 ];
 
 const taskSlice = createSlice({
@@ -278,15 +278,8 @@ const taskSlice = createSlice({
       const isDifferentPriority =
         oldCurrentTaskPriority !== action.payload.newPriority;
 
-      const completedTaskNumberBefore = state.filter(
-        (task) =>
-          task.isComplete &&
-          task.priority === action.payload.newPriority &&
-          task.priorityPosition <= action.payload.newPosition
-      ).length;
+      currentTask.priorityPosition = action.payload.newPosition;
 
-      currentTask.priorityPosition =
-        completedTaskNumberBefore + action.payload.newPosition;
       if (isDifferentPriority) {
         state
           .filter((task) => task.priority === oldCurrentTaskPriority)
@@ -305,6 +298,14 @@ const taskSlice = createSlice({
               task.priorityPosition++
           );
       } else {
+        const completedTaskNumberBefore = state.filter(
+          (task) =>
+            task.isComplete &&
+            task.priority === action.payload.newPriority &&
+            task.priorityPosition <= action.payload.newPosition
+        ).length;
+        currentTask.priorityPosition += completedTaskNumberBefore;
+
         if (oldCurrentTaskPosition > action.payload.newPosition)
           state
             .filter((task) => task.priority === action.payload.newPriority)

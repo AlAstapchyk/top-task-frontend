@@ -26,7 +26,7 @@ const TaskForm = () => {
       dispatch(
         addTask({
           title: value,
-          taskProps: { priority: priority, due: new Date() },
+          taskProps: { priority: priority },
         })
       );
       setValue("");

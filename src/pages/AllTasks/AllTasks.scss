@@ -166,6 +166,23 @@ div.all-tasks {
       }
     }
 
+    div.no-tasks {
+      margin: auto;
+      padding: 1rem 1.25rem 1.25rem 1.25rem;
+      @extend .card;
+      background-color: var(--color-3);
+      max-width: max-content;
+      p {
+        text-align: center;
+        max-width: 35rem;
+        align-self: center;
+        font-size: 1.5rem;
+        display: flex;
+        margin: 0;
+        color: var(--color-5);
+      }
+    }
+
     .add-task {
       display: flex;
       align-items: center;

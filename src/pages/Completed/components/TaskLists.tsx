@@ -1,10 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { useAppSelector } from "../../../redux/hooks";
+import { useLayoutEffect, useState } from "react";
 import TaskList from "./TaskList";
 import { Task } from "../../../redux/taskSlice";
 
-const TaskLists = () => {
-  const tasks = useAppSelector((state) => state.tasks);
+const TaskLists = ({ completedTasks }: { completedTasks: Task[] }) => {
   const [taskLists, setTaskLists] = useState<Array<Task[]>>([
     [],
     [],
@@ -15,15 +13,15 @@ const TaskLists = () => {
 
   useLayoutEffect(() => {
     const newTaskLists = [
-      tasks.filter((task) => task.priority === "A" && task.isComplete),
-      tasks.filter((task) => task.priority === "B" && task.isComplete),
-      tasks.filter((task) => task.priority === "C" && task.isComplete),
-      tasks.filter((task) => task.priority === "D" && task.isComplete),
-      tasks.filter((task) => task.priority === "E" && task.isComplete),
+      completedTasks.filter((task) => task.priority === "A" && task.isComplete),
+      completedTasks.filter((task) => task.priority === "B" && task.isComplete),
+      completedTasks.filter((task) => task.priority === "C" && task.isComplete),
+      completedTasks.filter((task) => task.priority === "D" && task.isComplete),
+      completedTasks.filter((task) => task.priority === "E" && task.isComplete),
     ];
 
     setTaskLists(newTaskLists);
-  }, [tasks]);
+  }, [completedTasks]);
 
   return (
     <div className="task-lists scroll-content">

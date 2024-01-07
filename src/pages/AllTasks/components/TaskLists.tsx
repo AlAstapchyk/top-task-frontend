@@ -1,15 +1,13 @@
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   PriorityLevel,
+  Task,
   setPriorityPositionTask,
 } from "../../../redux/taskSlice";
 import TaskList from "./TaskList";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 
-const TaskLists = () => {
-  const uncompletedTasks = useAppSelector((state) => state.tasks).filter(
-    (task) => !task.isComplete
-  );
+const TaskLists = ({uncompletedTasks} : {uncompletedTasks: Task[]}) => {
   const dispatch = useAppDispatch();
 
   const onDragEnd = (result: DropResult) => {

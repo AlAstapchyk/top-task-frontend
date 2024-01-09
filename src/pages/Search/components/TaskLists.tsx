@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import TaskList from "./TaskList";
 import { Task } from "../../../redux/taskSlice";
 
@@ -11,7 +11,7 @@ const TaskLists = ({ searchingTasks }: { searchingTasks: Task[] }) => {
     [],
   ]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!searchingTasks) return;
 
     const newTaskLists = [

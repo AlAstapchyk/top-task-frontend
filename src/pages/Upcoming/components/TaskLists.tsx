@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { Task, setDueTask } from "../../../redux/taskSlice";
 import TaskForm from "./TaskForm";
@@ -10,7 +10,7 @@ const TaskLists = () => {
   const dispatch = useAppDispatch();
   const [sortedTasks, setSortedTasks] = useState<Task[] | []>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!tasks) return;
     const sortedTasks = [
       ...tasks

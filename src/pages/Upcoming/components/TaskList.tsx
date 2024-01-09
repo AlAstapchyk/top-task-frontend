@@ -4,7 +4,7 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useAppSelector } from "../../../redux/hooks";
 import { RightPanelType } from "../../../redux/RightPanelSlice";
 import { format, isSameYear, isBefore } from "date-fns";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 interface TaskListProps {
   dateNum: number;
@@ -29,7 +29,7 @@ const TaskList: React.FC<TaskListProps> = ({
       ? "Tomorrow | "
       : "";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const filteredTasks = tasks.filter(
       (task) =>
         task.due &&

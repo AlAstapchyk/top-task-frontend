@@ -20,7 +20,7 @@ const TaskList: React.FC<TaskListProps> = ({
         {tasks
           .sort((a, b) => a.priorityPosition - b.priorityPosition)
           .map((task) => (
-            <li className="draggable-task-item">
+            <li className="draggable-task-item" key={task.id}>
               <TaskItem
                 task={task}
                 additionalClassName={

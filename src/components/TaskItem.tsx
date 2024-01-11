@@ -21,7 +21,7 @@ const TaskItem: React.FC<{ task: Task; additionalClassName?: string }> = ({
   };
 
   return (
-    <li
+    <div
       className={"task-item card " + additionalClassName}
       onClick={chooseTaskOnClick}
     >
@@ -32,7 +32,7 @@ const TaskItem: React.FC<{ task: Task; additionalClassName?: string }> = ({
       <button className="delete-task" onClick={deleteOnClick}>
         <TrashSvg />
       </button>
-    </li>
+    </div>
   );
 };
 

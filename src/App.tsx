@@ -1,7 +1,7 @@
 import "./styles/variables.scss";
 import LeftBar from "./components/LeftBar";
 import AllTasks from "./pages/AllTasks/AllTasks";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Upcoming from "./pages/Upcoming/Upcoming";
 import Today from "./pages/Today/Today";
 import RightPanel from "./components/RightPanel";
@@ -15,7 +15,8 @@ const App: React.FC = () => {
 
       <div className="main-view">
         <Routes>
-          <Route path="/search" element={<Search />} />
+          <Route path="/" element={<Navigate to="/all-tasks"/>} />
+          <Route index path="/search" element={<Search />} />
           <Route path="/all-tasks" element={<AllTasks />} />
           <Route path="/today" element={<Today />} />
           <Route path="/upcoming" element={<Upcoming />} />

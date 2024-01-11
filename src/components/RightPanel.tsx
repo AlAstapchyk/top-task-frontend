@@ -69,7 +69,6 @@ const RightPanel = () => {
   const descriptionOnChange = (newValue: string) => {
     setDescription(newValue);
     const newTask = { ...task, description: newValue } as Task;
-    console.log(newTask);
     dispatch(editTask({ task: newTask }));
   };
   const dueButtonOnClick = (date: Date | null) => {

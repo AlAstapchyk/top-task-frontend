@@ -1,5 +1,4 @@
 import { useAppSelector } from "../../../redux/hooks";
-import { Task } from "../../../redux/taskSlice";
 import NoTasks from "./NoTasks";
 import TaskLists from "./TaskLists";
 

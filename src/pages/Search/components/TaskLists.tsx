@@ -22,8 +22,6 @@ const TaskLists = ({ searchingTasks }: { searchingTasks: Task[] }) => {
       searchingTasks.filter((task) => task.priority === "E"),
     ];
 
-    console.log(newTaskLists);
-
     setTaskLists(newTaskLists);
   }, [searchingTasks]);
 

@@ -66,35 +66,35 @@ const TaskLists = () => {
   return (
     <div className="task-lists scroll-content">
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={-1} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={-1} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={0} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={0} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={1} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={1} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={2} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={2} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={3} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={3} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={4} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={4} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={5} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={5} />
         </div>
-        <div className="card">
+        <div className="day card">
           <TaskList dateNum={6} tasks={sortedTasks ?? []} />
           <TaskForm dateNum={6} />
         </div>

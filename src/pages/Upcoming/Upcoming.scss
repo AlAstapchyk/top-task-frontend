@@ -62,7 +62,7 @@ div.upcoming {
         flex-direction: row;
         overflow: hidden;
 
-        div.card {
+        div.day.card {
           position: relative;
           display: flex;
           flex-direction: column;
@@ -142,12 +142,11 @@ div.upcoming {
             .draggable-task-item {
               margin-top: var(--border-radius-1);
 
-              .task-item {
+              div.task-item {
                 display: flex;
                 align-items: center;
                 height: 1.5rem;
                 padding: var(--padding-1);
-                list-style: none;
 
                 &.task-item.active {
                   background-color: var(--color-1);

@@ -1,18 +1,20 @@
-# Top Task Front-end
+# Top Task frontend
 
-Top Task is a web application for task management based on the React library, powered by Vite.
+Top Task is open source web application for task management based on the React library, powered by Vite. The main feature is the minimalistic design and ease of use with an emphasis on prioritizing tasks.
 
 The application is available at the link address: https://toptask.netlify.app/all-tasks
 
-The current view of the app is shown in the screenshot below:
+### Screenshots
 
-<img width="1120" alt="Screenshot 2023-11-23 182719" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/c5e90010-a1a2-49c6-864f-78cb257eb450">
+<img width="1120" alt="Screenshot 1" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/a2ba111a-9479-4f65-9b44-a8bf6642eb07">
 
-<img width="1120" alt="Screenshot 2023-11-25 115038" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/aaf16129-e85a-4f66-bd07-3fd156363f6a">
+<img width="1120" alt="Screenshot 2" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/d64630d3-b0c2-4349-a5f0-4829770f81a2">
 
-<img width="1120" alt="Screenshot 2023-11-26 084905" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/b8e8e4e0-bf88-4f2f-9f24-be04ecfce5a3">
+<img width="1120" alt="Screenshot 3" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/17f55e60-7c68-4197-a355-2fb874698fa5">
 
-<img width="1120" alt="Screenshot 2023-12-07 194402" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/9f9d9d5b-430d-4c9b-9cb0-a001df2b6711">
+<img width="1120" alt="Screenshot 4" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/9f9d9d5b-430d-4c9b-9cb0-a001df2b6711">
+
+<img width="1120" alt="Screenshot 5" src="https://github.com/AlAstapchyk/top-task-frontend/assets/104316850/44c56042-6aef-4a90-8ad1-4bac50e3a874">
 
 ### Implemented
 
@@ -27,3 +29,10 @@ The current view of the app is shown in the screenshot below:
 9. Collapse lists
 10. Dates when task became completed or created and set due date custom datepicker based on react-datepicker library
 11. Upcoming, Today and Completed pages
+
+### Local launch
+
+```bush
+cd top-task-frontend
+npm i
+npm start
